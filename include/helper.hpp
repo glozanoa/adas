@@ -11,6 +11,15 @@
 #include <fstream>
 #include "cast.hpp"
 
+string repeat(string str, int n)
+{
+  string repeat_str= "";
+  for(int k=0; k<n; k++)
+    repeat_str += str;
+
+  return repeat_str;
+}
+
 // helper functions
 template<typename T>
 void print(vector<T> elements)

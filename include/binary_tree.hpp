@@ -9,7 +9,7 @@
 #define _BINARY_TREE_H
 
 #include <iostream>
-#include <vector>
+#include <list>
 using namespace std;
 
 #include "helper.hpp"
@@ -19,78 +19,116 @@ class BinaryTree
 {
 protected:
   T root;
-  BinaryTree<T> lchild;
-  BinaryTree<T> rchild;
+  T data;
+  BinaryTree<T>* lchild;
+  BinaryTree<T>* rchild;
+  list<BinaryTree<T>*> children; // children = {lchild, rchild};
   unsigned int depth;
 
 public:
   BinaryTree(T root)
-    :root{root}, depth{0}
+    :root{root}, data{root}, depth{0}
   {
-    lchild = BinaryTree<T>(root);
-    rchild = BinaryTree<T>(root);
-
-    lchild.set_depth(depth+1);
-    rchild.set_depth(depth+1);
+    lchild = nullptr;
+    rchild = nullptr;
+    children = {lchild, rchild};
   }
 
-  BinaryTree(T root, BinaryTree<T> lchild, BinaryTree<T> rchild)
-    :root{root}, depth{0}
+  BinaryTree(T root, BinaryTree<T>* tree_lchild, BinaryTree<T>* tree_rchild)
+    :root{root}, data{root}, depth{0}
   {
-    lchild.set_depth(depth+1);
-    this->lchild = lchild;
-
-    rchild.set_depth(depth+1);
-    this->rchild = rchild;
+    lchild = tree_lchild;
+    rchild = tree_rchild;
+    children = {lchild, rchild};
+    for(BinaryTree<T>* child: children)
+      if(child != nullptr)
+        {
+          child->set_root(root);
+          child->set_depth(depth+1);
+        }
   }
 
-  void set_depth(unsigned int tree_depth){depth = tree_depth;}
+  void set_root(T tree_root)
+  {
+    root = tree_root;
+    for(BinaryTree<T>* child: children)
+      if(child != nullptr)
+        child->set_root(tree_root);
+  }
+
+  void set_depth(unsigned int tree_depth)
+  {
+    depth = tree_depth;
+    for(BinaryTree<T>* child: children)
+      if(child != nullptr)
+        child->set_depth(depth +1);
+  }
+
   unsigned int get_depth(){return depth;}
   T get_root(){return root;}
+  T get_data(){return data;}
 
-  list<BinaryTree<T>> get_children()
+  list<BinaryTree<T>*> get_children(){return children;}
+  BinaryTree<T>* get_lchild(){return lchild;}
+  BinaryTree<T>* get_rchild(){return rchild;}
+
+  void add_child(BinaryTree<T>* child ,bool is_left_child)
   {
-    list<BinaryTree<T>> children = list<BinaryTree<T>>(2);
-    children[0] = lchild;
-    children[1] = rchild;
+    if(child != nullptr)
+      {
+        child->set_root(root);
+        child->set_depth(depth + 1);
 
-    return children;
-  }
+        if(is_left_child)
+          lchild = child;
+        else
+          rchild = child;
 
-  BinaryTree<T> get_lchild(){return lchild;}
-  BinaryTree<T> get_rchild(){return rchild;}
-
-  void add_child(BinaryTree<T> child ,bool is_left_child)
-  {
-    child.set_depth(depth + 1);
-    if(is_left_child)
-      lchild = child;
+        children = {lchild, rchild};
+      }
     else
-      rchild = child;
+      cout << "child tree is nullptr" << endl;
   }
 
-  // voif erase_child(T child)
-  // {
-  //   // check if child exist (HERE)
-  //   children->remove(child);
-  // }
+  void erase_child(T child)
+  {
+    // check if child exist (HERE)
+    children.remove(child);
+  }
+
 
   friend ostream& operator<<(ostream& out, BinaryTree<T> tree)
   {
-
     unsigned int depth = tree.get_depth();
     string tab = repeat("\t", depth);
-    out << tab << tree.get_root() << endl;
+    out << tab << tree.get_data() << endl;
 
     tab += "\t";
-    list<BinaryTree<T>> children = tree.get_children();
-    for(BinaryTree<T> child: children)
-          out << tab << child;
-        out << endl;
-
+    list<BinaryTree<T>*> children = tree.get_children();
+    for(BinaryTree<T>* child: children)
+      {
+        if(child != nullptr)
+          out << tab << *child;
+      }
     return out;
   }
-}
+
+  friend ostream& operator<<(ostream& out, BinaryTree<T>* tree)
+  {
+    unsigned int depth = tree->get_depth();
+    string tab = repeat("\t", depth);
+    out << tab << tree->get_data() << endl;
+
+    tab += "\t";
+    list<BinaryTree<T>*> children = tree->get_children();
+    for(BinaryTree<T>* child: children)
+      {
+        if(child != nullptr)
+          out << tab << child;
+      }
+    return out;
+  }
+};
 
 
 #endif //_BINARY_TREE_H

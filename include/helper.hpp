@@ -9,7 +9,10 @@
 
 #include <vector>
 #include <fstream>
+#include <cmath>
 #include "cast.hpp"
+
+using namespace std;
 
 string repeat(string str, int n)
 {
@@ -19,6 +22,15 @@ string repeat(string str, int n)
 
   return repeat_str;
 }
+
+unsigned int three_smooth(int p, int q)
+/*
+ * return 2**p * 3**q
+ */
+{
+  return pow(2, p)*pow(3, q);
+}
+
 
 // helper functions
 template<typename T>

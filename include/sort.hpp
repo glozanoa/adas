@@ -293,83 +293,19 @@ public:
     return elements;
   }
 
-  // static vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)//, SortAlgorithm f)
-  // {
-  //   Partition<T> partition = Partition<T>(pivots, elements);
-  //   vector<T> part;
-
-  //   for(int k=0; k < partition.size(); k++)
-  //     partition.sort_part(k, verbose, f);
-  // }
-
-
-  static vector<T> mergesort(vector<T> sels1, vector<T> sels2, bool verbose, bool timer)
+  static vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)//, SortAlgorithm f)
   {
+    Partition<T> partition = Partition<T>(pivots, elements);
+    vector<vector<T>>* parts = partition.get_parts();
+    int k = 0;
+    for(vector<T> part: *parts)
+      parts->at(k) = Sort<T>::bubble(part, false);
 
-    unsigned int length_sels1 = sels1.size();
-    unsigned int length_sels2 = sels2.size();
-
-    vector<T> mix = vector<int>(length_sels1 + length_sels2); //merger sort vector
-
-    unsigned int i =0;
-    unsigned int j =0;
-    unsigned int k =0;
-
-    Timer time;
-    if(timer)
-      time.start();
-
-    while(i < length_sels1 && j < length_sels2)
-      {
-        if(sels1[i] < sels2[j])
-          {
-            mix.at(k) = sels1[i];
-            i++;
-          }
-        else
-          {
-            mix.at(k) = sels2[j];
-            j++;
-          }
-        k++;
-        if(verbose)
-          print(mix);
-      }
-
-    // coping leftover elements
-    if(i < length_sels1)
-      {
-        for(int r = i; r < length_sels1; r++)
-          {
-            mix.at(k) = sels1[r];
-            k++;
-            if(verbose)
-              print(mix);
-          }
-      }
-    else
-      {
-        for(int r = j; r < length_sels2; r++)
-          {
-            mix.at(k) = sels2[r];
-            k++;
-            if(verbose)
-              print(mix);
-          }
-      }
-
-    if(timer)
-      {
-        time.stop();
-        time.report("Elapsed time");
-      }
-
-    return mix;
+    return partition.join();
   }
 
-
   // sels: sorted elements
-  static vector<T> mergesort_itr(vector<T> sels1, vector<T> sels2, bool verbose, bool timer)
+  static vector<T> mergesort(vector<T> sels1, vector<T> sels2, bool verbose, bool timer)
   {
 
     unsigned int length_sels1 = sels1.size();

@@ -30,6 +30,17 @@ public:
   unsigned int size(){return parts->size();}
   vector<T> get_pivots(){return pivots;}
   vector<vector<T>>* get_parts(){return parts;}
+
+  vector<T> join()
+  {
+    vector<T> sorted;
+
+    for(int k=0; k< parts->size(); k++)
+      {
+
+      }
+  }
+
   void show()
   {
     cout << "(Pivots)" << endl;

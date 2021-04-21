@@ -18,10 +18,6 @@ int main()
   bool timer = true;
   vector<int> total_sels;
 
-  cout << "(NORMAL merge sort)" << endl;
-  total_sels = Sort<int>::mergesort(sels1, sels2, verbose, timer);
-  print(total_sels);
-
   cout << "(ITERATOR merge sort)" << endl;
   total_sels = Sort<int>::mergesort_itr(sels1, sels2, verbose, timer);
   print(total_sels);

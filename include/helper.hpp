@@ -34,13 +34,15 @@ unsigned int three_smooth(int p, int q)
 
 // helper functions
 template<typename T>
-void print(vector<T> elements)
+void print(T elements)
 /*
- * print vector in list form
+ * print a container (vector, list, ...) in list form
  */
 {
-  for(T element: elements)
-    cout << element << ", ";
+  typename T::iterator itr;
+
+  for(itr=elements.begin(); itr!=elements.end();itr++)
+    cout << *itr << ", ";
   cout  << endl;
 }
 

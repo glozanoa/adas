@@ -25,8 +25,10 @@ int main()
   BinaryTree<int>* d1  = new BinaryTree<int>(3+1);
   BinaryTree<int>* d2  = new BinaryTree<int>(3+2);
 
-  int root = r->get_root();
-  cout << "root (r tree): " << root << endl;
+  int* parent = r->get_parent();
+  if(parent == nullptr)
+    cout << "No "
+  cout << "parent (r tree): " << root << endl;
 
   c2->add_child(c21, true);  // left child
   c2->add_child(c22, false); // rigth child

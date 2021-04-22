@@ -64,25 +64,32 @@ const char* InvalidIndex::what() const throw()
 class InvalidDim : public std::exception
 {
 private:
-  unsigned int rows;
-  unsigned int cols;
-  unsigned int size;
+  string warning;
 
 public:
   InvalidDim(unsigned int nrows, unsigned int ncols, unsigned int size);
+  InvalidDim(unsigned int nrows1, unsigned int ncols1,
+             unsigned int nrows2, unsigned int ncols2);
   const char* what() const throw();
 };
 
 InvalidDim::InvalidDim(unsigned int nrows, unsigned int ncols, unsigned int size)
-  :rows{nrows},cols{ncols},size{size}
-{}
+{
+  warning = "I can't fill a matrix of dimension ";
+  warning += "(" + to_string(nrows) + ", " + to_string(ncols) + ") with ";
+  warning += to_string(size) + " elements\n";
+}
+
+InvalidDim::InvalidDim(unsigned int nrows1, unsigned int ncols1,
+                       unsigned int nrows2, unsigned int ncols2)
+{
+  warning = "I can't operate matrixes of distint dimensions:  ";
+  warning += "(" + to_string(nrows1) + " x " + to_string(ncols1) + ") and  ";
+  warning += "(" + to_string(nrows2) + " x " + to_string(ncols2) + ")";
+}
 
 const char* InvalidDim::what() const throw()
 {
-  string warning = "I can't fill a matrix of dimension ";
-  warning += "(" + to_string(rows) + ", " + to_string(cols) + ") with ";
-  warning += to_string(size) + " elements\n";
-
   return warning.c_str();
 }
 

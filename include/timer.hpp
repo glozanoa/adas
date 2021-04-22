@@ -33,6 +33,7 @@ public:
   void restart();
   void stop();
   void report(string title); //REPORT FORMAT -> title : ELAPSED_TIME
+  void default_report(); //REPORT FORMAT -> title = Elapsed time:
 };
 
 
@@ -57,6 +58,13 @@ void Timer::report(string title)
   duration<double> elapsed_time = duration_cast<duration<double>>(tp.end - tp.start);
 
   cout << title << " : " << elapsed_time.count() << endl;
+}
+
+void Timer::default_report()
+{
+  duration<double> elapsed_time = duration_cast<duration<double>>(tp.end - tp.start);
+
+  cout << "Elapsed time: " << elapsed_time.count() << endl;
 }
 
 

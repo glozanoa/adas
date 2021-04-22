@@ -5,19 +5,25 @@
  */
 
 #include <iostream>
+#include <vector>
+#include <list>
 using namespace std;
 
 #include "../../include/sort.hpp"
+//using namespace sort;
+
+#include "../../include/print.hpp"
 
 int main()
 {
-  vector<int> numbers = {72, 64, 50, 23, 84, 18, 37, 99, 45, 8};
+  vector<int> numbers = {5, 2, 4, 6, 1, 3};
   bool verbose = true;
+  bool timer = true;
 
-  vector<int> sorted_numbers = Sort<int>::insertion(numbers, verbose);
+  sort::insertion(numbers.begin(), numbers.end(), verbose, timer);
 
   cout << "(Sorted numbers)" << endl;
-  print(sorted_numbers);
+  print::to_stdout(numbers.begin(), numbers.end());
 
   return 0;
 }

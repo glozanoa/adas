@@ -17,26 +17,26 @@ int main()
   Timer timer;
   timer.start();
 
-  vector<int> data = {1, 2, 3, 4, 5, 6};
-  Matrix<int> mtx(2, 3, data);
+  vector<int> data1 = {1, 2, 3, 4, 5, 6};
+  Matrix<int> mtx(2, 3, data1);
 
-  cout << mtx;
+  vector<int> data2 = {5, 3, 1, 0, 2, 7};
+  Matrix<int> other(2, 3, data2);
 
-  vector<int> row = mtx.get_row(0);
-  cout << "row" << endl;
-  print(row);
+  cout << "mtx:" << endl;
+  cout << mtx << endl;
 
-  vector<int> col = mtx.get_col(0);
-  cout << "col" << endl;
-  print(col);
+  cout << "other:" << endl;
+  cout << other << endl;
 
-  unsigned int i = 1;
-  unsigned int j = 1;
+  cout << "mtx + other:" << endl;
+  cout << mtx + other << endl;
 
-  cout << "(i:" << i << ", j:" << j << ")aij = " << mtx(i, j) << endl;
+  cout << "mtx - other:" << endl;
+  cout << mtx - other << endl;
 
   timer.stop();
-  timer.report("Elapsed time");
+  timer.default_report();
 
   return 0;
 }

@@ -33,18 +33,32 @@ unsigned int three_smooth(int p, int q)
 
 
 // helper functions
-template<typename T>
-void print(T elements)
-/*
- * print a container (vector, list, ...) in list form
- */
-{
-  typename T::iterator itr;
 
-  for(itr=elements.begin(); itr!=elements.end();itr++)
-    cout << *itr << ", ";
-  cout  << endl;
-}
+// template<class RandomAccessIterator>
+// void print(RandomAccessIterator first, RandomAccessIterator last)
+// /*
+//  * print a container (vector, list, ...) in list form using iterators
+//  */
+// {
+//   RandomAccessIterator itr;
+
+//   for(itr=first; itr!=last; itr++)
+//     cout << *itr << ", ";
+//   cout  << endl;
+// }
+
+// template<typename T>
+// void print(T elements)
+// /*
+//  * print a container (vector, list, ...) in list form
+//  */
+// {
+//   typename T::iterator itr;
+
+//   for(itr=elements.begin(); itr!=elements.end();itr++)
+//     cout << *itr << ", ";
+//   cout  << endl;
+// }
 
 void print_file(ifstream file)
 {

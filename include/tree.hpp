@@ -14,37 +14,40 @@ using namespace std;
 
 #include "helper.hpp"
 
+
+// NOTE: CHANGE ROOT BY PARENT ATTRIBUTE
 template<typename T>
 class Tree
 {
 protected:
-  T root;
+  T* parent;
   T data;
   unsigned int depth;
   list<Tree<T>*> children;
 
 public:
-  Tree(T root):root{root}, data{root}, depth{0} {}
+  Tree(T data): parent{nullptr}, data{data}, depth{0} {}
+  Tree(T* parent, T data):parent{parent}, data{data}, depth{0} {}
 
-  Tree(T root, list<Tree<T>*> tree_children)
-    :root{root}, depth{0}, data{root}
+  Tree(T* parent, list<Tree<T>*> tree_children)
+    :parent{parent}, depth{0}, data{root}
   {
     for(Tree<T>* child: tree_children)
       if(child != nullptr)
         {
-          child->set_root(root);
+          child->set_parent(root);
           child->set_depth(depth+1);
         }
 
     children = tree_children;
   }
 
-  void set_root(T tree_root)
+  void set_parent(T tree_parent)
   {
-    root = tree_root;
+    parent = tree_parent;
     for(Tree<T>* child: children)
       if (child != nullptr)
-        child->set_root(tree_root);
+        child->set_parent(tree_root);
   }
   void set_depth(unsigned int tree_depth)
   {

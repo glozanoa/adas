@@ -15,27 +15,57 @@ using namespace std;
 #include "helper.hpp"
 
 template<typename T>
-class BinaryTree
+class BinaryBranch
 {
-protected:
-  T root;
+private:
   T data;
-  BinaryTree<T>* lchild;
-  BinaryTree<T>* rchild;
-  list<BinaryTree<T>*> children; // children = {lchild, rchild};
   unsigned int depth;
+  BinaryBranch<T>* parent;
+  BinaryBranch<T>* lbranch;
+  BinaryBranch<T>* rbranch;
+  list<BinaryBranch<T>*> branches; // branches = {lbranch, rbranch}
 
 public:
-  BinaryTree(T root)
-    :root{root}, data{root}, depth{0}
+  BinaryBranch(BinaryBranch<T>* parent, T data)
+    :parent{parent}, data{data}
   {
+    if(parent != nullptr)
+      depth = parent->get_depth() +1;
+    else
+      depth = 0;
+
     lchild = nullptr;
     rchild = nullptr;
     children = {lchild, rchild};
   }
 
-  BinaryTree(T root, BinaryTree<T>* tree_lchild, BinaryTree<T>* tree_rchild)
-    :root{root}, data{root}, depth{0}
+  BinaryBranch(T data)
+  {
+    BinaryBranch(nullptr, data);
+  }
+}
+
+template<typename T>
+class BinaryTree
+{
+protected:
+  T root;
+  unsigned int depth;
+  BinaryBranch<T>* lbranch;
+  BinaryBranch<T>* rbranch;
+  list<BinaryBranch<T>*> branches; // branches = {lbranch, rbranch};
+
+public:
+  BinaryTree(T root)
+    :root{root}, depth{0}
+  {
+    lbranch = nullptr;
+    rbranch = nullptr;
+    branches = {lbranch, rbranch};
+  }
+
+  BinaryTree(T* parent , T data,  BinaryTree<T>* tree_lchild, BinaryTree<T>* tree_rchild)
+    :parent{parent}, data{data}, depth{0}
   {
     lchild = tree_lchild;
     rchild = tree_rchild;
@@ -43,17 +73,14 @@ public:
     for(BinaryTree<T>* child: children)
       if(child != nullptr)
         {
-          child->set_root(root);
+          child->set_parent(&data);
           child->set_depth(depth+1);
         }
   }
 
-  void set_root(T tree_root)
+  void set_parent(T* parent_data)
   {
-    root = tree_root;
-    for(BinaryTree<T>* child: children)
-      if(child != nullptr)
-        child->set_root(tree_root);
+    parent = parent_data;
   }
 
   void set_depth(unsigned int tree_depth)
@@ -65,7 +92,7 @@ public:
   }
 
   unsigned int get_depth(){return depth;}
-  T get_root(){return root;}
+  T* get_parent(){return parent;}
   T get_data(){return data;}
 
   list<BinaryTree<T>*> get_children(){return children;}
@@ -76,7 +103,7 @@ public:
   {
     if(child != nullptr)
       {
-        child->set_root(root);
+        child->set_parent(data);
         child->set_depth(depth + 1);
 
         if(is_left_child)

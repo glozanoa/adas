@@ -104,11 +104,10 @@ public:
   {
     try
       {
-        if(index < nrows)
-          return data->at(index);
-
-        else
+        if(index >= nrows)
           throw new InvalidIndex(index, -1); // is_row_index=true
+
+        return data->at(index);
       }
     catch(InvalidIndex& error)
       {
@@ -123,14 +122,12 @@ public:
     vector<T> col;
     try
       {
-        if(index < nrows)
-          {
-            for(int i=0; i<nrows; i++)
-              col.push_back(data->at(i)[index]);
-            return col;
-          }
-        else
+        if(index >= ncols)
           throw new InvalidIndex(-1, index); // is_row_index=false
+
+        for(int i=0; i<nrows; i++)
+          col.push_back(data->at(i)[index]);
+        return col;
       }
     catch(InvalidIndex& error)
       {
@@ -166,18 +163,16 @@ public:
         unsigned int mtx_ncols = mtx.get_ncols();
         if(nrows!= mtx_nrows || ncols != mtx_ncols)
           throw InvalidDim(nrows, ncols, mtx_nrows, mtx_ncols);
-        else
-          {
-            Matrix<T> sum = Matrix<T>(nrows, ncols);
 
-            //#pragma omp parallel shared(sum)
-            for(unsigned int i=0; i<nrows; i++)
-              {
-                for(unsigned int j=0; j<ncols; j++)
-                  sum.set_value(i, j, data->at(i)[j]+mtx(i, j));
-              }
-            return sum;
+        Matrix<T> sum = Matrix<T>(nrows, ncols);
+
+        //#pragma omp parallel shared(sum)
+        for(unsigned int i=0; i<nrows; i++)
+          {
+            for(unsigned int j=0; j<ncols; j++)
+              sum.set_value(i, j, data->at(i)[j]+mtx(i, j));
           }
+        return sum;
       }
     catch(InvalidDim& error)
       {
@@ -195,18 +190,17 @@ public:
         unsigned int mtx_ncols = mtx.get_ncols();
         if(nrows!= mtx_nrows || ncols != mtx_ncols)
           throw InvalidDim(nrows, ncols, mtx_nrows, mtx_ncols);
-        else
-          {
-            Matrix<T> subs = Matrix<T>(nrows, ncols);
 
-            //#pragma omp parallel shared(sum)
-            for(unsigned int i=0; i<nrows; i++)
-              {
-                for(unsigned int j=0; j<ncols; j++)
-                  subs.set_value(i, j, data->at(i)[j]-mtx(i, j));
-              }
-            return subs;
+
+        Matrix<T> subs = Matrix<T>(nrows, ncols);
+
+        //#pragma omp parallel shared(sum)
+        for(unsigned int i=0; i<nrows; i++)
+          {
+            for(unsigned int j=0; j<ncols; j++)
+              subs.set_value(i, j, data->at(i)[j]-mtx(i, j));
           }
+        return subs;
       }
     catch(InvalidDim& error)
       {

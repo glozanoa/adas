@@ -8,21 +8,19 @@ TDIR_BASE = tests/base
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble selection insertion binary_insertion extern_merge #partition quicksort
-SEARCH_EXEC = secuential binary intercalation
-BASE_EXEC =	matrix tree
+SORT_EXEC = bubble selection insertion binary_insertion extern_merge shellsort mergesort #partition quicksort
+SEARCH_EXEC = secuential binary
+BASE_EXEC =	matrix tree binary_tree gaps
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
 #LDIR =../lib
 
 #LIBS=-lm
-_SRC = timer.cpp
-_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp
+_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp binary_tree.hpp
 _EDEP = matrix.hpp # include/exceptions/*.hpp (exception head files)
 
 EDEPS = $(patsubst %,$(EDIR)/%,$(_EDEPS))
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
 
 #_SORT_OBJ = bubble.o selection.o insertion.o binary_insertion.o #partition.o quicksort.o
 _SORT_OBJ = $(patsubst %,%.o,$(SORT_EXEC))
@@ -41,11 +39,14 @@ sort: $(SORT_EXEC)
 
 search: $(SEARCH_EXEC)
 
+
+base: $(BASE_EXEC)
+
 $(ODIR)/%.o: $(TDIR_BASE)/%.cpp $(DEPS) $(EDEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS) $(EDEPS)
-	$(CXX) -c -o $@ $< $(CXXFLAGS)
+#$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS) $(EDEPS)
+#	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 $(ODIR)/%.o: $(TDIR_SORT)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
@@ -54,12 +55,17 @@ $(ODIR)/%.o: $(TDIR_SEARCH)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 ##### base tests #####
-matrix:	$(ODIR)/matrix.o $(ODIR)/timer.o
+matrix:	$(ODIR)/matrix.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 tree: $(ODIR)/tree.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
+binary_tree: $(ODIR)/binary_tree.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+gaps: $(ODIR)/gaps.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -lm
 
 ##### sort algorithms #####
 bubble:	$(ODIR)/bubble.o
@@ -77,7 +83,10 @@ insertion:	$(ODIR)/insertion.o
 selection:	$(ODIR)/selection.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
-intercalation:	$(ODIR)/intercalation.o
+mergesort:	$(ODIR)/mergesort.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+shellsort:	$(ODIR)/shellsort.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 ##### search algorithms #####

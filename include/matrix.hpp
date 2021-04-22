@@ -11,6 +11,8 @@
 #include <vector>
 using namespace std;
 
+//#include "omp"
+
 #include "helper.hpp"
 #include "exceptions/matrix.hpp"
 
@@ -41,11 +43,7 @@ public:
     data = new vector<vector<T>>(nrows, vector<T>(ncols, value));
   }
 
-  // ~Matrix()
-  // {
-  //   delete[] data;
-  // }
-
+  // tested - date Apr 22 2021
   Matrix(unsigned int rows, unsigned int cols, vector<T> values)
   {
     try
@@ -81,6 +79,7 @@ public:
       }
   }
 
+  // tested - date Apr 22 2021
   void set_value(unsigned int row_index, unsigned int col_index, T value)
   {
     try
@@ -100,6 +99,7 @@ public:
   unsigned int get_nrows(){return nrows;}
   unsigned int get_ncols(){return ncols;}
 
+  // tested - date Apr 22 2021
   vector<T> get_row(unsigned int index)
   {
     try
@@ -117,6 +117,7 @@ public:
       }
   }
 
+  // tested - date Apr 22 2021
   vector<T> get_col(unsigned int index)
   {
     vector<T> col;
@@ -138,12 +139,84 @@ public:
       }
   }
 
+  // tested - date Apr 22 2021
   T operator()(unsigned int row, unsigned int col)
   {
-    T element = data->at(row)[col];
-    return element;
+    try
+      {
+        if(row >= nrows || col >= ncols)
+          throw InvalidIndex(row, col);
+
+        T element = data->at(row)[col];
+        return element;
+      }
+    catch(InvalidIndex& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
   }
 
+  // tested - date Apr 22 2021
+  Matrix<T> operator+(Matrix<T> mtx)
+  {
+    try
+      {
+        unsigned int mtx_nrows = mtx.get_nrows();
+        unsigned int mtx_ncols = mtx.get_ncols();
+        if(nrows!= mtx_nrows || ncols != mtx_ncols)
+          throw InvalidDim(nrows, ncols, mtx_nrows, mtx_ncols);
+        else
+          {
+            Matrix<T> sum = Matrix<T>(nrows, ncols);
+
+            //#pragma omp parallel shared(sum)
+            for(unsigned int i=0; i<nrows; i++)
+              {
+                for(unsigned int j=0; j<ncols; j++)
+                  sum.set_value(i, j, data->at(i)[j]+mtx(i, j));
+              }
+            return sum;
+          }
+      }
+    catch(InvalidDim& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  // tested - date Apr 22 2021
+  Matrix<T> operator-(Matrix<T> mtx)
+  {
+    try
+      {
+        unsigned int mtx_nrows = mtx.get_nrows();
+        unsigned int mtx_ncols = mtx.get_ncols();
+        if(nrows!= mtx_nrows || ncols != mtx_ncols)
+          throw InvalidDim(nrows, ncols, mtx_nrows, mtx_ncols);
+        else
+          {
+            Matrix<T> subs = Matrix<T>(nrows, ncols);
+
+            //#pragma omp parallel shared(sum)
+            for(unsigned int i=0; i<nrows; i++)
+              {
+                for(unsigned int j=0; j<ncols; j++)
+                  subs.set_value(i, j, data->at(i)[j]-mtx(i, j));
+              }
+            return subs;
+          }
+      }
+    catch(InvalidDim& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+
+  // tested - date Apr 22 2021
   friend ostream& operator<<(ostream& out, Matrix<T> mtx)
   {
     for(unsigned int i=0; i<mtx.get_nrows(); i++)

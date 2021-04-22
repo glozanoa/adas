@@ -3,7 +3,7 @@ C++ Algortihms and Data Structures for CC232
 
 
 # Usage
-There are several test that show you how you can use defined template data structures and algorithms.
+There are several examples that show you how you can use defined data structure templates and algorithms.
 
 * To compile all examples:
 ```bash
@@ -20,7 +20,7 @@ make sort
 make search
 ```
 
-* To compile examples that test template data structures:
+* To compile examples that test data structure templates:
 ```bash
 make base
 ```

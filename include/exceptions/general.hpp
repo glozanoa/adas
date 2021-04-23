@@ -19,12 +19,10 @@ public:
     this->warning = warning;
   }
   //InvalidIndex(int index, bool is_row_index);
-  const char* what() const throw();
+  const char* what() const throw()
+  {
+    return warning.c_str();
+  }
 };
-
-const char* Exception::what() const throw()
-{
-  return warning.c_str();
-}
 
 #endif //_GENERAL_EXCEPTIONS_H

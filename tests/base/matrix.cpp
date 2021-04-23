@@ -17,23 +17,33 @@ int main()
   Timer timer;
   timer.start();
 
-  vector<int> data1 = {1, 2, 3, 4, 5, 6};
-  Matrix<int> mtx(2, 3, data1);
 
-  vector<int> data2 = {5, 3, 1, 0, 2, 7};
-  Matrix<int> other(2, 3, data2);
+  for(int i=1; i<=20; i++)
+    {
+      for(int j=1; j<=20; j++)
+        cout << i << " x " << j << " = " << i*j << endl;
+      cout << endl;
+    }
 
-  cout << "mtx:" << endl;
-  cout << mtx << endl;
 
-  cout << "other:" << endl;
-  cout << other << endl;
 
-  cout << "mtx + other:" << endl;
-  cout << mtx + other << endl;
+  //vector<int> data1 = {1, 2, 3, 4, 5, 6};
+  //Matrix<int> mtx(2, 3, data1);
 
-  cout << "mtx - other:" << endl;
-  cout << mtx - other << endl;
+  // vector<int> data2 = {5, 3, 1, 0, 2, 7};
+  // Matrix<int> other(2, 3, data2);
+
+  // cout << "mtx:" << endl;
+  // cout << mtx << endl;
+
+  // cout << "other:" << endl;
+  // cout << other << endl;
+
+  // cout << "mtx + other:" << endl;
+  // cout << mtx + other << endl;
+
+  // cout << "mtx - other:" << endl;
+  // cout << mtx - other << endl;
 
   timer.stop();
   timer.default_report();

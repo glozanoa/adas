@@ -9,40 +9,36 @@
 using namespace std;
 
 #include "../../include/binary_tree.hpp"
-//#include "../../include/timer.hpp"
 
 
 int main()
 {
 
-  BinaryTree<int>* r   = new BinaryTree<int>(1);
-  BinaryTree<int>* c0  = new BinaryTree<int>(2);
-  BinaryTree<int>* c1  = new BinaryTree<int>(2+1);
-  BinaryTree<int>* c2  = new BinaryTree<int>(2+2);
-  BinaryTree<int>* c21 = new BinaryTree<int>(2+2+1);
-  BinaryTree<int>* c22 = new BinaryTree<int>(2+2+2);
-  BinaryTree<int>* d0  = new BinaryTree<int>(3);
-  BinaryTree<int>* d1  = new BinaryTree<int>(3+1);
-  BinaryTree<int>* d2  = new BinaryTree<int>(3+2);
+  /*  First form of build a binary tree (using BinaryNode class) */
 
-  int* parent = r->get_parent();
-  if(parent == nullptr)
-    cout << "No "
-  cout << "parent (r tree): " << root << endl;
 
-  c2->add_child(c21, true);  // left child
-  c2->add_child(c22, false); // rigth child
+  BinaryNode<int>* r   = new BinaryNode<int>(1);
 
-  c0->add_child(c1, true);
-  c0->add_child(c2, false);
+  BinaryNode<int>* c0  = new BinaryNode<int>(2, r, true);
 
-  d0->add_child(d1, true);
-  d0->add_child(d2, false);
 
-  r->add_child(c0, true);
-  r->add_child(d0, false);
+  BinaryNode<int>* d0  = new BinaryNode<int>(3, r, false);
+  BinaryNode<int>* d1  = new BinaryNode<int>(3+1, d0, true);
+  BinaryNode<int>* d2  = new BinaryNode<int>(3+2, d0, false);
 
-  cout << r << endl;
+  BinaryNode<int>* c1  = new BinaryNode<int>(2+1, c0, true);
+
+  BinaryNode<int>* c2  = new BinaryNode<int>(2+2, c0, false);
+  BinaryNode<int>* c21 = new BinaryNode<int>(2+2+1, c2, true);
+  BinaryNode<int>* c22 = new BinaryNode<int>(2+2+2, c2, false);
+
+
+  BinaryTree<int> tree = BinaryTree(r);
+
+  cout << tree << endl;
+
+
+  cout << "r has c0 as its child: " << r->has_child(c0) << endl;
 
   return 0;
 }

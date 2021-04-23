@@ -10,13 +10,13 @@ CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
 SORT_EXEC = bubble selection insertion binary_insertion extern_merge shellsort mergesort #partition quicksort
 SEARCH_EXEC = secuential binary
-BASE_EXEC =	matrix tree binary_tree gaps
+BASE_EXEC =	matrix tree binary_tree gaps node
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
 #LDIR =../lib
 
 #LIBS=-lm
-_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp binary_tree.hpp
-_EDEP = matrix.hpp # include/exceptions/*.hpp (exception head files)
+_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp binary_tree.hpp node.hpp
+_EDEP = matrix.hpp node.hpp # include/exceptions/*.hpp (exception head files)
 
 EDEPS = $(patsubst %,$(EDIR)/%,$(_EDEPS))
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -59,6 +59,9 @@ matrix:	$(ODIR)/matrix.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 tree: $(ODIR)/tree.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+node: $(ODIR)/node.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 binary_tree: $(ODIR)/binary_tree.o

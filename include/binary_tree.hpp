@@ -24,30 +24,40 @@ protected:
   BinaryNode<T>* rchild;
 
 public:
-  BinaryNode(T data, BinaryNode<T>* parent)
+  BinaryNode(T data)
+    :Node<T>(data)
+  {
+    this->parent = nullptr;
+    lchild = nullptr;
+    rchild = nullptr;
+    this->children = {lchild, rchild};
+  }
+
+  BinaryNode(T data, BinaryNode<T>* parent, bool is_left_child)
     : Node<T>(data, parent)
   {
     lchild = nullptr;
     rchild = nullptr;
-    children = {lchild, rchild};
+    this->children = {lchild, rchild};
+
+    parent->add_child(this, is_left_child);
   }
 
-  BinaryNode(T data) :BinaryNode(data, nullptr) {}
-
-  BinaryNode(T data, BinaryNode<T>* parent, BinaryNode<T>* lchild_node, BinaryNode<T>* rchild_node)
-    :Node<T>(data, parent)
+  BinaryNode(T data, BinaryNode<T>* parent, bool is_left_child,
+             BinaryNode<T>* lchild_node, BinaryNode<T>* rchild_node)
+    :Node<T>(data, parent, is_left_child)
   {
     lchild = lchild_node;
     rchild = rchild_node;
-    children = {lchild, rchild};
+    this->children = {lchild, rchild};
   }
 
   Node<T>* get_lchild(){return lchild;}
   Node<T>* get_rchild(){return rchild;}
 
-  void add_child(Node<T>* child, bool is_left_child)
+  void add_child(BinaryNode<T>* child, bool is_left_child)
   {
-    child->set_depth(depth+1);
+    child->set_depth(this->depth+1);
     child->set_parent(this);
 
     if(is_left_child)
@@ -55,7 +65,7 @@ public:
     else
       rchild = child;
 
-    children = {lchild, rchild};
+    this->children = {lchild, rchild};
   }
 };
 
@@ -102,6 +112,7 @@ public:
             else
               throw Exception("Invalid: Adding a nullptr child node");
           }
+        // CHECK IF node belows to the binary tree
         node->add_child(child, is_left_child);
       }
     catch(exception& error)
@@ -110,6 +121,8 @@ public:
         exit(EXIT_FAILURE);
       }
   }
+
+  static bool is_node(BinaryNode<T>* node, BinaryTree<T> tree);
 
   // void erase_child(T child)
   // {

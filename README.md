@@ -7,6 +7,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 # Dependences
 * Boost (`Program Options` library)
 * C++ Compiler with `OpenMP` support (almost all)
+* CMake
 
 # Usage
 There are several examples (in [tests](https://github.com/glozanoa/algorithms/tree/master/tests) directory) that show you how you can use developed algorithms and  data structures.

@@ -1,5 +1,5 @@
 /*
- * Testing intercalation sorting algorithm
+ * Testing merge algorithm
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -12,15 +12,19 @@ using namespace std;
 int main()
 {
 
+  //sels: sorted elements
   vector<int> sels1 = {6, 23, 24};
   vector<int> sels2 = {5, 22, 26, 27, 39};
   bool verbose = true;
   bool timer = true;
-  vector<int> total_sels;
+  //vector<int> result = vector<int>(sels1.size()+sels2.size());
+  int result[7];
 
-  cout << "(ITERATOR merge sort)" << endl;
-  total_sels = Sort<int>::mergesort_itr(sels1, sels2, verbose, timer);
-  print(total_sels);
+  sort::merge(sels1.begin(), sels1.end(),
+              sels2.begin(), sels2.end(),
+              result);
+
+  print::to_stdout(result, result+8);
 
   return 0;
 }

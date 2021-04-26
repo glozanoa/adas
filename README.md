@@ -1,7 +1,7 @@
 # Algorithms
 C++ Algortihms and Data Structures for `CC232`.
 
-Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of objects.
+Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of containers.
 
 
 # Usage

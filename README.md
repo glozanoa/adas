@@ -1,9 +1,11 @@
 # Algorithms
-C++ Algortihms and Data Structures for CC232
+C++ Algortihms and Data Structures for `CC232`.
+
+Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of objects.
 
 
 # Usage
-There are several examples that show you how you can use defined data structure templates and algorithms.
+There are several examples that show you how you can use develped algorithms and  data structures.
 
 * To compile all examples:
 ```bash
@@ -20,13 +22,13 @@ make sort
 make search
 ```
 
-* To compile examples that test data structure templates:
+* To compile examples that test data structures:
 ```bash
 make base
 ```
 
 # Utilities
-In [dgen](https://github.com/glozanoa/algorithms/tree/master/dgen) directory you can find useful **python** scripts to generate random data to test algorithm eficiency.
+In [dgen](https://github.com/glozanoa/algorithms/tree/master/dgen) (*data generator*) directory you can find useful **python** scripts to generate random data to test algorithms efficiency.
 
 To learn more about what does a script do, run:
 

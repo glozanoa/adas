@@ -15,41 +15,72 @@ using namespace std;
 
 /*  NOTE: Compile with Makefile and run in ROOT DIRECTORY OF REPOSITORY */
 
+/*
+ * Custom function to compare elements
+ */
+template <typename T>
+bool smaller(T x, T y)
+/*
+ * if x is smaller than y then return true, otherwise return false
+ */
+{
+  return x < y;
+}
+
 int main()
 {
 
   Timer time;
   time.start();
 
-  ifstream fn("tests/data/random.txt");
+  // ENABLE THIS LINE IF YOU WANT TO READ YOUR DATA FROM FILES
+  // ifstream fn("tests/data/random.txt");
 
-  vector<int> numbers;
-  int number;
-  string line;
-  while(getline(fn, line))
-    {
-      number = str2<int>(line);
-      numbers.push_back(number);
-    }
+  // vector<int> numbers;
+  // int number;
+  // string line;
+  // while(getline(fn, line))
+  //   {
+  //     number = str2<int>(line);
+  //     numbers.push_back(number);
+  //   }
 
-  time.stop();
-  time.report("Elapsed time (read)");
+  // time.stop();
+  // time.report("Elapsed time (read)");
 
 
   //vector<int> numbers = {2, 7, 1, 9};
 
+  // USING NORMAL ARRAYS
+  unsigned int n = 4;
+  int numbers[n] = {2, 7, 1, 9};
+  int copy_numbers[n] = {2, 7, 1, 9};
+
+  cout << "normal sort (using default order [crescent])" << endl;
   time.start();
-  sort::bubble(numbers.begin(), numbers.end(), false);
+  // IF YOU WANT TO USE vector class, replace numbers by numbers.begin() and numbers + SIZE by numbers.end()
+  sort::bubble(numbers, numbers+n, true);
   time.stop();
   time.report("Elapsed time (sort)");
 
-  ofstream sn("tests/data/random.txt.sorted");
+  cout << "custom sort (using a custom function [decreasing])" << endl;
+  time.start();
 
-  for(int number: numbers)
-    sn << number << endl;
+  // IF YOU WANT TO USE vector class, check the above comment
+  sort::bubble(copy_numbers, copy_numbers+n, smaller<int>, true);
+  time.stop();
+  time.report("Elapsed time (custom sort)");
 
-  sn.close();
-  fn.close();
+
+
+  // ENABLE THIS LINE IF YOU WANT TO WRITE SORTED DATA TO A FILE
+  // ofstream sn("tests/data/random.txt.sorted");
+
+  // for(int number: numbers)
+  //   sn << number << endl;
+
+  // sn.close();
+  // fn.close();
 
   return 0;
 }

@@ -49,6 +49,28 @@ namespace sort
       }
   }
 
+  template<class RandomAccessIterator, class Compare>
+  void bubble(RandomAccessIterator first, RandomAccessIterator last, Compare comp, bool verbose)
+  /*
+   * Comp: is a function that compare two elements and return a bool
+   */
+  {
+    RandomAccessIterator itr, inner;
+
+    for(itr=first; itr!= last-1; itr++)
+      {
+        for(inner=itr+1; inner!=last; inner++)
+          {
+            if(comp(*itr, *inner))
+              interchange_values(itr, inner);
+          }
+        if(verbose)
+          print::to_stdout(first, last);
+      }
+  }
+
+
+
 
   // tested - date Apr 21 2021
   template<class RandomAccessIterator>
@@ -149,8 +171,8 @@ namespace sort
             aux = itr;
           }
 
-        end--;
-        if(end == init)
+        //end--;
+        if(--end == init)
           break;
 
         itr = end;
@@ -181,59 +203,74 @@ namespace sort
 
         min = minimum(itr+1, last);
         if(*itr > *min)
-          {
-            auto aux = *min;
-            *min = *itr;
-            *itr = aux;
-          }
+          interchange_values(itr, min);
       }
   }
 
-};
+  template <class InputIterator1, class InputIterator2, class OutputIterator>
+  OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                       InputIterator2 first2, InputIterator2 last2,
+                       OutputIterator result)
+  /*
+   * Combines the elements in the sorted ranges [first1,last1) and [first2,last2),
+   * into a new range beginning at result.
+   */
+  {
+    while(true)
+      {
+        if(first1 == last1) return copy(first2, last2, result);
+        if(first2 == last2) return copy(first1, last1, result);
 
-  // static vector<int> shell_gap_sequences(unsigned int n)
+        *result++ = (*first2 < *first1)? *first2++ : *first1++;
+      }
+  }
+
+
+  vector<int> shell_gap_sequences(unsigned int n)
+  {
+    vector<int> gaps;
+    int gap = n/2;
+    while (gap > 0)
+      {
+        gaps.push_back(gap);
+        gap/=2;
+      }
+
+    return gaps;
+  }
+
+
+  // REWRITE USING BINARY SEARCH IN BINARY TREES
+  // static vector<int> pratt_gap_sequences(unsigned int n)
   // {
-  //   vector<int> gaps;
-  //   int gap = n/2;
-  //   while (gap > 0)
+  //   int p = 0;
+  //   int q = 0;
+  //   int ptmp, qtmp;
+  //   vector<int> gaps = {1}; //pow(2, p)*pow(3, q)
+
+  //   unsigned int size = gaps.size();
+  //   while (size <= n)
   //     {
-  //       gaps.push_back(gap);
-  //       gap/=2;
+  //       ptmp = three_smooth(p+1, q);
+  //       qtmp = three_smooth(p, q+1);
+  //       if(ptmp > qtmp)
+  //         {
+  //           gaps.push_back(qtmp);
+  //           q++;
+  //         }
+  //       else
+  //         {
+  //           gaps.push_back(ptmp);
+  //           p++;
+  //         }
+  //       size = gaps.size();
   //     }
 
   //   return gaps;
   // }
 
 
-  // // REWRITE USING BINARY SEARCH IN BINARY TREES
-  // // static vector<int> pratt_gap_sequences(unsigned int n)
-  // // {
-  // //   int p = 0;
-  // //   int q = 0;
-  // //   int ptmp, qtmp;
-  // //   vector<int> gaps = {1}; //pow(2, p)*pow(3, q)
-
-  // //   unsigned int size = gaps.size();
-  // //   while (size <= n)
-  // //     {
-  // //       ptmp = three_smooth(p+1, q);
-  // //       qtmp = three_smooth(p, q+1);
-  // //       if(ptmp > qtmp)
-  // //         {
-  // //           gaps.push_back(qtmp);
-  // //           q++;
-  // //         }
-  // //       else
-  // //         {
-  // //           gaps.push_back(ptmp);
-  // //           p++;
-  // //         }
-  // //       size = gaps.size();
-  // //     }
-
-  // //   return gaps;
-  // // }
-
+};
   // static vector<T> shellsort(vector<T> elements, vector<int> gaps, bool verbose)
   // /*
   //  * Sort a vector of elements using shellsort sort algorithm
@@ -243,7 +280,6 @@ namespace sort
   //  *     sorted vector
   //  */
   // {
-
   //   unsigned int length = elements.size();
 
   //   for(int gap: gaps)
@@ -268,26 +304,6 @@ namespace sort
   //   return elements;
   // }
 
-
-  // // tested - date Apr 15 2021
-  // static vector<T> selection(vector<T> elements, bool verbose)
-  // /*
-  //  * Sort vector of elements using selection sort algorithm
-  //  */
-  // {
-  //   for(int i=0; i<elements.size()-1; i++)
-  //     {
-  //       if (verbose)
-  //         cout << "(Iteration " << i << ")" << endl;
-
-  //       int j = Sort<T>::index_min_element(elements, i, verbose);
-  //       Sort<T>::exchange(&elements, i, j);
-
-  //       if (verbose)
-  //         print(elements);
-  //     }
-  //   return elements;
-  // }
 
   // // SOLVE BUG
   // static vector<T> binary_insertion(vector<T> elements, bool verbose)
@@ -341,79 +357,6 @@ namespace sort
   //     parts->at(k) = Sort<T>::bubble(part, false);
 
   //   return partition.join();
-  // }
-
-  // // sels: sorted elements
-  // static vector<T> mergesort(vector<T> sels1, vector<T> sels2, bool verbose, bool timer)
-  // {
-
-  //   unsigned int length_sels1 = sels1.size();
-  //   unsigned int length_sels2 = sels2.size();
-
-  //   vector<T> mix = vector<int>(length_sels1 + length_sels2); //merger sort vector
-
-  //   typename vector<T>::iterator itr1 = sels1.begin();
-  //   typename vector<T>::iterator itr2 = sels2.begin();
-  //   typename vector<T>::iterator mix_itr = mix.begin();
-  //   // unsigned int i =0;
-  //   // unsigned int j =0;
-  //   // unsigned int k =0;
-
-  //   Timer time;
-  //   if(timer)
-  //     time.start();
-
-  //   while(itr1 != sels1.end() && itr2 != sels2.end())
-  //     {
-  //       if(*itr1 < *itr2)
-  //         {
-  //           //mix.at(k) = *itr1;
-  //           *mix_itr = *itr1;
-  //           itr1++;
-  //         }
-  //       else
-  //         {
-  //           //mix.at(k) = *itr2;
-  //           *mix_itr = *itr2;
-  //           itr2++;
-  //         }
-  //       mix_itr++;
-  //       if(verbose)
-  //         print(mix);
-  //     }
-
-  //   typename vector<T>::iterator r;
-  //   // coping leftover elements
-  //   if(itr1 != sels1.end())
-  //     {
-  //       for(r = itr1; r != sels1.end(); r++)
-  //         {
-  //           //mix.at(k) = *r;
-  //           *mix_itr = *r;
-  //           mix_itr++;
-  //           if(verbose)
-  //             print(mix);
-  //         }
-  //     }
-  //   else
-  //     {
-  //       for(r = itr2; r != sels2.end(); r++)
-  //         {
-  //           //mix.at(k) = *r;
-  //           *mix_itr = *r;
-  //           mix_itr++;
-  //           if(verbose)
-  //             print(mix);
-  //         }
-  //     }
-
-  //   if(timer)
-  //     {
-  //       time.stop();
-  //       time.report("Elapsed time");
-  //     }
-
-  //   return mix;
   // }
 
   // ////////////// extern sort algorithms /////////////

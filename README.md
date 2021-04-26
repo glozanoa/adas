@@ -21,7 +21,7 @@ EXAMPLES STRUCTURE
 
 
 # Compilation
-To Compile examples, you've to have [cmake](https://cmake.org/).
+To Compile examples, you've to have [CMake](https://cmake.org/).
 
 ### Windows Users
 COMMING SOON
@@ -29,6 +29,7 @@ COMMING SOON
 ### Linux Users
 ```bash
 mkdir -p build && cd build
+cmake ..
 cmake --build .
 ```
 

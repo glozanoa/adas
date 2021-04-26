@@ -27,7 +27,13 @@ EXAMPLES STRUCTURE
 To Compile examples, you've to have [CMake](https://cmake.org/).
 
 ### Windows Users
-COMMING SOON
+Open `PowerShell`
+```bash
+ New-Item -Path .\build -ItemType Directory
+ cd .\build
+ cmake -G "MinGW Makefiles" ..
+ mingw32-make.exe all
+```
 
 ### Linux Users
 ```bash

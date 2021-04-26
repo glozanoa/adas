@@ -1,9 +1,11 @@
 # Algorithms
-C++ Algortihms and Data Structures for CC232
+C++ Algortihms and Data Structures for `CC232`.
+
+Almost all algorithms use iterators and the defined data structures are templates, so you can use each algorithm in a variety of objects.
 
 
 # Usage
-There are several examples that show you how you can use defined data structure templates and algorithms.
+There are several examples that show you how you can use develped algorithms and  data structures.
 
 * To compile all examples:
 ```bash
@@ -20,7 +22,7 @@ make sort
 make search
 ```
 
-* To compile examples that test data structure templates:
+* To compile examples that test data structures:
 ```bash
 make base
 ```

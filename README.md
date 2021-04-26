@@ -24,3 +24,6 @@ make search
 ```bash
 make base
 ```
+
+# Utilities
+In [dgen](https://github.com/glozanoa/algorithms/tree/master/dgen) directory you can find useful **python** scripts to generate random data to test algorithm eficiency.

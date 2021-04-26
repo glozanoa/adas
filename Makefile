@@ -8,7 +8,7 @@ TDIR_BASE = tests/base
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble selection insertion binary_insertion extern_merge shellsort mergesort #partition quicksort
+SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort #partition quicksort
 SEARCH_EXEC = secuential binary
 BASE_EXEC =	matrix tree binary_tree gaps node
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
@@ -74,6 +74,9 @@ gaps: $(ODIR)/gaps.o
 bubble:	$(ODIR)/bubble.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
+bidirectional_bubble:	$(ODIR)/bidirectional_bubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
 extern_merge:	$(ODIR)/extern_merge.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
@@ -108,5 +111,11 @@ binary:	$(ODIR)/binary.o
 
 .PHONY:
 
-clean:
-	rm -f $(ODIR)/*.o *~ $(IDIR)/*~ $(ALL_EXEC)
+clean: cleanslurm cleanobj
+	rm -f  *~ $(IDIR)/*~ $(ALL_EXEC) 
+
+cleanobj:
+	rm -r $(ODIR)/*.o
+
+cleanslurm:
+	rm -f slurm-*.out slurm-*.err

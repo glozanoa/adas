@@ -5,7 +5,18 @@ Almost all algorithms use iterators and the defined data structures use template
 
 
 # Usage
-There are several examples that show you how you can use develped algorithms and  data structures.
+There are several examples (in [tests](https://github.com/glozanoa/algorithms/tree/master/tests) directory) that show you how you can use develped algorithms and  data structures.
+
+```
+EXAMPLES STRUCTURE
+|- base   # This directory contains examples of how to use defined data structures
+|- sort   # This directory contains examples of how to use sort algorithms
+|- seach  # This directory contains examples of how to use search algorithms
+|- data   # This directory contains data to test algorithms efficiency
+```
+
+
+# Compilation
 
 * To compile all examples:
 ```bash

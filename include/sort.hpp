@@ -13,15 +13,43 @@
 //#include <cmath>
 using namespace std;
 
-//#include "helper.hpp"
+#include "helper.hpp"
 #include "cast.hpp"
 #include "timer.hpp"
 #include "print.hpp"
 //#include "partition.hpp"
 
 
+template<class Iterator>
+void interchange_values(Iterator itr1, Iterator itr2)
+{
+  auto aux = *itr1;
+  *itr1 = *itr2;
+  *itr2 = aux;
+}
+
+
 namespace sort
 {
+  // tested - data Apr 25 2021
+  template<class RandomAccessIterator>
+  void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
+  {
+    RandomAccessIterator itr, inner;
+
+    for(itr=first; itr!= last-1; itr++)
+      {
+        for(inner=itr+1; inner!=last; inner++)
+          {
+            if(*itr > *inner)
+              interchange_values(itr, inner);
+          }
+        if(verbose)
+          print::to_stdout(first, last);
+      }
+  }
+
+
   // tested - date Apr 21 2021
   template<class RandomAccessIterator>
   void insertion(RandomAccessIterator first, RandomAccessIterator last,
@@ -66,7 +94,7 @@ namespace sort
                  bool verbose, bool timer)
   /*
    * Sort elements using insertion sort algorithm
-   * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TO ENABLE SORT LIST
+   * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TO ENABLE SORT LISTS
    */
   {
     Timer time;
@@ -99,155 +127,69 @@ namespace sort
       }
   }
 
+  template<class BidirectionalIterator>
+  void bidirectional_bubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
+  {
+
+    BidirectionalIterator init = prev(first);
+    BidirectionalIterator end = last;
+
+    BidirectionalIterator itr; // iterator to iterate in bidirectional data structure
+    BidirectionalIterator aux; // auxiliary iterator to store maximum and minimum element
+
+
+    while(init != end)
+      {
+        itr=init;
+        aux = init;
+        while(++itr != end)
+          {
+            if(*itr < *aux) // aux = max
+              interchange_values(aux, itr);
+            aux = itr;
+          }
+
+        end--;
+        if(end == init)
+          break;
+
+        itr = end;
+        aux = end;
+
+        while(--itr != init)
+          {
+            if(*itr > *aux) // aux = min
+              interchange_values(aux, itr);
+            aux = itr;
+          }
+        init++;
+
+        if(verbose)
+          print::to_stdout(first, last);
+      }
+  }
+
+  template<class RandomAccessIterator>
+  void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
+  {
+
+    RandomAccessIterator itr, min;
+    for(itr=first; itr != last-1; itr++)
+      {
+        if(verbose)
+          print::to_stdout(first, last);
+
+        min = minimum(itr+1, last);
+        if(*itr > *min)
+          {
+            auto aux = *min;
+            *min = *itr;
+            *itr = aux;
+          }
+      }
+  }
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  OLD CODE  */
-
-
-
-//template<typename T>
-//typedef vector<int> SortAlgorithm(vector<int>, bool);
-
-// template<typename Iterator>
-// class Sort
-// {
-// public:
-
-//   static void insertion(Iterator first,
-//                         Iterator last,
-//                         bool verbose)
-//   /*
-//    * Sort vector of elements using insertion sort algorithm
-//    */
-//   {
-//     Iterator itr;
-//     Iterator inner_itr;
-//     Iterator aux_itr;
-
-//     for(itr=first+1; itr != last; itr++)
-//       {
-//         aux_itr = itr;
-//         inner_itr = itr-1;
-//         while(inner_itr != first-1 && *itr > *inner_itr)
-//           {
-//             *next(inner_itr) = *inner_itr;
-//             inner_itr--;
-//           }
-//         *next(inner_itr) = *aux_itr;
-
-//         if (verbose)
-//           print(first, last);
-//       }
-//     //return elements;
-//   }
-
-
-
-  /*------------------ OLD ---------------------*/
-
-  ////////////// helper functions /////////////
-  // tested - date Apr 15 2021
-  // static int index_min_element(vector<T> elements,
-  //                              unsigned int min_index, unsigned int max_index,
-  //                              bool verbose)
-  // /*
-  //  * Return the index of the minimum element of elements vector
-  //  */
-  // {
-  //   int index; // index of minimum element of elements[min_index:max_index]
-  //   unsigned int length = elements.size();
-  //   if(min_index > max_index)
-  //     index = -1;
-  //   else if (min_index >= length || max_index >= length)
-  //     index = -1;
-  //   else
-  //     {
-  //       index = min_index;
-  //       T smallest = elements[min_index];
-
-  //       for(int k=min_index; k <= max_index; k++)
-  //         {
-  //           if (elements[k] < smallest)
-  //             {
-  //               smallest = elements[k];
-  //               index = k;
-  //             }
-  //         }
-  //       if (verbose)
-  //         {
-  //           cout << "(Minimum value) index:" << index << ", value:" << smallest << endl;
-  //         }
-  //     }
-  //   return index;
-  // }
-
-  // // tested - date Apr 15 2021
-  // static int index_min_element(vector<T> elements, unsigned int min_index, bool verbose)
-  // {
-  //   unsigned int max_index = elements.size() - 1;
-  //   int index = Sort<T>::index_min_element(elements, min_index, max_index, verbose);
-  //   return index;
-  // }
-
-  // // tested - date apr 15 2021
-  // static void exchange(vector<T>* elements, unsigned int i, unsigned int j)
-  // /*
-  //  * Exchange element i with element j of elements vector
-  //  */
-  // {
-  //   unsigned int length = elements->size();
-
-  //   if (i >= length || j >= length)
-  //     {
-  //       string warning = "Some index out of range"; //: i="; //+ to_string(i) + ", j=" + to_sting(j);
-  //       throw out_of_range(warning.c_str());
-  //     }
-  //   else
-  //     {
-  //       T aux = elements->at(i);
-  //       elements->at(i) = elements->at(j);
-  //       elements->at(j) = aux;
-  //     }
-  // }
-
-  // ////////////// sort algorithms /////////////
-  // // tested - date Apr 15 2021
-  // static vector<T> bubble(vector<T> elements, bool verbose)
-  // /*
-  //  * Sort vector of elements using bubble sort algorithm
-  //  */
-  // {
-  //   T aux;
-  //   int length = elements.size();
-  //   for(int i=0; i< length - 1; i++)
-  //     {
-  //       for(int j=0; j < length -1 - i; j++)
-  //         {
-  //           if (elements[j] > elements[j+1])
-  //             Sort<T>::exchange(&elements, j, j+1);
-  //         }
-
-  //       if(verbose)
-  //         {
-  //           cout << "(step " << i << " )" << endl;
-  //           print(elements);
-  //         }
-  //     }
-  //   return elements;
-  // }
 
   // static vector<int> shell_gap_sequences(unsigned int n)
   // {

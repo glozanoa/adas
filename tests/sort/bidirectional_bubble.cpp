@@ -1,5 +1,5 @@
 /*
- * Testing selection sorting algorithm
+ * Testing bidirectional bubble sorting algorithm
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -36,12 +36,12 @@ int main()
   //vector<int> numbers = {2, 7, 1, 9};
 
   time.start();
-  sort::selection(numbers.begin(), numbers.end(), false);
+  sort::bidirectional_bubble(numbers.begin(), numbers.end(), true);
   time.stop();
   time.report("Elapsed time (sort)");
 
   time.start();
-  ofstream sn("tests/data/random.txt.selection.sorted");
+  ofstream sn("tests/data/random.txt.bibubble.sorted");
 
   for(int number: numbers)
     sn << number << endl;

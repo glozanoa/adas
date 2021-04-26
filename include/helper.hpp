@@ -31,6 +31,19 @@ unsigned int three_smooth(int p, int q)
   return pow(2, p)*pow(3, q);
 }
 
+template<class RandomAccessIterator>
+RandomAccessIterator minimum(RandomAccessIterator first, RandomAccessIterator last)
+{
+  RandomAccessIterator min = first;
+  RandomAccessIterator itr = first;
+  while(++itr != last)
+    {
+      if(*itr < *min)
+        min = itr;
+    }
+  return min;
+}
+
 
 // helper functions
 

@@ -1,11 +1,15 @@
 # Algorithms
 C++ Algortihms and Data Structures for `CC232`.
 
-Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of containers.
+Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of containers.  
+Also we try to codify some algorithms with `OpenMP` support, so you can use them to process efficiently large amounts of data.
 
+# Dependences
+* Boost (`Program Options` library)
+* C++ Compiler with `OpenMP` support (almost all)
 
 # Usage
-There are several examples (in [tests](https://github.com/glozanoa/algorithms/tree/master/tests) directory) that show you how you can use develped algorithms and  data structures.
+There are several examples (in [tests](https://github.com/glozanoa/algorithms/tree/master/tests) directory) that show you how you can use developed algorithms and  data structures.
 
 ```
 EXAMPLES STRUCTURE
@@ -17,25 +21,15 @@ EXAMPLES STRUCTURE
 
 
 # Compilation
+To Compile examples, you've to have [cmake](https://cmake.org/).
 
-* To compile all examples:
-```bash
-make all
-```
+### Windows Users
+COMMING SOON
 
-* To compile examples of `sort` algorithms:
+### Linux Users
 ```bash
-make sort
-```
-
-* To compile examples of `search` algorithms:
-```bash
-make search
-```
-
-* To compile examples that test data structures:
-```bash
-make base
+mkdir -p build && cd build
+cmake --build .
 ```
 
 # Utilities

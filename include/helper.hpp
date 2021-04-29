@@ -10,9 +10,10 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
-#include "cast.hpp"
-
+#include "omp.h"
 using namespace std;
+
+#include "cast.hpp"
 
 string repeat(string str, int n)
 {
@@ -31,10 +32,10 @@ unsigned int three_smooth(int p, int q)
   return pow(2, p)*pow(3, q);
 }
 
-template<class RandomAccessIterator>
-RandomAccessIterator minimum(RandomAccessIterator first, RandomAccessIterator last)
+template<class ForwardIterator>
+ForwardIterator minimum(ForwardIterator first, ForwardIterator last)
 {
-  RandomAccessIterator min = first;
+  RandomAccessIterator min;
   RandomAccessIterator itr = first;
   while(++itr != last)
     {

@@ -17,16 +17,8 @@ using namespace std;
 #include "cast.hpp"
 #include "timer.hpp"
 #include "print.hpp"
+#include "heap.hpp"
 //#include "partition.hpp"
-
-
-template<class Iterator>
-void interchange_values(Iterator itr1, Iterator itr2)
-{
-  auto aux = *itr1;
-  *itr1 = *itr2;
-  *itr2 = aux;
-}
 
 
 namespace sort
@@ -225,6 +217,29 @@ namespace sort
 
         *result++ = (*first2 < *first1)? *first2++ : *first1++;
       }
+  }
+
+
+  // debuged - date Apr 30 2021
+  template <class T>
+  vector<T> heap_sort(vector<T> keys)
+  {
+    vector<T> sorted;
+    Heap<T> heap = Heap<T>(keys);
+    heap.build_max_heap(false);
+    int heap_size = heap.get_size();
+
+    while(heap_size > 0)
+      {
+        T max = heap.get_root();
+        heap.interchange(0, heap_size-1);
+        sorted.push_back(max);
+        heap.resize(heap_size-1);
+        heap.max_heapify(0, false);
+        heap_size = heap.get_size();
+      }
+
+    return sorted;
   }
 
 

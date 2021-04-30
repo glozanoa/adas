@@ -24,22 +24,34 @@ EXAMPLES STRUCTURE
 
 
 # Compilation
-To Compile examples, you've to have [CMake](https://cmake.org/).
 
 ### Windows Users
-Open `PowerShell`
-```bash
- New-Item -Path .\build -ItemType Directory
- cd .\build
- cmake -G "MinGW Makefiles" ..
- mingw32-make.exe all
-```
+COMMING SOON
 
 ### Linux Users
+* To compile all examples:
 ```bash
-mkdir -p build && cd build
-cmake ..
-cmake --build .
+make all
+```
+
+* To compile examples of `sort` algorithms:
+```bash
+make sort
+```
+
+* To compile examples of `search` algorithms:
+```bash
+make search
+```
+* To compile examples that test data structures:
+```bash
+make base
+```
+
+* To compile a particular example (check name of example in `Makefile`):
+
+```bash
+make EXAMPLE_NAME
 ```
 
 # Utilities

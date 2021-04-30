@@ -8,11 +8,14 @@ import random
 import argparse
 from math import isclose
 
-def is_element(a: float, b: list[float]):
+def is_not_element(a: float, b: list[float]):
+    """
+    Check if a is not a element of b
+    """
     for bk in b:
-        if isclose(a, bk):
-            return True
-    return False
+        if isclose(a, bk): # a belows to b
+            return False
+    return True
 
 def uniform(a: float, b: float, n:int):
     """
@@ -30,7 +33,7 @@ def uniform(a: float, b: float, n:int):
             unique_numbers = []
             while n > 0:
                 number = random.uniform(a, b)
-                if is_element(number, unique_numbers):
+                if is_not_element(number, unique_numbers):
                     unique_numbers.append(number)
                     n -= 1
                     yield number

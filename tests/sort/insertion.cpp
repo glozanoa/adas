@@ -10,8 +10,14 @@
 using namespace std;
 
 #include "../../include/sort.hpp"
-
 #include "../../include/print.hpp"
+
+
+// COMPARISON FUNCTION WILL RETURN A BOOL : bool NAME_FUNCTION (ARGS_FUNCTION)
+bool lower_than(int x, int y)
+{
+  return x<y;
+}
 
 int main()
 {
@@ -19,6 +25,7 @@ int main()
   Timer time;
   time.start();
 
+  // READING NUMBERS FROM FILE ONLY FOR TESTING PURPOSES
   ifstream fn("tests/data/random.txt");
 
   vector<int> numbers;
@@ -34,23 +41,24 @@ int main()
   time.report("Elapsed time (read)");
 
 
-  //vector<int> numbers = {2, 7, 1, 9};
+  // CREATE A COPY OF numbers TO TEST insertion WITH CUSTOM COMPARISON
+  vector<int> copy_numbers = vector<int>(numbers.size());
+  copy(numbers.begin(), numbers.end(), copy_numbers.begin());
 
+  cout << "insertion algorithm (default comparison)" << endl;
   time.start();
-  sort::insertion(numbers.begin(), numbers.end(), false, true);
+  // first booleam enable verbose, the second enable timer
+  sort::insertion(numbers.begin(), numbers.end(), true, true);
   time.stop();
-  time.report("Elapsed time (sort)");
+  time.report("Elapsed time (sort - default comparison)");
 
+  cout << "insertion algorithm (custom comparison)" << endl;
   time.start();
-  ofstream sn("tests/data/random.txt.selection.sorted");
-
-  for(int number: numbers)
-    sn << number << endl;
-
+  sort::insertion(copy_numbers.begin(), copy_numbers.end(), lower_than, true, true);
   time.stop();
-  time.report("Elapsed time (write)");
+  time.report("Elapsed time (sort - custom comparison)");
 
-  sn.close();
+
   fn.close();
 
   return 0;

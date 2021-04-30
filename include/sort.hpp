@@ -111,6 +111,7 @@ namespace sort
       }
   }
 
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator, class Compare>
   void insertion(RandomAccessIterator first, RandomAccessIterator last, Compare comp,
                  bool verbose, bool timer)

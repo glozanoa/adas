@@ -72,7 +72,7 @@ namespace sort
 
 
 
-  // tested - date Apr 21 2021
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator>
   void insertion(RandomAccessIterator first, RandomAccessIterator last,
                  bool verbose, bool timer)

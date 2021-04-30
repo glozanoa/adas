@@ -8,9 +8,6 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 * Boost (`Program Options` library)
 * C++ Compiler with `OpenMP` support (almost all)
 
-**NOTE:**  
-If you are a windows user, you can use [Mingw](http://mingw-w64.org/doku.php/start) as C++ compiler.
-
 # Usage
 There are several examples (in [tests](https://github.com/glozanoa/algorithms/tree/master/tests) directory) that show you how you can use developed algorithms and  data structures.
 
@@ -21,14 +18,20 @@ EXAMPLES STRUCTURE
 |- seach  # This directory contains examples of how to use search algorithms
 |- data   # This directory contains data to test algorithms efficiency
 ```
+## Developed Algorithms
+
+|-------------------|----------------------|
+|   Algorithm       |      Efficiency      |
+|-------------------|----------------------|
+|    bubble         |     O(SOMETHING)     |
+|                   |                      |
+|                   |                      |
+|                   |                      |
+|                   |                      |
+|                   |                      |
 
 
 # Compilation
-
-### Windows Users
-COMMING SOON
-
-### Linux Users
 * To compile all examples:
 ```bash
 make all
@@ -48,7 +51,7 @@ make search
 make base
 ```
 
-* To compile a particular example (check name of example in `Makefile`):
+* To compile a particular example:
 
 ```bash
 make EXAMPLE_NAME

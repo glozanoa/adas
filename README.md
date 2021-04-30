@@ -20,15 +20,16 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
-|-------------------|----------------------|
-|   Algorithm       |      Efficiency      |
-|-------------------|----------------------|
-|    bubble         |     O(SOMETHING)     |
-|                   |                      |
-|                   |                      |
-|                   |                      |
-|                   |                      |
-|                   |                      |
+|-----------|------------|
+| Algorithm | Efficiency |
+|-----------|------------|
+| bubble    |            |
+| bibubble  |            |
+| insertion |            |
+| selection |            |
+| merge     |            |
+| heap sort | O(n log n) |
+|-----------|------------|
 
 
 # Compilation

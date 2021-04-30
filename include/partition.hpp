@@ -54,7 +54,7 @@ public:
         k++;
       }
     // copy of last part of partition (k = partition_size -1)
-    part = this->get_part(k);
+    part = this->parts(k);
     itr = copy(part.begin(), part.end(), itr);
 
     return sorted;

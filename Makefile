@@ -103,8 +103,8 @@ binary:	$(ODIR)/binary.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 ##### helper #####
-# partition:	$(ODIR)/partition.o
-# 	$(CXX) -o $@ $^ $(CXXFLAGS)
+partition:	$(ODIR)/partition.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 # $(EXEC): $(OBJ)
 # 	$(CXX) -o $@ $^ $(CXXFLAGS)

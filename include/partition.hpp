@@ -8,10 +8,12 @@
 #define _PARTITION_H
 
 #include <vector>
+#include <iterator>
 using namespace std;
 
 //#include "sort.hpp"}
 #include "helper.hpp"
+#include "print.hpp"
 
 template<class T>
 class Partition
@@ -19,42 +21,54 @@ class Partition
 private:
   vector<vector<T>>* parts;
   vector<T> pivots;
-  vector<T> elements;
+  unsigned int nelems;
 public:
   Partition(vector<T> pivots, vector<T> elements)
   {
     //constructor
     this->pivots = pivots;
-    this->elements = elements;
+    nelems = elements.size();
 
-    //pivots = Sort<T>::bubble(unsort_pivots, false); USER <algorithms> library
     parts = Partition<T>::generate(pivots, elements);
   }
 
+  unsigned int get_nelems(){return nelems;}
   unsigned int size(){return parts->size();}
   vector<T> get_pivots(){return pivots;}
   vector<vector<T>>* get_parts(){return parts;}
 
   vector<T> join()
   {
-    vector<T> sorted;
+    vector<T> sorted = vector<T>(nelems);
+    typename vector<T>::iterator itr = sorted.begin();
+    unsigned int partition_size = this->size();
+    vector<T> part;
 
-    for(int k=0; k< parts->size(); k++)
+    unsigned int k=0;
+    while(k < partition_size-1)
       {
-
+        part = parts->at(k);
+        itr = copy(part.begin(), part.end(), itr);
+        *itr = pivots[k];
+        itr++;
+        k++;
       }
+    // copy of last part of partition (k = partition_size -1)
+    part = this->get_part(k);
+    itr = copy(part.begin(), part.end(), itr);
+
+    return sorted;
   }
 
   void show()
   {
     cout << "(Pivots)" << endl;
-    print(pivots);
+    print::to_stdout(pivots);
     cout << "(Parts)" << endl;
     for(int i=0; i < parts->size(); i++)
     {
-      print(parts->at(i));
+      print::to_stdout(parts->at(i));
     }
-    
   }
 
   vector<T> get_part(unsigned int k)
@@ -62,14 +76,22 @@ public:
    * return the part k of the partition
    */
   {
-    unsigned int length = parts->size();
-    if (k >= length)
+    try
       {
-        string warning = "Index out of range";
-        throw out_of_range(warning.c_str());
+        unsigned int length = parts->size();
+        if (k >= length)
+          {
+            string warning = "Index out of range";
+            throw out_of_range(warning.c_str());
+          }
+
+        return parts->at(k);
       }
-    else
-      return parts->at(k);
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
   }
 
   void set_part(unsigned int k, vector<T> new_part)
@@ -77,14 +99,22 @@ public:
    * set the part k of the partition with new elements
    */
   {
-    unsigned int length = parts->size();
-    if (k >= length)
+    try
       {
-        string warning = "Index out of range";
-        throw out_of_range(warning.c_str());
+        unsigned int length = parts->size();
+        if (k >= length)
+          {
+            string warning = "Index out of range";
+            throw out_of_range(warning.c_str());
+          }
+
+        parts->at(k) = new_part;
       }
-    else
-      parts->at(k) = new_part;
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
   }
   template<typename T1, class SortAlgorithm>
   vector<T1> sort_part(unsigned int k, bool verbose, SortAlgorithm f)

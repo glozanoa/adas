@@ -77,10 +77,11 @@ void print(vector<T> elements)
   }
 }*/
 
-//Funcion print agregada por rubeen
-void print(std::vector<int> const &input){
-  std::copy(input.begin(), input.end(),std::ostream_iterator<int>(std::cout," "));
-}
+// duplicate function
+// //Funcion print agregada por rubeen
+// void print(std::vector<int> const &input){
+//   std::copy(input.begin(), input.end(),std::ostream_iterator<int>(std::cout," "));
+// }
 
 void print_file(ifstream file)
 {

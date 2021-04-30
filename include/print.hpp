@@ -15,6 +15,18 @@ using namespace std;
 
 namespace print
 {
+  template<typename T>
+  void to_stdout(T container)
+  {
+    typename T::iterator itr;
+    for(itr=container.begin(); itr!=container.end(); itr++)
+      {
+        cout << *itr << " ";
+      }
+    cout << endl;
+  }
+
+
   template<typename ForwardIterator>
   void to_stdout(ForwardIterator first, ForwardIterator last)
   {

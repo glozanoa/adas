@@ -8,14 +8,14 @@ TDIR_BASE = tests/base
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort #partition quicksort
+SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort #partition quicksort
 SEARCH_EXEC = secuential binary
-BASE_EXEC =	matrix tree binary_tree gaps node
+BASE_EXEC =	matrix tree binary_tree gaps node heap
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
 #LDIR =../lib
 
 #LIBS=-lm
-_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp binary_tree.hpp node.hpp
+_DEPS = sort.hpp helper.hpp search.hpp cast.hpp matrix.hpp timer.hpp tree.hpp binary_tree.hpp node.hpp heap.hpp
 _EDEP = matrix.hpp node.hpp # include/exceptions/*.hpp (exception head files)
 
 EDEPS = $(patsubst %,$(EDIR)/%,$(_EDEPS))
@@ -58,6 +58,9 @@ $(ODIR)/%.o: $(TDIR_SEARCH)/%.cpp $(DEPS)
 matrix:	$(ODIR)/matrix.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
+heap:	$(ODIR)/heap.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
 tree: $(ODIR)/tree.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
@@ -81,6 +84,9 @@ extern_merge:	$(ODIR)/extern_merge.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 binary_insertion:	$(ODIR)/binary_insertion.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+heap_sort:	$(ODIR)/heap_sort.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 insertion:	$(ODIR)/insertion.o

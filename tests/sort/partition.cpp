@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "../../include/partition.hpp"
@@ -13,8 +14,7 @@ int main()
 {
   vector<int> numbers = {72, 64, 50, 23, 84, 18, 37, 99, 45, 8};
   vector<int> pivots = {50, 18, 99};
-
-  Partition<int> p(pivots, numbers);
+  Partition <int> p(pivots, numbers);
 
   p.show();
 

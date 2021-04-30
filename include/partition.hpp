@@ -10,19 +10,23 @@
 #include <vector>
 using namespace std;
 
-//#include "sort.hpp"
+//#include "sort.hpp"}
 #include "helper.hpp"
 
-template<typename T>
+template<class T>
 class Partition
 {
 private:
-  vector<T> pivots;
   vector<vector<T>>* parts;
-
+  vector<T> pivots;
+  vector<T> elements;
 public:
-  Partition(vector<T> unsort_pivots, vector<T> elements)
+  Partition(vector<T> pivots, vector<T> elements)
   {
+    //constructor
+    this->pivots = pivots;
+    this->elements = elements;
+
     //pivots = Sort<T>::bubble(unsort_pivots, false); USER <algorithms> library
     parts = Partition<T>::generate(pivots, elements);
   }
@@ -45,10 +49,12 @@ public:
   {
     cout << "(Pivots)" << endl;
     print(pivots);
-
     cout << "(Parts)" << endl;
     for(int i=0; i < parts->size(); i++)
+    {
       print(parts->at(i));
+    }
+    
   }
 
   vector<T> get_part(unsigned int k)
@@ -80,14 +86,14 @@ public:
     else
       parts->at(k) = new_part;
   }
-
-  vector<T> sort_part(unsigned int k, bool verbose, SortAlgorithm f)
+  template<typename T1, class SortAlgorithm>
+  vector<T1> sort_part(unsigned int k, bool verbose, SortAlgorithm f)
   /*
    * Sort part k with f sort algorithm
    */
   {
-    vector<T> part = this->get_part(k);
-    vector<T> sorted_part;
+    vector<T1> part = this->get_part(k);
+    vector<T1> sorted_part;
 
     sorted_part = f(part, verbose);
     this->set_part(k, sorted_part);
@@ -120,5 +126,4 @@ public:
     return parts;
   }
 };
-
 #endif // _PARTITION_H

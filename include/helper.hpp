@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <fstream>
+#include <iterator>
 #include <cmath>
 #include "omp.h"
 using namespace std;
@@ -32,11 +33,11 @@ unsigned int three_smooth(int p, int q)
   return pow(2, p)*pow(3, q);
 }
 
-template<class ForwardIterator>
-ForwardIterator minimum(ForwardIterator first, ForwardIterator last)
+template<class Iterator>
+Iterator minimum(Iterator first, Iterator last)
 {
-  RandomAccessIterator min;
-  RandomAccessIterator itr = first;
+  Iterator min = first;
+  Iterator itr = first;
   while(++itr != last)
     {
       if(*itr < *min)
@@ -61,18 +62,25 @@ ForwardIterator minimum(ForwardIterator first, ForwardIterator last)
 //   cout  << endl;
 // }
 
-// template<typename T>
-// void print(T elements)
-// /*
-//  * print a container (vector, list, ...) in list form
-//  */
-// {
-//   typename T::iterator itr;
+/*template<typename T>
+void print(vector<T> elements)
+ /*
+  * print a container (vector, list, ...) in list form
+  
+{
+  typename T::iterator itr;
 
-//   for(itr=elements.begin(); itr!=elements.end();itr++)
-//     cout << *itr << ", ";
-//   cout  << endl;
-// }
+  for(itr=elements.begin(); itr!=elements.end();itr++)
+  {
+    cout << *itr << ", ";
+    cout  << endl;
+  }
+}*/
+
+//Funcion print agregada por rubeen
+void print(std::vector<int> const &input){
+  std::copy(input.begin(), input.end(),std::ostream_iterator<int>(std::cout," "));
+}
 
 void print_file(ifstream file)
 {

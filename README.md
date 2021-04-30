@@ -20,7 +20,7 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
-|-----------|------------|
+
 | Algorithm | Efficiency |
 |-----------|------------|
 | bubble    |            |
@@ -29,7 +29,6 @@ EXAMPLES STRUCTURE
 | selection |            |
 | merge     |            |
 | heap sort | O(n log n) |
-|-----------|------------|
 
 
 # Compilation

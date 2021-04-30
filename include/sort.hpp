@@ -191,6 +191,7 @@ namespace sort
       }
   }
 
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator>
   void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
   {

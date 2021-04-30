@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
+//#include <list>
 using namespace std;
 
 #include "../../include/sort.hpp"
@@ -18,6 +18,7 @@ int main()
   Timer time;
   time.start();
 
+  // READING NUMBERS FROM FILE ONLY FOR TESTING PURPOSES
   ifstream fn("tests/data/random.txt");
 
   vector<int> numbers;
@@ -32,24 +33,13 @@ int main()
   time.stop();
   time.report("Elapsed time (read)");
 
-
   //vector<int> numbers = {2, 7, 1, 9};
 
   time.start();
-  sort::selection(numbers.begin(), numbers.end(), false);
+  cout << "Selection sort" << endl;
+  sort::selection(numbers.begin(), numbers.end(), true);
   time.stop();
   time.report("Elapsed time (sort)");
-
-  time.start();
-  ofstream sn("tests/data/random.txt.selection.sorted");
-
-  for(int number: numbers)
-    sn << number << endl;
-
-  time.stop();
-  time.report("Elapsed time (write)");
-
-  sn.close();
   fn.close();
 
   return 0;

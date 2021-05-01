@@ -20,27 +20,52 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
-```latex
-\sum_{i=0}^{n}\alpha_{i} = 1
-```
 
-$\sum_{i=0}^{n}\alpha_{i} = 1$
+<table>
+    <tr>
+        <th> TYPE </th>
+        <th> NAME </th>
+        <th> EFFICIENCY </th>
+    </tr>
+    <tr>
+        <td> Sort </td>
+        <table>
+            <tr>
+                <th> Bubble </th>
+                <th> BUBBLE_COMPLEXITY </th>
+            </tr>
+            <tr>
+                <th> Bibubble </th>
+                <th> BIBUBBLE_COMPLEXITY </th>
+            </tr>
+            <tr>
+                <th> Insertion </th>
+                <th> INSERTION_COMPLEXITY </th>
+            </tr>
+            <tr>
+                <th> Selection </th>
+                <th> SELECTION_COMPLEXITY </th>
+            </tr>
+            <tr>
+                <th> Merge </th>
+                <th> MERGE_COMPLEXITY </th>
+            </tr>
+            <tr>
+                <th> HeapSort </th>
+                <th> HEAPSORT_COMPLEXITY </th>
+            </tr>
+        </table>
+    </tr>
+</table>
 
-[[
-\sum_{i=0}^{n}\alpha_{i} = 1
-]]
-$$
-\sum_{i=0}^{n}\alpha_{i} = 1
-$$
-
-| Algorithm | Efficiency |
-|-----------|------------|
-| bubble    |            |
-| bibubble  |            |
-| insertion |            |
-| selection |            |
-| merge     |            |
-| heap sort | O(n log n) |
+<!-- | Algorithm | Efficiency | -->
+<!-- |-----------|------------| -->
+<!-- | bubble    |            | -->
+<!-- | bibubble  |            | -->
+<!-- | insertion |            | -->
+<!-- | selection |            | -->
+<!-- | merge     |            | -->
+<!-- | heap sort | O(n log n) | -->
 
 
 # Compilation

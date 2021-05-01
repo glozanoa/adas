@@ -75,7 +75,7 @@ EXAMPLES STRUCTURE
                     <th> MERGE_COMPLEXITY </th>
                 </tr>
                 <tr>
-                    <th> HEAPSORT_COMPLEXITY </th>
+                    <th> `HEAPSORT_COMPLEXITY` </th>
                 </tr>
             </table>
         </td>

@@ -20,118 +20,25 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
+* `Sort Algorithms`
+| Algorithm | Efficiency   |
+|-----------|--------------|
+| Bubble    |              |
+| Bibubble  |              |
+| Insertion |              |
+| Selection |              |
+| Merge     |              |
+| HeapSort  | `O(n log n)` |
 
-<table>
-    <tr>
-        <th> TYPE </th>
-        <th> NAME </th>
-        <th> EFFICIENCY </th>
-    </tr>
-    <tr>
-        <td> Sort </td>
-        <td>
-            <table>
-                <tr>
-                    <th> Bubble </th>
-                </tr>
-                <tr>
-                    <th> Bibubble </th>
-                </tr>
-                <tr>
-                    <th> Insertion </th>
-                </tr>
-                <tr>
-                    <th> Selection </th>
-                </tr>
-                <tr>
-                    <th> Merge </th>
-                </tr>
-                <tr>
-                    <th> HeapSort </th>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <th> BUBBLE_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> BIBUBBLE_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> INSERTION_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> SELECTION_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> MERGE_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> HEAPSORT_COMPLEXITY </th>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td> Search </td>
-        <td>
-            <table>
-                <tr>
-                    <th> A1 </th>
-                </tr>
-                <tr>
-                    <th> A2 </th>
-                </tr>
-                <tr>
-                    <th> A3 </th>
-                </tr>
-                <tr>
-                    <th> A4 </th>
-                </tr>
-                <tr>
-                    <th> A5 </th>
-                </tr>
-                <tr>
-                    <th> A6 </th>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <th> A1_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> A2_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> A3_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> A4_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> A5_COMPLEXITY </th>
-                </tr>
-                <tr>
-                    <th> A6_COMPLEXITY </th>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-
-<!-- | Algorithm | Efficiency | -->
-<!-- |-----------|------------| -->
-<!-- | bubble    |            | -->
-<!-- | bibubble  |            | -->
-<!-- | insertion |            | -->
-<!-- | selection |            | -->
-<!-- | merge     |            | -->
-<!-- | heap sort | O(n log n) | -->
-
+* `Search Algorithms` (UPDATE)
+| Algorithm | Efficiency   |
+|-----------|--------------|
+| Bubble    |              |
+| Bibubble  |              |
+| Insertion |              |
+| Selection |              |
+| Merge     |              |
+| HeapSort  | `O(n log n)` |
 
 # Compilation
 * To compile all examples:

@@ -29,32 +29,34 @@ EXAMPLES STRUCTURE
     </tr>
     <tr>
         <td> Sort </td>
-        <table>
-            <tr>
-                <th> Bubble </th>
-                <th> BUBBLE_COMPLEXITY </th>
-            </tr>
-            <tr>
-                <th> Bibubble </th>
-                <th> BIBUBBLE_COMPLEXITY </th>
-            </tr>
-            <tr>
-                <th> Insertion </th>
-                <th> INSERTION_COMPLEXITY </th>
-            </tr>
-            <tr>
-                <th> Selection </th>
-                <th> SELECTION_COMPLEXITY </th>
-            </tr>
-            <tr>
-                <th> Merge </th>
-                <th> MERGE_COMPLEXITY </th>
-            </tr>
-            <tr>
-                <th> HeapSort </th>
-                <th> HEAPSORT_COMPLEXITY </th>
-            </tr>
-        </table>
+        <td>
+            <table>
+                <tr>
+                    <th> Bubble </th>
+                    <th> BUBBLE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> Bibubble </th>
+                    <th> BIBUBBLE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> Insertion </th>
+                    <th> INSERTION_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> Selection </th>
+                    <th> SELECTION_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> Merge </th>
+                    <th> MERGE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> HeapSort </th>
+                    <th> HEAPSORT_COMPLEXITY </th>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 

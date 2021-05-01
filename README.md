@@ -26,4 +26,8 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | Insertion |              |
 | Selection |              |
 | Merge     |              |
-| HeapSort  | `O(n log n)` |
+| HeapSort  | `O(n log n)** |
+
+
+**NOTE:**  
+For more details about `Depencendes`, `Usage` of algorithms, defined data structures and utilities check our [wiki](https://github.com/glozanoa/algorithms/wiki).

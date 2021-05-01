@@ -4,7 +4,7 @@ C++ Algortihms and Data Structures for `CC232`.
 Almost all algorithms use iterators and the defined data structures use templates, so you can use each algorithm in a variety of containers.  
 Also we try to codify some algorithms with `OpenMP` support, so you can use them to process efficiently large amounts of data.
 
-## Developed Algorithms
+## Developed Algorithms and data structures
 
 * `Sort Algorithms`
 
@@ -27,6 +27,9 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | Selection |              |
 | Merge     |              |
 | HeapSort  | `O(n log n)** |
+
+
+* `Data Structures`: 
 
 
 **NOTE:**  

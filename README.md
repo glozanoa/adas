@@ -57,6 +57,28 @@ EXAMPLES STRUCTURE
                 </tr>
             </table>
         </td>
+        <td>
+            <table style="margin: 0px; padding: 5px; border: 1px solid #808080; text-align: left;">
+                <tr>
+                    <th> BUBBLE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> BIBUBBLE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> INSERTION_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> SELECTION_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> MERGE_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> HEAPSORT_COMPLEXITY </th>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 

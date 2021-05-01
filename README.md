@@ -20,9 +20,13 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
+$\sum_{i=0}^{n}\alpha_{i} = 1$
 
+[[
+\sum_{i=0}^{n}\alpha_{i} = 1
+]]
 $$
-    \sum_{i=0}^{n}\alpha_{i} = 1
+\sum_{i=0}^{n}\alpha_{i} = 1
 $$
 
 | Algorithm | Efficiency |

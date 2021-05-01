@@ -21,6 +21,7 @@ EXAMPLES STRUCTURE
 ## Developed Algorithms
 
 * `Sort Algorithms`
+
 | Algorithm | Efficiency   |
 |-----------|--------------|
 | Bubble    |              |
@@ -31,6 +32,7 @@ EXAMPLES STRUCTURE
 | HeapSort  | `O(n log n)` |
 
 * `Search Algorithms` (UPDATE)
+
 | Algorithm | Efficiency   |
 |-----------|--------------|
 | Bubble    |              |

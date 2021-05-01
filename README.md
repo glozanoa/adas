@@ -33,27 +33,27 @@ EXAMPLES STRUCTURE
             <table>
                 <tr>
                     <th> Bubble </th>
-                    <th> BUBBLE_COMPLEXITY </th>
+                    <!-- <th> BUBBLE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Bibubble </th>
-                    <th> BIBUBBLE_COMPLEXITY </th>
+                    <!-- <th> BIBUBBLE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Insertion </th>
-                    <th> INSERTION_COMPLEXITY </th>
+                    <!-- <th> INSERTION_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Selection </th>
-                    <th> SELECTION_COMPLEXITY </th>
+                    <!-- <th> SELECTION_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Merge </th>
-                    <th> MERGE_COMPLEXITY </th>
+                    <!-- <th> MERGE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> HeapSort </th>
-                    <th> HEAPSORT_COMPLEXITY </th>
+                    <!-- <th> HEAPSORT_COMPLEXITY </th> -->
                 </tr>
             </table>
         </td>

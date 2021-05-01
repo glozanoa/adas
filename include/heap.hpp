@@ -15,7 +15,7 @@ using namespace std;
 #include "helper.hpp"
 #include "print.hpp"
 
-template<typename T>
+template<class T>
 class Heap
 {
 private:
@@ -30,8 +30,56 @@ public:
     size = keys.size();
   }
 
+  unsigned int get_nkeys(){return keys.size();}
+
+  T get_key(unsigned int k)
+  {
+    try
+      {
+        if(k >= size)
+          throw out_of_range("(get_key function) Index of key out of range.");
+        return keys[K];
+      }
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  T get_parent_key(unsigned int k)
+  {
+    try
+      {
+        if(k >= size)
+          throw out_of_range("(get_parent_key function) Index of key out of range.");
+        k/=2;
+        return keys[K];
+      }
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  void set_key(unsigned int k, T key)
+  {
+    try
+      {
+        if(k >= size)
+          throw out_of_range("(set_key function) Index of key out of range.");
+        keys[K] = key;
+      }
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
 
   T get_root(){return keys[0];}
+  vector<T> get_keys(){return keys;}
   void interchange(unsigned int k, unsigned int i)
   /*
    * Interchange element on the heap
@@ -79,6 +127,16 @@ public:
   {
     for(int i = size/2; i>=0; i--)
       this->max_heapify(i, verbose);
+  }
+
+  void min_heapify(int i, bool verbose)
+  {
+    // IMPLEMENT ME
+  }
+
+  void build_min_heap(bool verbose)
+  {
+    // IMPLEMENT ME
   }
 
   // void build_max_heap()

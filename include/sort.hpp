@@ -220,27 +220,24 @@ namespace sort
   }
 
 
-  // debuged - date Apr 30 2021
   // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
   template <class T>
   vector<T> heap_sort(vector<T> keys)
   {
-    vector<T> sorted;
+    //vector<T> sorted;
     Heap<T> heap = Heap<T>(keys);
     heap.build_max_heap(false);
-    int heap_size = heap.get_size();
 
-    while(heap_size > 0)
+    for(int heap_size=heap.get_size(); heap_size>1; heap_size--)
       {
-        T max = heap.get_root();
         heap.interchange(0, heap_size-1);
-        sorted.push_back(max);
         heap.resize(heap_size-1);
         heap.max_heapify(0, false);
         heap_size = heap.get_size();
       }
 
-    return sorted;
+    //return sorted;
+    return heap.get_keys();
   }
 
 

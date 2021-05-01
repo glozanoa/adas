@@ -20,6 +20,10 @@ EXAMPLES STRUCTURE
 ```
 ## Developed Algorithms
 
+```latex
+\sum_{i=0}^{n}\alpha_{i} = 1
+```
+
 $\sum_{i=0}^{n}\alpha_{i} = 1$
 
 [[

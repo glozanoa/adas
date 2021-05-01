@@ -30,7 +30,7 @@ EXAMPLES STRUCTURE
     <tr>
         <td> Sort </td>
         <td>
-            <table style="border: 1px dashed; width: 500px;">
+            <table style="margin: 0px; padding: 5px; border: 1px solid #808080; text-align: left;">
                 <tr>
                     <th> Bubble </th>
                     <!-- <th> BUBBLE_COMPLEXITY </th> -->

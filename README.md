@@ -30,35 +30,29 @@ EXAMPLES STRUCTURE
     <tr>
         <td> Sort </td>
         <td>
-            <table style="margin: 0px; padding: 5px; border: 1px solid #808080; text-align: left;">
+            <table>
                 <tr>
                     <th> Bubble </th>
-                    <!-- <th> BUBBLE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Bibubble </th>
-                    <!-- <th> BIBUBBLE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Insertion </th>
-                    <!-- <th> INSERTION_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Selection </th>
-                    <!-- <th> SELECTION_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> Merge </th>
-                    <!-- <th> MERGE_COMPLEXITY </th> -->
                 </tr>
                 <tr>
                     <th> HeapSort </th>
-                    <!-- <th> HEAPSORT_COMPLEXITY </th> -->
                 </tr>
             </table>
         </td>
         <td>
-            <table style="margin: 0px; padding: 5px; border: 1px solid #808080; text-align: left;">
+            <table>
                 <tr>
                     <th> BUBBLE_COMPLEXITY </th>
                 </tr>
@@ -75,7 +69,54 @@ EXAMPLES STRUCTURE
                     <th> MERGE_COMPLEXITY </th>
                 </tr>
                 <tr>
-                    <th> `HEAPSORT_COMPLEXITY` </th>
+                    <th> HEAPSORT_COMPLEXITY </th>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td> Search </td>
+        <td>
+            <table>
+                <tr>
+                    <th> A1 </th>
+                </tr>
+                <tr>
+                    <th> A2 </th>
+                </tr>
+                <tr>
+                    <th> A3 </th>
+                </tr>
+                <tr>
+                    <th> A4 </th>
+                </tr>
+                <tr>
+                    <th> A5 </th>
+                </tr>
+                <tr>
+                    <th> A6 </th>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th> A1_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> A2_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> A3_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> A4_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> A5_COMPLEXITY </th>
+                </tr>
+                <tr>
+                    <th> A6_COMPLEXITY </th>
                 </tr>
             </table>
         </td>

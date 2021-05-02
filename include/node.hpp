@@ -34,6 +34,12 @@ public:
     : key{key}, parent{parent}, children{children}
   {
     parent->add_child(this);
+
+    for(Node<T>* child: children)
+      {
+        if(child != nullptr)
+          this->add_child(child);
+      }
   }
 
   T get_key(){return key;}
@@ -73,13 +79,13 @@ public:
     //parent->add_child(this); // NOTE
   }
 
-  bool equal_children(Node<T> node)
+  bool equal_children(Node<T>* node)
   {
     // implemnt a more efficient algorithm to compare 2 sets
     // using this theorem:
     // A = B  <-> A c B and |A| = |B|
 
-    list<Node<T>*> node_children = node.get_children();
+    list<Node<T>*> node_children = node->get_children();
     if(this->children.size() != node_children.size())
       return false;
 
@@ -90,38 +96,40 @@ public:
     return true;
   }
 
-  bool operator==(Node<T> node)
+  bool is_equal(Node<T>* node)
   {
-    //bool are_equal = true;
-
-    Node<T>* parent_node = node.get_parent();
-    unsigned int node_depth = node.get_depth();
-    T node_key = node.get_key();
+    unsigned int node_depth = node->get_depth();
+    T node_key = node->get_key();
 
     if(depth != node_depth || key != node_key)
+      return false;
+
+    Node<T>* parent_node = node->get_parent();
+    if(parent == parent_node) // pointer comparison
       return false;
 
     if(!this->equal_children(node))
       return false;
 
-    if((parent == nullptr && parent_node != nullptr) ||
-       (parent != nullptr && parent_node == nullptr) ||
-       !(parent != nullptr && parent_node != nullptr && *parent == *parent_node))
-      return false;
-
     return true;
   }
 
-  bool has_child(BinaryNode<T>* node)
+  bool operator==(Node<T> node)
   {
-    if(*this == *node) 
-      return true;
+    return this->is_equal(&node);
+  }
+
+  bool has_child(Node<T>* node)
+  {
     // implemet a more efficient search (BINARY SEARCH)
-    for(BinaryNode<T>* child: children)
-      {
-        if(child != nullptr && child.has_child(node))
-          return true;
-      }
+    unsigned int node_depth = node->get_depth();
+    if(node_depth != depth+1)
+      return false;
+
+    for(Node<T>* child : children)
+      if(child == node) //pointer comparison
+        return true;
+
     return false;
   }
 

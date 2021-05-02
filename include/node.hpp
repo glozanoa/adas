@@ -105,7 +105,7 @@ public:
       return false;
 
     Node<T>* parent_node = node->get_parent();
-    if(parent == parent_node) // pointer comparison
+    if(!(parent == parent_node)) // pointer comparison
       return false;
 
     if(!this->equal_children(node))

@@ -71,15 +71,15 @@ int main()
   cout << r;
 
   // NOTE: Segmentation fault ERROR - REMOVE IT  (date: May 2 2021)
-  // are_equal_nodes = a0->is_equal(a1);
+  are_equal_nodes = a0->is_equal(a1);
 
-  // cout << "a0 == a1 : " << are_equal_nodes << endl;
+  cout << "(Node<T> method comparison) a0 == a1 : " << are_equal_nodes << endl;
 
   // pointer comparison
-  if(a0 == a1)
-    cout << "(pointer comparison) a0 == a1" << endl;
-  else
-    cout << "(pointer comparison) a0 != a1" << endl;
+  if(a0 == a1) are_equal_nodes = true;
+  else are_equal_nodes = false;
+
+  cout << "(pointer comparison) a0 == a1: " << are_equal_nodes << endl;
 
   return 0;
 }

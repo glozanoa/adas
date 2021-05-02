@@ -38,7 +38,7 @@ public:
       {
         if(k >= size)
           throw out_of_range("(get_key function) Index of key out of range.");
-        return keys[K];
+        return keys[k];
       }
     catch(exception& error)
       {
@@ -54,7 +54,7 @@ public:
         if(k >= size)
           throw out_of_range("(get_parent_key function) Index of key out of range.");
         k/=2;
-        return keys[K];
+        return keys[k];
       }
     catch(exception& error)
       {
@@ -69,7 +69,7 @@ public:
       {
         if(k >= size)
           throw out_of_range("(set_key function) Index of key out of range.");
-        keys[K] = key;
+        keys[k] = key;
       }
     catch(exception& error)
       {

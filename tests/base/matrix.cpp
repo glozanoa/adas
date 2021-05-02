@@ -1,5 +1,5 @@
 /*
- * Test of matrix base class
+ * Test of matrix template class
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -9,44 +9,46 @@
 using namespace std;
 
 #include "../../include/matrix.hpp"
-#include "../../include/timer.hpp"
+#include "../../include/print.hpp"
 
 int main()
 {
 
-  Timer timer;
-  timer.start();
+  vector<int> data1 = {1, 2, 3, 4, 5, 6};
+  Matrix<int> mtx = Matrix<int>(2, 3, data1);
+
+  vector<int> data2 = {5, 3, 1, 0, 2, 7};
+  Matrix<int> other = Matrix<int>(2, 3, data2);
+
+  // << operator for Matrix<T>
+  cout << "mtx:" << endl;
+  cout << mtx << endl;
+
+  cout << "other:" << endl;
+  cout << other << endl;
+
+  // operation with matrix rows and columns
+  vector<int> row0 = mtx.get_row(0);
+  cout << "row 0 of mtx: ";
+  print::to_stdout(row0);
+
+  cout << "column 0 of mtx: ";
+  vector<int> col0 = mtx.get_col(0);
+  print::to_stdout(col0);
+
+  // () operator
+
+  int mtx12 = mtx(1, 2);
+  cout << "mtx(1, 2) = " << mtx12 << endl;
 
 
-  for(int i=1; i<=20; i++)
-    {
-      for(int j=1; j<=20; j++)
-        cout << i << " x " << j << " = " << i*j << endl;
-      cout << endl;
-    }
+  // arithmetic operations with matrix
+  cout << endl;
+  cout << "mtx + other:" << endl;
+  cout << mtx + other << endl;
 
-
-
-  //vector<int> data1 = {1, 2, 3, 4, 5, 6};
-  //Matrix<int> mtx(2, 3, data1);
-
-  // vector<int> data2 = {5, 3, 1, 0, 2, 7};
-  // Matrix<int> other(2, 3, data2);
-
-  // cout << "mtx:" << endl;
-  // cout << mtx << endl;
-
-  // cout << "other:" << endl;
-  // cout << other << endl;
-
-  // cout << "mtx + other:" << endl;
-  // cout << mtx + other << endl;
-
-  // cout << "mtx - other:" << endl;
-  // cout << mtx - other << endl;
-
-  timer.stop();
-  timer.default_report();
+  cout << "mtx - other:" << endl;
+  cout << mtx - other << endl;
 
   return 0;
 }

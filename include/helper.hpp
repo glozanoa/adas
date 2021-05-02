@@ -17,7 +17,7 @@ using namespace std;
 
 #include "cast.hpp"
 
-
+//tested - date May 1 2021
 template<class Iterator>
 void interchange_values(Iterator itr1, Iterator itr2)
 {
@@ -26,7 +26,7 @@ void interchange_values(Iterator itr1, Iterator itr2)
   *itr2 = aux;
 }
 
-
+//tested - date May 1 2021
 string repeat(string str, int n)
 {
   string repeat_str= "";
@@ -36,6 +36,7 @@ string repeat(string str, int n)
   return repeat_str;
 }
 
+//tested - date May 1 2021
 unsigned int three_smooth(int p, int q)
 /*
  * return 2**p * 3**q
@@ -44,6 +45,8 @@ unsigned int three_smooth(int p, int q)
   return pow(2, p)*pow(3, q);
 }
 
+// MOVE TO search.hpp header file
+//tested - date May 1 2021
 template<class Iterator>
 Iterator minimum(Iterator first, Iterator last)
 {
@@ -57,63 +60,26 @@ Iterator minimum(Iterator first, Iterator last)
   return min;
 }
 
-
-// helper functions
-
-// template<class RandomAccessIterator>
-// void print(RandomAccessIterator first, RandomAccessIterator last)
-// /*
-//  * print a container (vector, list, ...) in list form using iterators
-//  */
+// void print_file(ifstream file)
 // {
-//   RandomAccessIterator itr;
-
-//   for(itr=first; itr!=last; itr++)
-//     cout << *itr << ", ";
-//   cout  << endl;
+//   //file.open();
+//   string line;
+//   while(getline(file, line))
+//     {
+//       cout << line << endl;
+//     }
+//   file.close();
 // }
 
-/*template<typename T>
-void print(vector<T> elements)
- /*
-  * print a container (vector, list, ...) in list form
-  
-{
-  typename T::iterator itr;
+// template<typename T>
+// T readline(ifstream file)
+// {
+//   string line;
 
-  for(itr=elements.begin(); itr!=elements.end();itr++)
-  {
-    cout << *itr << ", ";
-    cout  << endl;
-  }
-}*/
+//   getline(file, line);
+//   T r = str2<T>(line); // cast string to T type
 
-// duplicate function
-// //Funcion print agregada por rubeen
-// void print(std::vector<int> const &input){
-//   std::copy(input.begin(), input.end(),std::ostream_iterator<int>(std::cout," "));
+//   return r;
 // }
-
-void print_file(ifstream file)
-{
-  //file.open();
-  string line;
-  while(getline(file, line))
-    {
-      cout << line << endl;
-    }
-  file.close();
-}
-
-template<typename T>
-T readline(ifstream file)
-{
-  string line;
-
-  getline(file, line);
-  T r = str2<T>(line); // cast string to T type
-
-  return r;
-}
 
 #endif //_HELPER_H

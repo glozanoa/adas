@@ -121,14 +121,14 @@ public:
     if(type == QT::MAX_PRIORITY)
       {
         unsigned int nkeys = this->get_nkeys();
-        if(size < nkeys)
-          this->set_key(size, key);
+        if(this->size < nkeys)
+          this->set_key(this->size, key);
         else // size == nkeys, so we need to expand the vector keys
           {
             this->keys.push_back(0);
-            this->increase_key(size, key);
+            this->increase_key(this->size, key);
           }
-        this->resize(size+1);
+        this->resize(this->size+1);
       }
     else
       {

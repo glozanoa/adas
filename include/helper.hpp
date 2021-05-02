@@ -7,6 +7,7 @@
 #ifndef _HELPER_H
 #define _HELPER_H
 
+#include <iostream>
 #include <vector>
 #include <fstream>
 #include <iterator>
@@ -15,6 +16,16 @@
 using namespace std;
 
 #include "cast.hpp"
+
+
+template<class Iterator>
+void interchange_values(Iterator itr1, Iterator itr2)
+{
+  auto aux = *itr1;
+  *itr1 = *itr2;
+  *itr2 = aux;
+}
+
 
 string repeat(string str, int n)
 {

@@ -17,16 +17,8 @@ using namespace std;
 #include "cast.hpp"
 #include "timer.hpp"
 #include "print.hpp"
+#include "heap.hpp"
 //#include "partition.hpp"
-
-
-template<class Iterator>
-void interchange_values(Iterator itr1, Iterator itr2)
-{
-  auto aux = *itr1;
-  *itr1 = *itr2;
-  *itr2 = aux;
-}
 
 
 namespace sort
@@ -72,7 +64,7 @@ namespace sort
 
 
 
-  // tested - date Apr 21 2021
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator>
   void insertion(RandomAccessIterator first, RandomAccessIterator last,
                  bool verbose, bool timer)
@@ -111,6 +103,7 @@ namespace sort
       }
   }
 
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator, class Compare>
   void insertion(RandomAccessIterator first, RandomAccessIterator last, Compare comp,
                  bool verbose, bool timer)
@@ -191,6 +184,7 @@ namespace sort
       }
   }
 
+  // tested - date Apr 30 2021
   template<class RandomAccessIterator>
   void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
   {
@@ -223,6 +217,27 @@ namespace sort
 
         *result++ = (*first2 < *first1)? *first2++ : *first1++;
       }
+  }
+
+
+  // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
+  template <class T>
+  vector<T> heap_sort(vector<T> keys)
+  {
+    //vector<T> sorted;
+    Heap<T> heap = Heap<T>(keys);
+    heap.build_max_heap(false);
+
+    for(int heap_size=heap.get_size(); heap_size>1; heap_size--)
+      {
+        heap.interchange(0, heap_size-1);
+        heap.resize(heap_size-1);
+        heap.max_heapify(0, false);
+        heap_size = heap.get_size();
+      }
+
+    //return sorted;
+    return heap.get_keys();
   }
 
 

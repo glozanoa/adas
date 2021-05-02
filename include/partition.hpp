@@ -11,7 +11,7 @@
 #include <iterator>
 using namespace std;
 
-//#include "sort.hpp"}
+//#include "sort.hpp"
 #include "helper.hpp"
 #include "print.hpp"
 
@@ -54,7 +54,7 @@ public:
         k++;
       }
     // copy of last part of partition (k = partition_size -1)
-    part = this->parts(k);
+    part = this->get_part(k);
     itr = copy(part.begin(), part.end(), itr);
 
     return sorted;
@@ -116,6 +116,7 @@ public:
         exit(EXIT_FAILURE);
       }
   }
+
   template<typename T1, class SortAlgorithm>
   vector<T1> sort_part(unsigned int k, bool verbose, SortAlgorithm f)
   /*

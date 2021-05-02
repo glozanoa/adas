@@ -18,25 +18,25 @@ template<typename T>
 class Node
 {
 protected:
-  T data;
+  T key;
   unsigned int depth;
   Node<T>* parent;
   list<Node<T>*> children;
 
 public:
-  Node(T data): data{data}, parent{nullptr}, depth{0} {}
-  Node(T data, Node<T>* parent): data{data}, parent{parent}
+  Node(T key): key{key}, parent{nullptr}, depth{0} {}
+  Node(T key, Node<T>* parent): key{key}, parent{parent}
   {
     parent->add_child(this);
   }
 
-  Node(T data, Node<T>* parent, list<Node<T>*> children)
-    : data{data}, parent{parent}, children{children}
+  Node(T key, Node<T>* parent, list<Node<T>*> children)
+    : key{key}, parent{parent}, children{children}
   {
     parent->add_child(this);
   }
 
-  T get_data(){return data;}
+  T get_key(){return key;}
   Node<T>* get_parent(){return parent;}
   void set_depth(unsigned int tree_depth)
   {
@@ -96,9 +96,9 @@ public:
 
     Node<T>* parent_node = node.get_parent();
     unsigned int node_depth = node.get_depth();
-    T node_data = node.get_data();
+    T node_key = node.get_key();
 
-    if(depth != node_depth || data != node_data)
+    if(depth != node_depth || key != node_key)
       return false;
 
     if(!this->equal_children(node))
@@ -114,9 +114,8 @@ public:
 
   bool has_child(BinaryNode<T>* node)
   {
-    if(*this == *node)
+    if(*this == *node) 
       return true;
-
     // implemet a more efficient search (BINARY SEARCH)
     for(BinaryNode<T>* child: children)
       {
@@ -129,10 +128,10 @@ public:
   friend ostream& operator<<(ostream& out, Node<T>* node)
   {
     unsigned int depth = node->get_depth();
-    T data = node->get_data();
+    T key = node->get_key();
     string tab = repeat("\t", depth);
 
-    out << tab << data << endl;
+    out << tab << key << endl;
     //tab += "\t";
     for(Node<T>* child: node->get_children())
       {

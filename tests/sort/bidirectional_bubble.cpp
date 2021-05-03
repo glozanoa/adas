@@ -36,7 +36,7 @@ int main()
   //vector<int> numbers = {2, 7, 1, 9};
 
   time.start();
-  sort::bidirectional_bubble(numbers.begin(), numbers.end(), true);
+  sort::bidirectional_bubble(numbers.begin(), numbers.end(), false);
   time.stop();
   time.report("Elapsed time (sort)");
 

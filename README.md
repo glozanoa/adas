@@ -9,8 +9,8 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 + **Sort Algorithms**
 
 | Algorithm | Efficiency   | OpenMP |
-|-----------|--------------|--------|
-| Bubble    |              | []     |
+|-----------|--------------|:------:|
+| Bubble    |              | `NO`   |
 | Bibubble  |              |        |
 | Insertion |              |        |
 | Selection |              |        |
@@ -19,9 +19,9 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 + **Search Algorithms** (UPDATE)
 
-| Algorithm    | Efficiency    | OpenMP |
-|--------------|---------------|:------:|
-| BinarySearch |               | [x]    |
+| Algorithm    | Efficiency | OpenMP |
+|--------------|------------|:------:|
+| BinarySearch |            | `YES`  |
 
 
 + **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`

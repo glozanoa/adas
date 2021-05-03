@@ -24,8 +24,9 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | BinarySearch |            | `YES`  |
 
 
-+ **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
++ **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`, `Read<T>`
 
++ **Namespaces**: `print`, `sort`, `search`
 
 
 **NOTE:**  

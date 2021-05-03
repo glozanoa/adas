@@ -6,8 +6,8 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 ## Developed Algorithms and data structures
 
-+ **Sort Algorithms**
-    + With comparison
+#### Sort Algorithms
++ Sort with comparison
     
 | Algorithm | Efficiency   | OpenMP |
 |-----------|--------------|:------:|
@@ -17,14 +17,14 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | Selection |              |        |
 | Merge     |              |        |
 | HeapSort  | `O(n log n)` |        |
-
-    + Without comparison
+    
++ Sort without comparison
     
 | Algorithm | Efficiency | OpenMP |
 |-----------|------------|:------:|
 | Counting  | O(n)       | `NO`   |
 
-+ **Search Algorithms**
+#### Search Algorithms
 
 | Algorithm    | Efficiency | OpenMP |
 |--------------|------------|:------:|
@@ -32,7 +32,8 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | BinarySearch |            | `YES`  |
 
 
-+ **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
+#### Data Structures
+`Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
 
 
 

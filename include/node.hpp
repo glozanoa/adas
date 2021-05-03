@@ -1,6 +1,8 @@
 /*
  * Node Template class
  *
+ * Debuged class - May 3 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -36,10 +38,8 @@ public:
     parent->add_child(this);
 
     for(Node<T>* child: children)
-      {
-        if(child != nullptr)
-          this->add_child(child);
-      }
+      if(child != nullptr)
+        this->add_child(child);
   }
 
   T get_key(){return key;}

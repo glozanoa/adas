@@ -66,7 +66,6 @@ int main()
   cout << "(after add a1 to root's children)root node:" << endl;
   cout << r;
 
-  // NOTE: Segmentation fault ERROR - REMOVE IT  (date: May 2 2021)
   are_equal_nodes = a0->is_equal(a1);
 
   cout << "(Node<T> method comparison) a0 == a1 : " << are_equal_nodes << endl;

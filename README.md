@@ -8,25 +8,20 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 + **Sort Algorithms**
 
-| Algorithm | Efficiency   |
-|-----------|--------------|
-| Bubble    |              |
-| Bibubble  |              |
-| Insertion |              |
-| Selection |              |
-| Merge     |              |
-| HeapSort  | `O(n log n)` |
+| Algorithm | Efficiency   | OpenMP |
+|-----------|--------------|--------|
+| Bubble    |              | []     |
+| Bibubble  |              |        |
+| Insertion |              |        |
+| Selection |              |        |
+| Merge     |              |        |
+| HeapSort  | `O(n log n)` |        |
 
 + **Search Algorithms** (UPDATE)
 
-| Algorithm | Efficiency   |
-|-----------|--------------|
-| Bubble    |              |
-| Bibubble  |              |
-| Insertion |              |
-| Selection |              |
-| Merge     |              |
-| HeapSort  | `O(n log n)** |
+| Algorithm    | Efficiency    | OpenMP |
+|--------------|---------------|:------:|
+| BinarySearch |               | [x]    |
 
 
 + **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`

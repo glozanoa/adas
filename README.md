@@ -8,6 +8,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 + **Sort Algorithms**
     + With comparison
+    
 | Algorithm | Efficiency   | OpenMP |
 |-----------|--------------|:------:|
 | Bubble    |              | `NO`   |
@@ -18,6 +19,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | HeapSort  | `O(n log n)` |        |
 
     + Without comparison
+    
 | Algorithm | Efficiency | OpenMP |
 |-----------|------------|:------:|
 | Counting  | O(n)       | `NO`   |

@@ -11,7 +11,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | Algorithm | Efficiency   | OpenMP |
 |-----------|--------------|:------:|
 | Bubble    |              | `NO`   |
-| Bibubble  |              |        |
+| Bibubble  |              | `NO`   |
 | Insertion |              |        |
 | Selection |              |        |
 | Merge     |              |        |
@@ -21,12 +21,12 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 | Algorithm    | Efficiency | OpenMP |
 |--------------|------------|:------:|
+| Secuential   | `O(n)`     | `NO`   |
 | BinarySearch |            | `YES`  |
 
 
-+ **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`, `Read<T>`
++ **Data Structures**: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
 
-+ **Namespaces**: `print`, `sort`, `search`
 
 
 **NOTE:**  

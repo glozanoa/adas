@@ -9,7 +9,8 @@
 
 #include <iostream>
 #include <fstream>
-//#include <vector>
+#include <vector>
+#include <algorithm>
 //#include <cmath>
 using namespace std;
 
@@ -254,38 +255,76 @@ namespace sort
     return gaps;
   }
 
+  //debuged - date Mar 3 2021
+  template<class BidirectionalIterator>
+  vector<int> counting(BidirectionalIterator init, BidirectionalIterator last, bool verbose)
+  {
+    unsigned int nelem = distance(init, last);
+    vector<int> sorted = vector<int>(nelem);
 
-  // REWRITE USING BINARY SEARCH IN BINARY TREES
-  // static vector<int> pratt_gap_sequences(unsigned int n)
-  // {
-  //   int p = 0;
-  //   int q = 0;
-  //   int ptmp, qtmp;
-  //   vector<int> gaps = {1}; //pow(2, p)*pow(3, q)
+    auto minmax = minmax_element(init, last);
+    unsigned k = (*minmax.second - *minmax.first) +1;
+    vector<int> counter = vector<int>(k, 0);
+    vector<int>::iterator it;
 
-  //   unsigned int size = gaps.size();
-  //   while (size <= n)
-  //     {
-  //       ptmp = three_smooth(p+1, q);
-  //       qtmp = three_smooth(p, q+1);
-  //       if(ptmp > qtmp)
-  //         {
-  //           gaps.push_back(qtmp);
-  //           q++;
-  //         }
-  //       else
-  //         {
-  //           gaps.push_back(ptmp);
-  //           p++;
-  //         }
-  //       size = gaps.size();
-  //     }
+    for(it=init; it != last; it++)
+      counter[*it] += 1;
 
-  //   return gaps;
-  // }
+    if(verbose)
+      print::to_stdout("(init) counter:", counter);
 
+    for(it=counter.begin(); it != counter.end(); it++)
+      *it += *prev(it);
 
+    if(verbose)
+      print::to_stdout("(accumulated) counter:", counter);
+
+    for(it=prev(last); it != prev(init); it--)
+      {
+        sorted[counter[*it]-1] = *it;
+        counter[*it] -= 1;
+        if(verbose)
+          {
+            print::to_stdout("sorted:", sorted);
+            print::to_stdout("counter:", counter);
+          }
+      }
+
+    return sorted;
+  }
 };
+
+
+
+// REWRITE USING BINARY SEARCH IN BINARY TREES
+// static vector<int> pratt_gap_sequences(unsigned int n)
+// {
+//   int p = 0;
+//   int q = 0;
+//   int ptmp, qtmp;
+//   vector<int> gaps = {1}; //pow(2, p)*pow(3, q)
+
+//   unsigned int size = gaps.size();
+//   while (size <= n)
+//     {
+//       ptmp = three_smooth(p+1, q);
+//       qtmp = three_smooth(p, q+1);
+//       if(ptmp > qtmp)
+//         {
+//           gaps.push_back(qtmp);
+//           q++;
+//         }
+//       else
+//         {
+//           gaps.push_back(ptmp);
+//           p++;
+//         }
+//       size = gaps.size();
+//     }
+
+//   return gaps;
+// }
+
   // static vector<T> shellsort(vector<T> elements, vector<int> gaps, bool verbose)
   // /*
   //  * Sort a vector of elements using shellsort sort algorithm

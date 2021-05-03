@@ -26,6 +26,18 @@ namespace print
     cout << endl;
   }
 
+  template<typename T>
+  void to_stdout(string prefix, T container)
+  {
+    cout << prefix + " ";
+    typename T::iterator itr;
+    for(itr=container.begin(); itr!=container.end(); itr++)
+      {
+        cout << *itr << " ";
+      }
+    cout << endl;
+  }
+
 
   template<typename ForwardIterator>
   void to_stdout(ForwardIterator first, ForwardIterator last)

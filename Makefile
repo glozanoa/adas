@@ -8,7 +8,7 @@ TDIR_BASE = tests/base
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort #partition quicksort
+SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting #partition quicksort
 SEARCH_EXEC = secuential binary_search
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node heap queue print helper
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
@@ -111,6 +111,9 @@ mergesort:	$(ODIR)/mergesort.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 shellsort:	$(ODIR)/shellsort.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+counting:	$(ODIR)/counting.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 ##### search algorithms #####

@@ -7,17 +7,22 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 ## Developed Algorithms and data structures
 
 + **Sort Algorithms**
+    + With comparison
+    | Algorithm | Efficiency   | OpenMP |
+    |-----------|--------------|:------:|
+    | Bubble    |              | `NO`   |
+    | Bibubble  |              | `NO`   |
+    | Insertion |              |        |
+    | Selection |              |        |
+    | Merge     |              |        |
+    | HeapSort  | `O(n log n)` |        |
 
-| Algorithm | Efficiency   | OpenMP |
-|-----------|--------------|:------:|
-| Bubble    |              | `NO`   |
-| Bibubble  |              | `NO`   |
-| Insertion |              |        |
-| Selection |              |        |
-| Merge     |              |        |
-| HeapSort  | `O(n log n)` |        |
+    + Without comparison
+    | Algorithm | Efficiency | OpenMP |
+    |-----------|------------|:------:|
+    | Counting  | O(n)       | `NO`   |
 
-+ **Search Algorithms** (UPDATE)
++ **Search Algorithms**
 
 | Algorithm    | Efficiency | OpenMP |
 |--------------|------------|:------:|

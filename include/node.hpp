@@ -25,7 +25,7 @@ protected:
 
 public:
   Node(T key): key{key}, parent{nullptr}, depth{0} {}
-  Node(T key, Node<T>* parent): key{key}, parent{parent}
+  Node(T key, Node<T>* parent): key{key}, parent{parent}, depth{0}
   {
     parent->add_child(this);
   }

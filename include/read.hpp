@@ -25,7 +25,7 @@ public:
     try
       {
         fn.open(file_name);
-        int number;
+        T number;
         string line;
         while(getline(fn, line))
           {

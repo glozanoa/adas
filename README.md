@@ -36,7 +36,6 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
 
 
-
 **NOTE:**  
 * In `Developed Data Structures` section, we use `<T>` to express that the `Data Structure` supports `templates`.
 * For more details about `Dependences` or `Usage` of *algorithms*, *data structures* and *utilities* check our [wiki](https://github.com/glozanoa/algorithms/wiki).

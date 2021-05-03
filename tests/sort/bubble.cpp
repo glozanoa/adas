@@ -12,6 +12,7 @@ using namespace std;
 #include "../../include/helper.hpp"
 #include "../../include/print.hpp"
 #include "../../include/timer.hpp"
+#include "../../include/read.hpp"
 
 /*  NOTE: Compile with Makefile and run in ROOT DIRECTORY OF REPOSITORY */
 
@@ -33,21 +34,8 @@ int main()
   Timer time;
   time.start();
 
-  // ENABLE THIS LINE IF YOU WANT TO READ YOUR DATA FROM FILES
-  // ifstream fn("tests/data/random.txt");
-
-  // vector<int> numbers;
-  // int number;
-  // string line;
-  // while(getline(fn, line))
-  //   {
-  //     number = str2<int>(line);
-  //     numbers.push_back(number);
-  //   }
-
-  // time.stop();
-  // time.report("Elapsed time (read)");
-
+  // ENABLE THIS LINE IF YOU WANT TO READ YOUR DATA FROM A FILE
+  //vector<int> numbers = Read<int>::from_file("tests/data/random.txt");
 
   //vector<int> numbers = {2, 7, 1, 9};
 
@@ -70,17 +58,6 @@ int main()
   sort::bubble(copy_numbers, copy_numbers+n, smaller<int>, true);
   time.stop();
   time.report("Elapsed time (custom sort)");
-
-
-
-  // ENABLE THIS LINE IF YOU WANT TO WRITE SORTED DATA TO A FILE
-  // ofstream sn("tests/data/random.txt.sorted");
-
-  // for(int number: numbers)
-  //   sn << number << endl;
-
-  // sn.close();
-  // fn.close();
 
   return 0;
 }

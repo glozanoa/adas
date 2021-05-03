@@ -10,13 +10,12 @@
 #define _SEARCH_H
 
 #include <iostream>
-//#include <algorithm>
-//#include <cmath>
-//#include <vector>
+#include <iterator>
 using namespace std;
 
 #include "helper.hpp"
 #include "timer.hpp"
+#include "print.hpp" // ONLY FOR TESTING PURPOSES
 
 namespace search
 {
@@ -33,6 +32,8 @@ namespace search
     return last;
   }
 
+
+
   template<class ForwardIterator, class T>
   bool is_element(ForwardIterator first, ForwardIterator last, const T value)
   {
@@ -46,6 +47,42 @@ namespace search
   }
 
 
+  template<class RandomAccessIterator, class T>
+  RandomAccessIterator binary_search(RandomAccessIterator first, RandomAccessIterator last,
+                                     const T value)
+  {
+    print::to_stdout(first, last);
+    unsigned int d = distance(first, last);
+    RandomAccessIterator midpoint  = first + d/2;
+
+    if(*midpoint == value)
+      return midpoint;
+    else if(d > 1)
+      {
+#pragma omp parallel sections
+        {
+#pragma omp section
+          {
+            RandomAccessIterator lsearch = binary_search(first, midpoint, value);
+            if(*lsearch == value) return lsearch;
+          }
+
+#pragma omp section
+          {
+            RandomAccessIterator rsearch = binary_search(midpoint+1, last, value);
+            if(*rsearch == value) return rsearch;
+          }
+        }
+      }
+    return last;
+  }
+
+  // template<class BidirectionalIterator, class T>
+  // BidirectionalIterator binary_search(BidirectionalIterator first, BidirectionalIterator last, const T value)
+  // {
+  //   BidirectionalIterator end = last;
+  //   return  binary_search(first, last, value, end);
+  // }
 }
 
 
@@ -99,7 +136,6 @@ namespace search
 //     unsigned int lower = 0;
 //     unsigned int upper = elements.size() -1;
 //     unsigned int midpoint = floor((lower+upper)/2.0);
-
 //     while(lower <= upper && elements[midpoint] != element)
 //       {
 //         if (verbose)

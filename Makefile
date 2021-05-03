@@ -9,7 +9,7 @@ CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
 SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort #partition quicksort
-SEARCH_EXEC = secuential binary
+SEARCH_EXEC = secuential binary_search
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node heap queue print helper
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
 #LDIR =../lib
@@ -117,8 +117,8 @@ shellsort:	$(ODIR)/shellsort.o
 secuential:	$(ODIR)/secuential.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
-binary:	$(ODIR)/binary.o
-	$(CXX) -o $@ $^ $(CXXFLAGS)
+binary_search:	$(ODIR)/binary_search.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
 ##### helper #####
 partition:	$(ODIR)/partition.o

@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-
+  // READ UNSORTED NUMBERS - ONLY FOR TESTING PURPOSES
   vector<int> numbers = read::from_file("tests/data/unsorted.txt")
   bool verbose = true;
 

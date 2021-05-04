@@ -66,7 +66,7 @@ int main()
 
   cout << "sorting numbers in array data structure" << endl;
   time.start();
-  sort::bubble(arr, arr+n, false);
+  sort::bubble(arr, arr+n, verbose);
   time.stop();
   time.report("Elapsed time (sorting array)");
 

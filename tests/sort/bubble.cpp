@@ -1,6 +1,8 @@
  /*
  * Testing bubble sorting algorithm
  *
+ * Updated - date : Mar 4 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -9,12 +11,9 @@
 using namespace std;
 
 #include "../../include/sort.hpp"
-#include "../../include/helper.hpp"
 #include "../../include/print.hpp"
 #include "../../include/timer.hpp"
 #include "../../include/io.hpp"
-
-/*  NOTE: Compile with Makefile and run in ROOT DIRECTORY OF REPOSITORY */
 
 /*
  * Custom function to compare elements
@@ -28,78 +27,50 @@ bool smaller(T x, T y)
   return x < y;
 }
 
-void swap(int*x, int* y)
-{
-  int aux = *x;
-  *x = *y;
-  *y = aux;
-}
-
-void bubbleSort(int arr[], int n)
-{
-  int i, j;
-  bool swapped;
-  for (i = 0; i < n-1; i++)
-    {
-      swapped = false;
-      for (j = 0; j < n-i-1; j++)
-        {
-          if (arr[j] > arr[j+1])
-            {
-              swap(&arr[j], &arr[j+1]);
-              swapped = true;
-            }
-        }
-
-      // IF no two elements were swapped by inner loop, then break
-      if (swapped == false)
-        break;
-    }
-}
-
 int main()
 {
 
   Timer time;
+  bool verbose = true;
 
-  // ENABLE THIS LINE IF YOU WANT TO READ YOUR DATA FROM A FILE
   vector<int> numbers = read::from_file<int>("tests/data/bs.txt");
+
+  //array and vector to test search::bubble algorithm
   unsigned int n = numbers.size();
   int arr[n];
-  int arr2[n];
+  vector<int> cnumbers = vector<int>(n);
   copy(numbers.begin(), numbers.end(), arr);
-  copy(numbers.begin(), numbers.end(), arr2);
+  copy(numbers.begin(), numbers.end(), cnumbers.begin());
 
-  // USING NORMAL ARRAYS
-  // unsigned int n = 4;
-  // int numbers[n] = {2, 7, 1, 9};
-  // int copy_numbers[n] = {2, 7, 1, 9};
 
-  //cout << "normal sort (using default order [crescent])" << endl;
-  cout << "algorithm with iterators" << endl;
+  cout << "sorting numbers in vector<T> data structure" << endl;
   time.start();
-  // IF YOU WANT TO USE vector class, replace numbers by numbers.begin() and numbers + SIZE by numbers.end()
-  //sort::bubble(numbers, numbers+n, true);
-  sort::bubble(arr2, arr2+n, false);
+  sort::bubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
-  time.report("Elapsed time (sort with iterators)");
+  time.report("Elapsed time (normal comparison)");
 
-  cout << "algorithm without iterators" << endl;
+  //printing sorted numbers
+  print::to_stdout("Sorted vector:", numbers);
+
+
+  cout << "sorting numbers in vector<T> data structure (custom comparison)" << endl;
   time.start();
-  // IF YOU WANT TO USE vector class, replace numbers by numbers.begin() and numbers + SIZE by numbers.end()
-  //sort::bubble(numbers, numbers+n, true);
-  bubbleSort(arr,n);
+  sort::bubble(cnumbers.begin(), cnumbers.end(), smaller, verbose);
   time.stop();
-  time.report("Elapsed time (sort without iterators)");
+  time.report("Elapsed time (custom comparison)");
 
-  write::to_file(arr2, arr2+n, "tests/data/sorted.txt");
+  //printing sorted numbers
+  print::to_stdout("Sorted vector:", cnumbers);
 
-  // cout << "custom sort (using a custom function [decreasing])" << endl;
-  // time.start();
-  // IF YOU WANT TO USE vector class, check the above comment
-  // sort::bubble(copy_numbers, copy_numbers+n, smaller<int>, true);
-  // time.stop();
-  // time.report("Elapsed time (custom sort)");
+
+  cout << "sorting numbers in array data structure" << endl;
+  time.start();
+  sort::bubble(arr, arr+n, false);
+  time.stop();
+  time.report("Elapsed time (sorting array)");
+
+  //saving sorted numbers
+  write::to_file(arr, arr+n, "tests/data/sorted_bubble.txt");
 
   return 0;
 }

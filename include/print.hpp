@@ -50,6 +50,17 @@ namespace print
   }
 
   template<typename ForwardIterator>
+  void to_stdout(string prefix, ForwardIterator first, ForwardIterator last)
+  {
+    cout << prefix + " ";
+    for(ForwardIterator itr=first; itr!=last; itr++)
+      {
+        cout << *itr << " ";
+      }
+    cout << endl;
+  }
+
+  template<typename ForwardIterator>
   void to_stdout(ForwardIterator first, ForwardIterator last, string split)
   {
     for(ForwardIterator itr=first; itr!=last; itr++)

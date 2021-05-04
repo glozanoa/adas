@@ -18,8 +18,8 @@ using namespace std;
 #include "cast.hpp"
 
 //tested - date May 1 2021
-template<class Iterator>
-void interchange_values(Iterator itr1, Iterator itr2)
+template<class InputIterator>
+void interchange_values(InputIterator itr1, InputIterator itr2)
 {
   auto aux = *itr1;
   *itr1 = *itr2;

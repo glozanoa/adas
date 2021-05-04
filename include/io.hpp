@@ -1,11 +1,11 @@
 /*
- * Function to read number from a file (ONLY FOR TESTING PURPOSE) to a vector
+ * Classes to read and write numbers from (to) a file to (from) a vector (ONLY FOR TESTING PURPOSE)
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
-#ifndef _READ_H
-#define _READ_H
+#ifndef _IO_H
+#define _IO_H
 
 #include <vector>
 #include <string>
@@ -14,11 +14,10 @@ using namespace std;
 
 #include "cast.hpp"
 
-template<class T>
-class Read
+namespace read
 {
-public:
-  static vector<T> from_file(string file_name)
+  template<class T>
+  vector<T> from_file(string file_name)
   {
     ifstream fn;
     vector<T> numbers;
@@ -44,4 +43,32 @@ public:
   }
 };
 
-#endif //_READ_H
+namespace write
+{
+  template<class ForwardIterator>
+  void to_file(ForwardIterator first, ForwardIterator last, string file_name)
+  {
+    ofstream fn;
+    try
+      {
+        fn.open(file_name);
+        for(ForwardIterator itr = first; itr != last; itr++)
+          fn << *itr << endl;
+        fn.close();
+      }
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        if(fn.is_open())
+          fn.close();
+      }
+  }
+}
+template<class T>
+class Write
+{
+public:
+
+};
+
+#endif //_IO_H

@@ -11,7 +11,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-//#include <cmath>
+#include <iterator>
 using namespace std;
 
 #include "helper.hpp"
@@ -24,6 +24,11 @@ using namespace std;
 
 namespace sort
 {
+
+  /*
+   * WITH COMPARISON SORT ALGORITHMS
+   */
+
   // tested - data Apr 25 2021
   template<class RandomAccessIterator>
   void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
@@ -202,25 +207,6 @@ namespace sort
       }
   }
 
-  template <class InputIterator1, class InputIterator2, class OutputIterator>
-  OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
-                       InputIterator2 first2, InputIterator2 last2,
-                       OutputIterator result)
-  /*
-   * Combines the elements in the sorted ranges [first1,last1) and [first2,last2),
-   * into a new range beginning at result.
-   */
-  {
-    while(true)
-      {
-        if(first1 == last1) return copy(first2, last2, result);
-        if(first2 == last2) return copy(first1, last1, result);
-
-        *result++ = (*first2 < *first1)? *first2++ : *first1++;
-      }
-  }
-
-
   // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
   template <class T>
   vector<T> heap_sort(vector<T> keys)
@@ -254,6 +240,105 @@ namespace sort
 
     return gaps;
   }
+
+
+  template <class InputIterator1, class InputIterator2, class OutputIterator>
+  OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                       InputIterator2 first2, InputIterator2 last2,
+                       OutputIterator result)
+  /*
+   * Combines the elements in the sorted ranges [first1,last1) and [first2,last2),
+   * into a new range beginning at result.
+   */
+  {
+    while(true)
+      {
+        if(first1 == last1) return copy(first2, last2, result);
+        if(first2 == last2) return copy(first1, last1, result);
+
+        *result++ = (*first2 < *first1)? *first2++ : *first1++;
+      }
+  }
+
+  // template<class T>
+  // vector<T> mergesort(vector<T> elements, bool verbose)
+  // {
+  //   typename vector<T>::iterator first = elements.begin();
+  //   typename vector<T>::iterator last = elements.end();
+
+  //   unsigned int d = distance(first, last);
+
+  //   if(d <= 2)
+  //     {
+  //       if(d == 2) // sort the 2 elements, when d = 1, there is only 1 element (so it's sorted)
+  //         {
+  //           if(*first > *last)
+  //             interchange_values(first, last);
+  //         }
+  //     }
+  //   else
+  //     {
+  //       typename vector<T>::iterator midpoint = first + d/2;
+  //       if(verbose)
+  //         {
+  //           print::to_stdout("unsorted:", first, last);
+  //           print::to_stdout("lpart:", first, midpoint);
+  //           print::to_stdout("rpart:", midpoint+1, last);
+  //         }
+
+  //       mergesort(first, midpoint, first_aux, midpoint_aux, verbose);
+  //       mergesort(midpoint+1, last, midpoint_aux+1, last, verbose);
+
+  //       merge(first_aux, midpoint_aux,
+  //             midpoint_aux+1, last_aux,
+  //             first);
+
+  //       if(verbose)
+  //         print::to_stdout("merged:", first_aux, last_aux);
+  //     }
+
+  //}
+  // template<class RandomAccessIterator>
+  // void mergesort(RandomAccessIterator first, RandomAccessIterator last,
+  //                RandomAccessIterator first_aux, RandomAccessIterator last_aux,
+  //                bool verbose)
+  // {
+  //   unsigned int d = distance(first, last);
+
+  //   if(d <= 2)
+  //     {
+  //       if(d == 2) // sort the 2 elements, when d = 1, there is only 1 element (so it's sorted)
+  //         {
+  //           if(*first > *last)
+  //             interchange_values(first, last);
+  //         }
+  //     }
+  //   else
+  //     {
+  //       RandomAccessIterator midpoint = first + d/2;
+  //       RandomAccessIterator midpoint_aux = first + d/2;
+  //       if(verbose)
+  //         {
+  //           print::to_stdout("unsorted:", first, last);
+  //           print::to_stdout("lpart:", first, midpoint);
+  //           print::to_stdout("rpart:", midpoint+1, last);
+  //         }
+
+  //       mergesort(first, midpoint, first_aux, midpoint_aux, verbose);
+  //       mergesort(midpoint+1, last, midpoint_aux+1, last, verbose);
+
+  //       merge(first_aux, midpoint_aux,
+  //             midpoint_aux+1, last_aux,
+  //             first);
+
+  //       if(verbose)
+  //         print::to_stdout("merged:", first_aux, last_aux);
+  //     }
+  // }
+
+  /*
+   * WITHOUT COMPARISON SORT ALGORITHMS
+   */
 
   //debuged - date Mar 3 2021
   template<class BidirectionalIterator>

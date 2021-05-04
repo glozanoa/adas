@@ -11,25 +11,28 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
     
 | Algorithm | Efficiency   | OpenMP |
 |-----------|--------------|:------:|
-| Bubble    |              | `NO`   |
-| Bibubble  |              | `NO`   |
-| Insertion |              |        |
-| Selection |              |        |
-| Merge     |              |        |
-| HeapSort  | `O(n log n)` |        |
+| bubble    |              | `NO`   |
+| bibubble  |              | `NO`   |
+| insertion |              |        |
+| selection |              |        |
+| merge     |              |        |
+| heap_sort | `O(n log n)` |        |
     
 + Sort without comparison
     
 | Algorithm | Efficiency | OpenMP |
 |-----------|------------|:------:|
-| Counting  | O(n)       | `NO`   |
+| counting  | `O(n)`     | `NO`   |
 
 #### Search Algorithms
 
-| Algorithm    | Efficiency | OpenMP |
-|--------------|------------|:------:|
-| Secuential   | `O(n)`     | `NO`   |
-| BinarySearch |            | `YES`  |
+| Algorithm      | Efficiency | OpenMP | Maximum Comparisons |
+|----------------|------------|:------:|:-------------------:|
+| secuential     | `O(n)`     | `NO`   |                     |
+| binary_search  |            | `YES`  |                     |
+| min_element    | `O(n)`     | `NO`   | `n-1`               |
+| max_element    | `O(n)`     | `NO`   |                     |
+| minmax_element | `O(n)`     | `NO`   | `3*MAX_INT(n/2)`    |
 
 
 #### Data Structures

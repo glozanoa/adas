@@ -7,12 +7,9 @@
 #ifndef _HELPER_H
 #define _HELPER_H
 
-#include <iostream>
-#include <vector>
-#include <fstream>
 #include <iterator>
+#include <utility>
 #include <cmath>
-#include "omp.h"
 using namespace std;
 
 #include "cast.hpp"
@@ -25,6 +22,13 @@ void interchange_values(InputIterator itr1, InputIterator itr2)
   *itr1 = *itr2;
   *itr2 = aux;
 }
+
+template<class ForwardIterator>
+pair<ForwardIterator, ForwardIterator> minmax(ForwardIterator a, ForwardIterator b)
+{
+  return (*b<*a) ? make_pair(b,a) : make_pair(a,b);
+}
+
 
 //tested - date May 1 2021
 string repeat(string str, int n)
@@ -44,42 +48,5 @@ unsigned int three_smooth(int p, int q)
 {
   return pow(2, p)*pow(3, q);
 }
-
-// MOVE TO search.hpp header file
-//tested - date May 1 2021
-template<class Iterator>
-Iterator minimum(Iterator first, Iterator last)
-{
-  Iterator min = first;
-  Iterator itr = first;
-  while(++itr != last)
-    {
-      if(*itr < *min)
-        min = itr;
-    }
-  return min;
-}
-
-// void print_file(ifstream file)
-// {
-//   //file.open();
-//   string line;
-//   while(getline(file, line))
-//     {
-//       cout << line << endl;
-//     }
-//   file.close();
-// }
-
-// template<typename T>
-// T readline(ifstream file)
-// {
-//   string line;
-
-//   getline(file, line);
-//   T r = str2<T>(line); // cast string to T type
-
-//   return r;
-// }
 
 #endif //_HELPER_H

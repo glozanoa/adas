@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <iterator>
+#include <utility>
 using namespace std;
 
 #include "helper.hpp"
@@ -19,6 +20,57 @@ using namespace std;
 
 namespace search
 {
+  //tested - date May 1 2021
+  template<class ForwardIterator>
+  ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
+  {
+    ForwardIterator min = first;
+    ForwardIterator itr = first;
+    while(++itr != last)
+      {
+        if(*itr < *min)
+          min = itr;
+      }
+    return min;
+  }
+
+  //debuged - date May 4 2021
+  template<class ForwardIterator>
+  ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
+  {
+    ForwardIterator max = first;
+    ForwardIterator itr = first;
+    while(++itr != last)
+      {
+        if(*itr > *max)
+          max = itr;
+      }
+    return max;
+  }
+
+  //debuged - date May 4 2021
+  template<class RandomAccessIterator>
+  pair<RandomAccessIterator, RandomAccessIterator> minmax_element(RandomAccessIterator first,
+                                                                  RandomAccessIterator last)
+  {
+    RandomAccessIterator min = first;
+    RandomAccessIterator max = first;
+    RandomAccessIterator itr = first+1;
+
+    while(itr != last && itr != last+1)
+      {
+        pair<RandomAccessIterator, RandomAccessIterator> mm = minmax(itr, itr+1);
+
+        if(*min > *mm.first)
+          min = mm.first;
+        if(*max < *mm.second)
+          max = mm.second;
+
+        itr += 2;
+      }
+    return make_pair(min, max);
+  }
+
 
   template<class ForwardIterator, class T>
   ForwardIterator secuential(ForwardIterator first, ForwardIterator last, const T value)

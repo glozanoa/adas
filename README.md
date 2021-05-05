@@ -10,13 +10,14 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 + Sort with comparison
     
 | Algorithm | Efficiency   | OpenMP |
-|-----------|--------------|:------:|
-| bubble    |              | `NO`   |
+|-----------|:------------:|:------:|
+| bubble    | `O(n^2)`     | `NO`   |
 | bibubble  |              | `NO`   |
-| insertion |              |        |
-| selection |              |        |
+| insertion | `O(n^2)`     |        |
+| selection | `O(n^2)`     |        |
 | merge     |              |        |
 | heap_sort | `O(n log n)` |        |
+| quicksort | `O(n log n)` |        |
     
 + Sort without comparison
     
@@ -27,7 +28,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 #### Search Algorithms
 
 | Algorithm      | Efficiency | OpenMP | Comparisons      |
-|----------------|------------|:------:|:----------------:|
+|----------------|:----------:|:------:|:----------------:|
 | secuential     | `O(n)`     | `NO`   |                  |
 | binary_search  |            | `YES`  |                  |
 | min_element    | `O(n)`     | `NO`   | `n-1`            |
@@ -35,11 +36,9 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | minmax_element | `O(n)`     | `NO`   | `3*MAX_INT(n/2)` |
 
 
-#### Data Structures
-`Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
+#### Data Structures: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
 
-#### Namespaces
-`print`, `sort`, `search`, `write`, `read`
+#### Namespaces: `sort`, `search`, `print`, `write`, `read`
 
 
 **NOTE:**  

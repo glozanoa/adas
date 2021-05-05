@@ -39,7 +39,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
 
 #### Namespaces
-`print`, `sort`, `search`
+`print`, `sort`, `search`, `write`, `read`
 
 
 **NOTE:**  

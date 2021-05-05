@@ -1,56 +1,30 @@
 /*
  * Testing bidirectional bubble sorting algorithm
  *
+ * Updated - date: May 4 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #include <iostream>
 #include <vector>
-#include <list>
 using namespace std;
 
 #include "../../include/sort.hpp"
-#include "../../include/print.hpp"
+#include "../../include/io.hpp"
 
 int main()
 {
 
   Timer time;
-  time.start();
-
-  ifstream fn("tests/data/random.txt");
-
-  vector<int> numbers;
-  int number;
-  string line;
-  while(getline(fn, line))
-    {
-      number = str2<int>(line);
-      numbers.push_back(number);
-    }
-
-  time.stop();
-  time.report("Elapsed time (read)");
-
-
-  //vector<int> numbers = {2, 7, 1, 9};
+  bool verbose = true;
+  vector<int> numbers = read::from_file("tests/data/unsorted.txt");
 
   time.start();
-  sort::bidirectional_bubble(numbers.begin(), numbers.end(), false);
+  sort::bibubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
-  time.report("Elapsed time (sort)");
+  time.report("Elapsed time (bibubble sorting algorithm)");
 
-  time.start();
-  ofstream sn("tests/data/random.txt.bibubble.sorted");
-
-  for(int number: numbers)
-    sn << number << endl;
-
-  time.stop();
-  time.report("Elapsed time (write)");
-
-  sn.close();
-  fn.close();
-
+  write::to_file(numbers.begin(), number.end(), "tests/data/sorted_bibubble.txt")
   return 0;
 }

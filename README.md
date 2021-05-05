@@ -26,13 +26,13 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 
 #### Search Algorithms
 
-| Algorithm      | Efficiency | OpenMP | Maximum Comparisons |
-|----------------|------------|:------:|:-------------------:|
-| secuential     | `O(n)`     | `NO`   |                     |
-| binary_search  |            | `YES`  |                     |
-| min_element    | `O(n)`     | `NO`   | `n-1`               |
-| max_element    | `O(n)`     | `NO`   |                     |
-| minmax_element | `O(n)`     | `NO`   | `3*MAX_INT(n/2)`    |
+| Algorithm      | Efficiency | OpenMP | Comparisons      |
+|----------------|------------|:------:|:----------------:|
+| secuential     | `O(n)`     | `NO`   |                  |
+| binary_search  |            | `YES`  |                  |
+| min_element    | `O(n)`     | `NO`   | `n-1`            |
+| max_element    | `O(n)`     | `NO`   |                  |
+| minmax_element | `O(n)`     | `NO`   | `3*MAX_INT(n/2)` |
 
 
 #### Data Structures

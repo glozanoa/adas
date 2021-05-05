@@ -117,19 +117,6 @@ public:
       }
   }
 
-  template<typename T1, class SortAlgorithm>
-  vector<T1> sort_part(unsigned int k, bool verbose, SortAlgorithm f)
-  /*
-   * Sort part k with f sort algorithm
-   */
-  {
-    vector<T1> part = this->get_part(k);
-    vector<T1> sorted_part;
-
-    sorted_part = f(part, verbose);
-    this->set_part(k, sorted_part);
-  }
-
   static vector<vector<T>>* generate(vector<T> pivots, vector<T> elements)
   /*
    * Generate a partition of the elements vector with the supplied pivots

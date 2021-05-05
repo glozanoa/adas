@@ -149,7 +149,7 @@ namespace sort
   }
 
   template<class BidirectionalIterator>
-  void bidirectional_bubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
+  void bibubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
   {
 
     BidirectionalIterator init = prev(first);
@@ -260,7 +260,8 @@ namespace sort
       }
   }
 
-  // template<class T>
+
+    // template<class T>
   // vector<T> mergesort(vector<T> elements, bool verbose)
   // {
   //   typename vector<T>::iterator first = elements.begin();
@@ -336,6 +337,32 @@ namespace sort
   //     }
   // }
 
+
+  template<class T>
+  vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)
+  /*
+   * Improve efficiency of quicksort algorithm:
+   * + Reimplement Partition<T> class using pointer (to avoid copy data)
+   * + Parallelize for loop in quicksort body
+   * + change of sortng algorithm to sort partition's parts (codify mergesort algorithm)
+   */
+  {
+    Partition<T> partition = Partition<T>(pivots, elements);
+
+    unsigned int k = 0;
+    for(vector<T> part : *partition.get_parts())
+      {
+        if(part.size() > 1) // if part has some elements, otherwise it's sorted
+          {
+            bubble(part.begin(), part.end(), verbose);
+            partition.set_part(k, part);
+            k++;
+          }
+      }
+
+    return partition.join();
+  }
+
   /*
    * WITHOUT COMPARISON SORT ALGORITHMS
    */
@@ -378,202 +405,4 @@ namespace sort
     return sorted;
   }
 };
-
-
-
-// REWRITE USING BINARY SEARCH IN BINARY TREES
-// static vector<int> pratt_gap_sequences(unsigned int n)
-// {
-//   int p = 0;
-//   int q = 0;
-//   int ptmp, qtmp;
-//   vector<int> gaps = {1}; //pow(2, p)*pow(3, q)
-
-//   unsigned int size = gaps.size();
-//   while (size <= n)
-//     {
-//       ptmp = three_smooth(p+1, q);
-//       qtmp = three_smooth(p, q+1);
-//       if(ptmp > qtmp)
-//         {
-//           gaps.push_back(qtmp);
-//           q++;
-//         }
-//       else
-//         {
-//           gaps.push_back(ptmp);
-//           p++;
-//         }
-//       size = gaps.size();
-//     }
-
-//   return gaps;
-// }
-
-  // static vector<T> shellsort(vector<T> elements, vector<int> gaps, bool verbose)
-  // /*
-  //  * Sort a vector of elements using shellsort sort algorithm
-  //  * Input:
-  //  *     gaps decreasing gaps vector
-  //  * return:
-  //  *     sorted vector
-  //  */
-  // {
-  //   unsigned int length = elements.size();
-
-  //   for(int gap: gaps)
-  //     {
-  //       for(int i=gap; i<length; i++)
-  //         {
-  //           T tmp = elements[i];
-  //           int j;
-  //           for(j=i; j>=gap && elements[j-gap] > tmp; j-=gap)
-  //             elements[j] = elements[j-gap];
-
-  //           elements[j] = tmp;
-  //         }
-
-  //       if(verbose)
-  //         {
-  //           cout << "(gap " << gap << ")" << endl;
-  //           print(elements);
-  //         }
-  //     }
-
-  //   return elements;
-  // }
-
-
-  // // SOLVE BUG
-  // static vector<T> binary_insertion(vector<T> elements, bool verbose)
-  // /*
-  //  * Sort vector of elements using binary insertion sort algorithm
-  //  */
-  // {
-  //   unsigned int length = elements.size();
-  //   T auxi;
-  //   int k;
-  //   T init, end;
-  //   T midpoint;
-
-  //   for(int i=1; i<length; i++)
-  //     {
-  //       if(verbose)
-  //         cout << "(Iteration " << i-1 << ")" << endl;
-
-  //       auxi = elements[i];
-  //       init = 0;
-  //       end = i-1;
-  //       while(init <= end)
-  //         {
-  //           midpoint = (int)((init+end)/2);
-  //           if(auxi < elements[midpoint])
-  //             end = midpoint -1;
-  //           else
-  //             init = midpoint +1;
-
-  //           if (verbose)
-  //             cout << "init: "<< init << ", midpoint: " << midpoint << ", end: " << end << endl;
-  //         }
-  //       for(k = i-1; i >= end; i--)
-  //         elements[k+1] = elements[k];
-
-  //       elements[end] = auxi;
-
-  //       if(verbose)
-  //         print(elements);
-  //     }
-
-  //   return elements;
-  // }
-
-  // static vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)//, SortAlgorithm f)
-  // {
-  //   Partition<T> partition = Partition<T>(pivots, elements);
-  //   vector<vector<T>>* parts = partition.get_parts();
-  //   int k = 0;
-  //   for(vector<T> part: *parts)
-  //     parts->at(k) = Sort<T>::bubble(part, false);
-
-  //   return partition.join();
-  // }
-
-  // ////////////// extern sort algorithms /////////////
-
-  // static void extern_merge(ifstream f1, ifstream f2, string out_name)
-  // /*
-  //  * meger sorted files
-  //  */
-  // {
-  //   ofstream out = ofstream(out_name);
-
-  //   try{
-  //     if(!f1.is_open()){
-  //       string warning = "File f1 didn't open";
-  //       out.close();
-  //       throw ios_base::failure(warning.c_str());
-  //         }
-  //     else if (!f2.is_open()){
-  //       string warning = "File f2 didn't open";
-  //       f1.close();
-  //       out.close();
-  //       throw ios_base::failure(warning.c_str());
-  //         }
-  //     else{
-  //       string aux; // element to read buffer of files f1 and f2
-  //       T r1, r2; // elements to read files f1 and f2
-
-  //       r1 = readline<T>(f1);
-  //       r2 = readline<T>(f2);
-
-  //       while (!(f1.eof() || f2.eof()))
-  //         {
-  //           if(r1 <= r2)
-  //             {
-  //               out << r1 << endl;
-  //               r1 = readline<T>(f1);
-  //             }
-  //           else
-  //             {
-  //               out << r2 << endl;
-  //               r2 = readline<T>(f2);
-  //             }
-  //         }
-
-  //       if(!f1.eof())
-  //         {
-  //           do{
-  //             r1 = readline<T>(f1);
-  //             out << r1 << endl;
-  //           }while(!f1.eof());
-  //         }
-  //       if(!f2.eof())
-  //         {
-  //           do{
-  //             r2 = readline<T>(f2);
-  //             out << r2 << endl;
-  //           }while(!f2.eof());
-  //         }
-  //     }
-
-  //     f1.close();
-  //     f2.close();
-  //     out.close();
-  //   }
-
-  //   catch(exception& error){
-  //     if(f1.is_open())
-  //       f1.close();
-
-  //     if(f2.is_open())
-  //       f2.close();
-
-  //     if(out.is_open())
-  //       out.close();
-
-  //     cout << error.what() << endl;
-  //   }
-  // }
-//};
-
 #endif // _SORT_H

@@ -33,7 +33,7 @@ int main()
   Timer time;
   bool verbose = true;
 
-  // READ UNSORTED NUMBER - ONLY FOR TESTING PURPOSES
+  // READ UNSORTED NUMBERS - ONLY FOR TESTING PURPOSES
   vector<int> numbers = read::from_file<int>("tests/data/bs.txt");
 
   //array and vector to test search::bubble algorithm

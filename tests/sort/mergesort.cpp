@@ -1,5 +1,5 @@
 /*
- * Testing merge algorithm
+ * Testing mergesort algorithm
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -8,23 +8,20 @@
 using namespace std;
 
 #include "../../include/sort.hpp"
+#include "../../include/print.hpp"
 
 int main()
 {
-
-  //sels: sorted elements
-  vector<int> sels1 = {6, 23, 24};
-  vector<int> sels2 = {5, 22, 26, 27, 39};
+  vector<int> numbers = {6, 23, 24, 5, 22, 26, 27, 39};
   bool verbose = true;
-  bool timer = true;
-  //vector<int> result = vector<int>(sels1.size()+sels2.size());
-  int result[7];
 
-  sort::merge(sels1.begin(), sels1.end(),
-              sels2.begin(), sels2.end(),
-              result);
+  vector<int> aux = vector<int>(numbers.size());
 
-  print::to_stdout(result, result+8);
+  sort::mergesort(numbers.begin(), numbers.end(),
+                  aux.begin(), aux.end(),
+                  verbose);
+
+  print::to_stdout("Sorted:", numbers);
 
   return 0;
 }

@@ -8,7 +8,7 @@ TDIR_BASE = tests/base
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting #partition quicksort
+SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
 SEARCH_EXEC = secuential binary_search min_element max_element minmax_element
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node heap queue print helper
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
@@ -135,8 +135,10 @@ secuential:	$(ODIR)/secuential.o
 binary_search:	$(ODIR)/binary_search.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
-##### helper #####
 partition:	$(ODIR)/partition.o
+	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+quicksort:	$(ODIR)/quicksort.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 # $(EXEC): $(OBJ)
@@ -145,7 +147,7 @@ partition:	$(ODIR)/partition.o
 .PHONY:
 
 clean: cleanslurm cleanobj
-	rm -f  *~ $(IDIR)/*~ $(ALL_EXEC) 
+	rm -f  *~ $(IDIR)/*~ $(ALL_EXEC)
 
 cleanobj:
 	rm -r $(ODIR)/*.o

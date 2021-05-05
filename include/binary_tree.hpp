@@ -16,7 +16,7 @@ using namespace std;
 #include "exceptions/general.hpp"
 
 
-template<typename T>
+template<class T>
 class BinaryTree
 {
 protected:
@@ -40,10 +40,10 @@ public:
   {
     try
       {
-        if(this->is_node(node))
-          return node->get_children();
-        else
+        if(!this->is_node(node))
           throw Exception("Node doesn't exist in binary tree");
+
+        return node->get_children();
       }
     catch(exception& error)
       {
@@ -58,10 +58,10 @@ public:
   {
     try
       {
-        if(this->is_node(node))
-          return node->get_child(type);
-        else
+        if(!this->is_node(node))
           throw Exception("Node doesn't exist in binary tree");
+
+        return node->get_child(type);
       }
     catch(exception& error)
       {
@@ -75,10 +75,10 @@ public:
   {
     try
       {
-        if(this->is_node(node))
-          return node->get_parent();
-        else
+        if(!this->is_node(node))
           throw Exception("Node doesn't exist in binary tree");
+
+        return node->get_parent();
       }
     catch(exception& error)
       {
@@ -100,10 +100,10 @@ public:
             else
               throw Exception("Invalid: Adding a nullptr child node");
           }
-        if(this->is_node(node))
-          node->add_child(child, type);
-        else
+        if(!this->is_node(node))
           throw Exception("Node doesn't exist in binary tree");
+
+        node->add_child(child, type);
       }
     catch(exception& error)
       {
@@ -131,6 +131,13 @@ public:
   friend ostream& operator<<(ostream& out, BinaryTree<T>* tree)
   {
     BinaryNode<T>* root = tree->get_root();
+    out << root;
+    return out;
+  }
+
+  friend ostream& operator<<(ostream& out, BinaryTree<T> tree)
+  {
+    BinaryNode<T>* root = tree.get_root();
     out << root;
     return out;
   }

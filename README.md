@@ -36,7 +36,7 @@ Also we try to codify some algorithms with `OpenMP` support, so you can use them
 | minmax_element | `O(n)`     | `NO`   | `3*MAX_INT(n/2)` |
 
 
-##### Data Structures: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`
+##### Data Structures: `Matrix<T>`, `Heap<T>`, `Tree<T>`, `BinaryTree<T>`, `Graph<T>`, `Partition<T>`, `Node<T>`, `BinaryNode<T>`, `BST<T>`
 
 ##### Namespaces: `sort`, `search`, `print`, `write`, `read`
 

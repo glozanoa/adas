@@ -32,7 +32,7 @@ int main()
   cout << "root node:" << endl;
   cout << r;
 
-  BinaryNode<int>* p = (BinaryNode<int>*) b0->get_parent();
+  BinaryNode<int>* p = b0->get_parent();
 
   cout << "b0's parent node:" << endl;
   cout << p;

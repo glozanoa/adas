@@ -69,6 +69,43 @@ public:
           return search_parent(rchild, leaf);
       }
   }
+
+  BinaryNode<T>* search(T key)
+  /*
+   * Search 'key' in Binary Tree and return a pointer to the node who has that key
+   */
+  {
+    return this->search(this->root, key);
+  }
+
+  BinaryNode<T>* search(BinaryNode<T>* node, T key)
+  /*
+   * Search 'key' in Binary Tree and return a pointer to the node who has that key
+   * and return nullptr if no one has 'key' as its key
+   * But start searching from node (and search recursively in its children)
+   */
+  {
+    T node_key = node->get_key();
+
+    if(node_key == key)
+      return node;
+    else if(node_key < key)
+      {
+        BinaryNode<T>* rchild = node->get_child(NT::RIGHT_NODE);
+        if(rchild == nullptr)
+          return nullptr;
+        else
+          return search(rchild, key);
+      }
+    else
+      {
+        BinaryNode<T>* lchild = node->get_child(NT::LEFT_NODE);
+        if(lchild == nullptr)
+          return nullptr;
+        else
+          return search(lchild, key);
+      }
+  }
 };
 
 

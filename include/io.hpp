@@ -64,11 +64,5 @@ namespace write
       }
   }
 }
-template<class T>
-class Write
-{
-public:
-
-};
 
 #endif //_IO_H

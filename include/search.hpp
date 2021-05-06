@@ -42,7 +42,7 @@ namespace search
     ForwardIterator itr = first;
     while(++itr != last)
       {
-        if(*itr > *max)
+        if(*max < *itr)
           max = itr;
       }
     return max;
@@ -61,7 +61,7 @@ namespace search
       {
         pair<RandomAccessIterator, RandomAccessIterator> mm = minmax(itr, itr+1);
 
-        if(*min > *mm.first)
+        if(*mm.first < *min)
           min = mm.first;
         if(*max < *mm.second)
           max = mm.second;
@@ -109,7 +109,7 @@ namespace search
 
     if(*midpoint == value)
       return midpoint;
-    else if(d > 1)
+    else if(1 < d)
       {
 #pragma omp parallel sections
         {

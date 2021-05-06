@@ -36,7 +36,7 @@ public:
   {
     try
       {
-        if(k >= size)
+        if(size <= k)
           throw out_of_range("(get_key function) Index of key out of range.");
         return keys[k];
       }
@@ -51,7 +51,7 @@ public:
   {
     try
       {
-        if(k >= size)
+        if(size <= k)
           throw out_of_range("(get_parent_key function) Index of key out of range.");
         k/=2;
         return keys[k];
@@ -67,7 +67,7 @@ public:
   {
     try
       {
-        if(k >= size)
+        if(size <= k)
           throw out_of_range("(set_key function) Index of key out of range.");
         keys[k] = key;
       }
@@ -109,9 +109,10 @@ public:
     int largest = i;
 
 
-    if(left < size && keys[left] > keys[i])
+    if(left < size && keys[i] < keys[left])
       largest = left;
-    if(rigth < size && keys[rigth] > keys[i] && left < size && keys[rigth] > keys[left])
+    if(rigth < size && keys[i] < keys[rigth] &&
+       left < size && keys[left] < keys[rigth])
       largest = rigth;
 
     if(largest != i)

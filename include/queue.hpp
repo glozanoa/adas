@@ -96,7 +96,7 @@ public:
             unsigned int parent_index = i/2;
 
             while(i > 0 &&
-                  this->get_key(parent_index) > this->get_key(i))
+                  this->get_key(i) < this->get_key(parent_index))
               {
                 this->interchange(i, parent_index);
                 i = parent_index;

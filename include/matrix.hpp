@@ -9,6 +9,8 @@
 
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 
 //#include "omp"
@@ -84,7 +86,7 @@ public:
   {
     try
       {
-        if(row_index >= nrows || col_index >= ncols)
+        if(rows <= row_index || ncols <= col_index)
           throw InvalidIndex(row_index, col_index);
 
         data->at(row_index)[col_index] = value;
@@ -104,7 +106,7 @@ public:
   {
     try
       {
-        if(index >= nrows)
+        if(mrows <= index)
           throw new InvalidIndex(index, -1); // is_row_index=true
 
         return data->at(index);
@@ -122,7 +124,7 @@ public:
     vector<T> col;
     try
       {
-        if(index >= ncols)
+        if(ncols <= index)
           throw new InvalidIndex(-1, index); // is_row_index=false
 
         for(int i=0; i<nrows; i++)
@@ -141,7 +143,7 @@ public:
   {
     try
       {
-        if(row >= nrows || col >= ncols)
+        if(nrows <= row || ncols <= col)
           throw InvalidIndex(row, col);
 
         T element = data->at(row)[col];
@@ -213,9 +215,9 @@ public:
   // tested - date Apr 22 2021
   friend ostream& operator<<(ostream& out, Matrix<T> mtx)
   {
-    for(unsigned int i=0; i<mtx.get_nrows(); i++)
+    for(unsigned int i=0; i < mtx.get_nrows(); i++)
       {
-        for(unsigned int j=0; j<mtx.get_ncols(); j++)
+        for(unsigned int j=0; j < mtx.get_ncols(); j++)
           out << mtx(i, j) << " ";
         out << endl;
       }

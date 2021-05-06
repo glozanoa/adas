@@ -45,7 +45,7 @@ public:
     vector<T> part;
 
     unsigned int k=0;
-    while(k < partition_size-1)
+    while(k < partition_size-1 )
       {
         part = parts->at(k);
         itr = copy(part.begin(), part.end(), itr);
@@ -79,7 +79,7 @@ public:
     try
       {
         unsigned int length = parts->size();
-        if (k >= length)
+        if (lentgh <= k)
           {
             string warning = "Index out of range";
             throw out_of_range(warning.c_str());
@@ -102,7 +102,7 @@ public:
     try
       {
         unsigned int length = parts->size();
-        if (k >= length)
+        if (length <= k)
           {
             string warning = "Index out of range";
             throw out_of_range(warning.c_str());
@@ -130,13 +130,13 @@ public:
       {
         if (element < pivots[0])
           parts->at(0).push_back(element);
-        else if (element > pivots[npivots-1])
+        else if (pivots[npivots-1] < element)
           parts->at(npivots).push_back(element);
         else
           {
             for(int k=0; k<npivots-1; k++)
               {
-                if(element > pivots[k] && element < pivots[k+1])
+                if(pivots[k] < element && element < pivots[k+1])
                   parts->at(k+1).push_back(element);
               }
           }

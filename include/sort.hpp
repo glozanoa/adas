@@ -19,8 +19,14 @@ using namespace std;
 #include "timer.hpp"
 #include "print.hpp"
 #include "heap.hpp"
-//#include "partition.hpp"
+#include "partition.hpp"
 
+
+typedef enum ORDER
+  {
+
+
+  }ORDER;
 
 namespace sort
 {
@@ -39,7 +45,7 @@ namespace sort
       {
         for(inner=itr+1; inner!=last; inner++)
           {
-            if(*itr > *inner)
+            if(*inner < *itr)
               interchange_values(itr, inner);
           }
         if(verbose)
@@ -91,7 +97,7 @@ namespace sort
       {
         auto key = *itr;
         inner = prev(itr);
-        while(inner != prev2first && *inner > key)
+        while(inner != prev2first && key < *inner)
           {
             *next(inner) = *inner;
             inner--;
@@ -130,7 +136,7 @@ namespace sort
       {
         auto key = *itr;
         inner = prev(itr);
-        while(inner != prev2first && comp(*inner, key))
+        while(inner != prev2first && comp(key, *inner))
           {
             *next(inner) = *inner;
             inner--;
@@ -179,7 +185,7 @@ namespace sort
 
         while(--itr != init)
           {
-            if(*itr > *aux) // aux = min
+            if(*aux < *itr) // aux = min
               interchange_values(aux, itr);
             aux = itr;
           }
@@ -202,7 +208,7 @@ namespace sort
           print::to_stdout(first, last);
 
         min = minimum(itr+1, last);
-        if(*itr > *min)
+        if(*min  < *itr)
           interchange_values(itr, min);
       }
   }
@@ -232,7 +238,7 @@ namespace sort
   {
     vector<int> gaps;
     int gap = n/2;
-    while (gap > 0)
+    while (0 < gap)
       {
         gaps.push_back(gap);
         gap/=2;
@@ -338,6 +344,26 @@ namespace sort
   // }
 
 
+  //template<class T>
+  // improvised shellsort algorithm (implement a more efficient algorithm using iterators)
+  // vector<int> shellsort(vector<int> elements, vector<int> gaps, bool verbose)
+  // {
+  //   for(int gap : gaps)
+  //     {
+  //       for(int i=gap; i<elements.size(); i++)
+  //         {
+  //           int tmp = elements[i];
+  //           for(int j=i; j >= gap && a[j-gap] > tmp; j -= gap)
+  //             {
+  //               a[j] = a[j-gap];
+  //             }
+  //           a[j] = tmp;
+  //         }
+  //     }
+
+  //   return elements;
+  // }
+
   template<class T>
   vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)
   /*
@@ -352,7 +378,7 @@ namespace sort
     unsigned int k = 0;
     for(vector<T> part : *partition.get_parts())
       {
-        if(part.size() > 1) // if part has some elements, otherwise it's sorted
+        if(1 < part.size()) // if part has some elements, otherwise it's sorted
           {
             bubble(part.begin(), part.end(), verbose);
             partition.set_part(k, part);

@@ -5,13 +5,15 @@ TDIR = tests
 TDIR_SORT = tests/sort
 TDIR_SEARCH = tests/search
 TDIR_BASE = tests/base
+TDIR_MT = tests/parallel
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
 SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
 SEARCH_EXEC = secuential binary_search min_element max_element minmax_element
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node bst_node heap queue print helper bst
-ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC)
+MT_EXEC = mt_bubble
+ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC) $(MT_EXEC)
 #LDIR =../lib
 
 #LIBS=-lm
@@ -45,8 +47,8 @@ base: $(BASE_EXEC)
 $(ODIR)/%.o: $(TDIR_BASE)/%.cpp $(DEPS) $(EDEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-#$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS) $(EDEPS)
-#	$(CXX) -c -o $@ $< $(CXXFLAGS)
+$(ODIR)/%.o: $(TDIR_MT)/%.cpp $(DEPS) $(EDEPS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) -fopenmp
 
 $(ODIR)/%.o: $(TDIR_SORT)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
@@ -89,6 +91,8 @@ gaps: $(ODIR)/gaps.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) -lm
 
 ##### sort algorithms #####
+
+##### serial algorithms ######
 bubble:	$(ODIR)/bubble.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
@@ -121,6 +125,10 @@ shellsort:	$(ODIR)/shellsort.o
 
 counting:	$(ODIR)/counting.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
+
+##### multithread algorithms ######
+mt_bubble:	$(ODIR)/mt_bubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
 ##### search algorithms #####
 min_element: $(ODIR)/min_element.o

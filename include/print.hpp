@@ -89,6 +89,29 @@ namespace print
 
     return out;
   }
+
+
+  template<typename T>
+  string to_string(T container)
+  {
+    string out = "";
+    typename T::iterator itr;
+    for(itr=container.begin(); itr!=container.end(); itr++)
+      out += *itr  + " ";
+
+    return out;
+  }
+
+  template<typename T>
+  string to_string(T container, string split)
+  {
+    string out = "";
+    typename T::iterator itr;
+    for(itr=container.begin(); itr!=container.end(); itr++)
+      out += *itr + split + " ";
+
+    return out;
+  }
 };
 
 #endif //_PRINT_H

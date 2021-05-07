@@ -21,29 +21,18 @@ namespace ss = sort::serial;
 
 int main()
 {
-  vector<int> numbers = read::from_file<int>("tests/data/unsorted_bubble.txt");
-  vector<int> sorted = vector<int>(numbers.size());
+  vector<int> numbers = read::from_file<int>("tests/data/unsorted.txt");
   bool verbose = false;
-
-  vector<int> cnumbers = vector<int>(numbers.size()); // vector to test serial bubble algorithm efficiency
-  copy(numbers.begin(), numbers.end(), cnumbers.begin());
-
-
+  unsigned int nthreads = 3;
   Timer time;
 
   time.start();
-  ss::bubble(cnumbers.begin(), cnumbers.end(), verbose);
-  time.stop();
-  time.report("Elapsed time (serial bubble):");
-
-
-  time.start();
-  sp::bubble(numbers.begin(), numbers.end(), verbose, sorted.begin(), sorted.end());
+  sp::bubble(numbers.begin(), numbers.end(), nthreads, verbose);
   time.stop();
   time.report("Elapsed time (parallel bubble):");
 
-  //print::to_stdout("Sorted vector:", sorted);
-  write::to_file(sorted.begin(), sorted.end(), "tests/data/sorted_bubble.txt");
+  print::to_stdout("Sorted vector:", numbers); // ONLY FOR DEBUGING PURPOSES
+  //write::to_file(sorted.begin(), sorted.end(), "tests/data/sorted_bubble.txt");
 
   return 0;
 }

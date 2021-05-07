@@ -79,7 +79,7 @@ public:
     try
       {
         unsigned int length = parts->size();
-        if (lentgh <= k)
+        if (length <= k)
           {
             string warning = "Index out of range";
             throw out_of_range(warning.c_str());

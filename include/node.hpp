@@ -22,6 +22,7 @@ class Node
 protected:
   T key;
   unsigned int depth;
+  unsigned int height;
   Node<T>* parent;
   list<Node<T>*> children;
 

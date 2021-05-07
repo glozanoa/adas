@@ -448,36 +448,42 @@ namespace sort
    */
   {
 
-    template <class RandomAccessIterator>//, class OutputIterator>
-    void multi_merge(vector<Boundaries<RandomAccessIterator>> limits,
-                     RandomAccessIterator out, RandomAccessIterator end_out, unsigned int nthreads)
+    template <class RandomAccessIterator>
+    void multi_merge(vector<Boundaries<RandomAccessIterator>> limits)
     {
+      unsigned int size = limits.size();
+      unsigned int nelems = 0;
+      for(Boundaries<RandomAccessIterator> limit : limits)
+        nelems += distance(limit.init, limit.end);
+
+      vector<typename RandomAccessIterator::value_type> merge_aux;
+      merge_aux = vector<typename RandomAccessIterator::value_type>(nelems);
+
       Boundaries<RandomAccessIterator> limit = limits[0];
-      RandomAccessIterator init_out = out;
-      RandomAccessIterator first = limit.init;
+      RandomAccessIterator merge_itr = merge_aux.begin();
+      RandomAccessIterator init_merge = merge_aux.begin();
+      RandomAccessIterator init = limit.init;
       // merge sorted sub containers
-      for(unsigned int k=1; k<nthreads; k++)
+      for(unsigned int k=1; k<size; k++)
         {
           Boundaries<RandomAccessIterator> next_limit = limits[k];
-          out = merge(limit.init, limit.end,
-                      next_limit.init, next_limit.end,
-                      out);
-          copy(init_out, out, first);
+          merge_itr = merge(limit.init, limit.end,
+                            next_limit.init, next_limit.end,
+                            merge_itr);
+          copy(init_merge, merge_itr, init); // overwrite partitions by merged elements
           limit.end = next_limit.end;
-          limit.init = first; // limit.init iterator is modify (incremented) in serial::merge
-          out = init_out;
-          //print::to_stdout("merge:", init_out, end_out);
+          limit.init = init; // limit.init iterator is modify (incremented) in serial::merge
+          merge_itr = init_merge;
+          //print::to_stdout("merge:", merge_aux); // ONLY FOR DEBUGING PURPOSES
         }
     }
 
-    template<class RandomAccessIterator>//, class OuputIterator>
-    void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose,
-                RandomAccessIterator out_first, RandomAccessIterator out_last) // ONLY FOR DEBUG PURPOSE
+    template<class RandomAccessIterator>
+    void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
     {
       unsigned int d = distance(first, last);
-      unsigned int nthreads = omp_get_max_threads();
-      //omp_set_num_threads(4); // ONLY FOR DEBUG PURPOSE
-      //unsigned int nthreads = omp_get_max_threads(); // ONLY FOR DEBUG PURPOSE
+      unsigned int nthreads = omp_nthreads;
+      omp_set_num_threads(nthreads);
       vector<Boundaries<RandomAccessIterator>> limits(nthreads);
       cout << "Running bubble algorithm with " << nthreads <<  " threads." << endl;
 
@@ -494,19 +500,17 @@ namespace sort
         limit.init = init;
         limit.end = end;
 
-        #pragma omp critical
-        {
-          limits[idthread] = limit;
-        }
+        limits[idthread] = limit;
 
         serial::bubble(init, end, verbose);
+        // ONLY FOR DEBUGING PURPOSES
         // #pragma omp critical
         // {
         //   print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
         // }
       }
 
-      multi_merge(limits, out_first, out_last, nthreads);
+      multi_merge(limits);
     }
   }
 };

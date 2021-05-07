@@ -48,9 +48,6 @@ namespace sort
      * WITH COMPARISON SORT ALGORITHMS
      */
 
-    template<class RandomAccessIterator>
-    void wdc(RandomAccessIterator first, RandomAccessIterator last, bool verbose);
-
     // tested - data Apr 25 2021
     template<class RandomAccessIterator>
     void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
@@ -434,26 +431,32 @@ namespace sort
 
     template <class RandomAccessIterator>
     void multi_merge(vector<Boundaries<RandomAccessIterator>> limits, bool verbose)
+    /*
+     * Merge several sorted parts of a array into it.
+     * (using an auxiliary vector to stored intermediate merges)
+     */
     {
       unsigned int size = limits.size();
       unsigned int nelems = 0;
       for(Boundaries<RandomAccessIterator> limit : limits)
         nelems += distance(limit.init, limit.end);
 
+      // auxiliary vector to store intermediate merges
       vector<typename RandomAccessIterator::value_type> merge_aux;
       merge_aux = vector<typename RandomAccessIterator::value_type>(nelems);
-
-      Boundaries<RandomAccessIterator> limit = limits[0];
       RandomAccessIterator merge_itr = merge_aux.begin();
       RandomAccessIterator init_merge = merge_aux.begin();
+
+      Boundaries<RandomAccessIterator> limit = limits[0];
       RandomAccessIterator init = limit.init;
+
       // merge sorted sub containers
       for(unsigned int k=1; k<size; k++)
         {
           Boundaries<RandomAccessIterator> next_limit = limits[k];
-          merge_itr = merge(limit.init, limit.end,
-                            next_limit.init, next_limit.end,
-                            merge_itr);
+          merge_itr = serial::merge(limit.init, limit.end,
+                                    next_limit.init, next_limit.end,
+                                    merge_itr);
           copy(init_merge, merge_itr, init); // overwrite partitions by merged elements
           limit.end = next_limit.end;
           limit.init = init; // limit.init iterator is modify (incremented) in serial::merge
@@ -537,41 +540,6 @@ namespace sort
     {
       spm(first, last, omp_nthreads, serial::selection<RandomAccessIterator>, verbose);
     }
-
-    // template<class RandomAccessIterator>
-//     void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
-//     {
-//       unsigned int d = distance(first, last);
-//       unsigned int nthreads = omp_nthreads;
-//       omp_set_num_threads(nthreads);
-//       vector<Boundaries<RandomAccessIterator>> limits(nthreads);
-//       cout << "Running bubble algorithm with " << nthreads <<  " threads." << endl;
-
-// #pragma omp parallel shared(limits) firstprivate(first, last, verbose, nthreads)
-//       {
-//         unsigned int idthread = omp_get_thread_num();
-//         RandomAccessIterator init = first + idthread*(d/nthreads);
-//         RandomAccessIterator end = first + (idthread+1)*(d/nthreads);
-
-//         if(idthread == nthreads-1)
-//           end = last;
-
-//         Boundaries<RandomAccessIterator> limit;
-//         limit.init = init;
-//         limit.end = end;
-
-//         limits[idthread] = limit;
-
-//         serial::bubble(init, end, verbose);
-//         // ONLY FOR DEBUGING PURPOSES
-//         // #pragma omp critical
-//         // {
-//         //   print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
-//         // }
-//       }
-
-//       multi_merge(limits);
-//     }
   }
 };
 #endif // _SORT_H

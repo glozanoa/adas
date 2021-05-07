@@ -1,12 +1,12 @@
 # Algorithms
-In this repository you can find `serial` and `multithread` algorithms to `sort`, `search` and `manipulate` custom *Data Structures*.
+In this repository you can find `serial` and `multi-thread` algorithms to `sort`, `search` and `manipulate` custom *Data Structures*.
 
 ## Developed Algorithms and Data Structures
 
 ### Sort Algorithms
 + Sort with comparison
     
-| Algorithm | Efficiency   | Serial | Multithread |
+| Algorithm | Efficiency   | Serial | Multi-thread |
 |-----------|:------------:|:------:|:-----------:|
 | bubble    | `O(n^2)`     | `YES`  | `YES`       |
 | bibubble  |              | `YES`  | `YES`       |
@@ -18,13 +18,13 @@ In this repository you can find `serial` and `multithread` algorithms to `sort`,
     
 + Sort without comparison
     
-| Algorithm | Efficiency | Serial | Multithread |
+| Algorithm | Efficiency | Serial | Multi-thread |
 |-----------|------------|:------:|-------------|
 | counting  | `O(n)`     | `YES`  | `NO`        |
 
 ### Search Algorithms
 
-| Algorithm      | Efficiency | Serial | Multithread |
+| Algorithm      | Efficiency | Serial | Multi-thread |
 |----------------|:----------:|:------:|:-----------:|
 | secuential     | `O(n)`     | `YES`  | `NO`        |
 | binary_search  |            | `YES`  | `YES`       |

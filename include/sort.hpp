@@ -28,6 +28,14 @@ typedef enum ORDER
 
   }ORDER;
 
+template<class RandomAccessIterator>
+struct Boundaries
+{
+  RandomAccessIterator init; //begin iterator of a container
+  RandomAccessIterator end;  //end iterator of a container
+};
+
+
 namespace sort
 {
   namespace serial
@@ -251,7 +259,6 @@ namespace sort
       return gaps;
     }
 
-
     template <class InputIterator1, class InputIterator2, class OutputIterator>
     OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
                          InputIterator2 first2, InputIterator2 last2,
@@ -269,7 +276,6 @@ namespace sort
           *result++ = (*first2 < *first1)? *first2++ : *first1++;
         }
     }
-
 
     // template<class T>
     // vector<T> mergesort(vector<T> elements, bool verbose)
@@ -441,21 +447,37 @@ namespace sort
    * parallel (multi thread) sort algorithms
    */
   {
-    template<class RandomAccessIterator>
-    struct Boundaries
-    {
-      RandomAccessIterator init;
-      RandomAccessIterator end;
-    };
 
-    template<class RandomAccessIterator, class OuputIterator>
-    void bubble(RandomAccessIterator first, RandomAccessIterator last,
-                OuputIterator result, bool verbose)
+    template <class RandomAccessIterator>//, class OutputIterator>
+    void multi_merge(vector<Boundaries<RandomAccessIterator>> limits,
+                     RandomAccessIterator out, RandomAccessIterator end_out, unsigned int nthreads)
+    {
+      Boundaries<RandomAccessIterator> limit = limits[0];
+      RandomAccessIterator init_out = out;
+      RandomAccessIterator first = limit.init;
+      // merge sorted sub containers
+      for(unsigned int k=1; k<nthreads; k++)
+        {
+          Boundaries<RandomAccessIterator> next_limit = limits[k];
+          out = merge(limit.init, limit.end,
+                      next_limit.init, next_limit.end,
+                      out);
+          copy(init_out, out, first);
+          limit.end = next_limit.end;
+          limit.init = first; // limit.init iterator is modify (incremented) in serial::merge
+          out = init_out;
+          //print::to_stdout("merge:", init_out, end_out);
+        }
+    }
+
+    template<class RandomAccessIterator>//, class OuputIterator>
+    void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose,
+                RandomAccessIterator out_first, RandomAccessIterator out_last) // ONLY FOR DEBUG PURPOSE
     {
       unsigned int d = distance(first, last);
       unsigned int nthreads = omp_get_max_threads();
-      //omp_set_num_threads(2); // ONLY FOR TESTING PURPOSE
-      //unsigned int nthreads = omp_get_max_threads(); // ONLY FOR TESTING PURPOSE
+      //omp_set_num_threads(4); // ONLY FOR DEBUG PURPOSE
+      //unsigned int nthreads = omp_get_max_threads(); // ONLY FOR DEBUG PURPOSE
       vector<Boundaries<RandomAccessIterator>> limits(nthreads);
       cout << "Running bubble algorithm with " << nthreads <<  " threads." << endl;
 
@@ -471,22 +493,20 @@ namespace sort
         Boundaries<RandomAccessIterator> limit;
         limit.init = init;
         limit.end = end;
-        limits[idthread] = limit;
+
+        #pragma omp critical
+        {
+          limits[idthread] = limit;
+        }
 
         serial::bubble(init, end, verbose);
-        //print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
+        // #pragma omp critical
+        // {
+        //   print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
+        // }
       }
 
-      Boundaries<RandomAccessIterator> limit = limits[0];
-      // merge sorted sub containers
-      for(unsigned int k=1; k<nthreads; k++)
-        {
-          Boundaries<RandomAccessIterator> next_limit = limits[k];
-          result = serial::merge(limit.init, limit.end,
-                                 next_limit.init, next_limit.end,
-                                 result);
-          limit = next_limit;
-        }
+      multi_merge(limits, out_first, out_last, nthreads);
     }
   }
 };

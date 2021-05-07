@@ -12,7 +12,7 @@ Also we try to codify some *multithread* algorithms, so you can use them to proc
 | Algorithm | Efficiency   | Serial | Multithread |
 |-----------|:------------:|:------:|:-----------:|
 | bubble    | `O(n^2)`     | `YES`  | `YES`       |
-| bibubble  |              | `YES`  | `NO`        |
+| bibubble  |              | `YES`  | `YES`        |
 | insertion | `O(n^2)`     | `YES`  | `YES`       |
 | selection | `O(n^2)`     | `YES`  | `YES`       |
 | merge     |              | `YES`  |             |

@@ -6,14 +6,16 @@ TDIR_SORT = tests/sort
 TDIR_SEARCH = tests/search
 TDIR_BASE = tests/base
 TDIR_MT = tests/parallel
+TDIR_EF = tests/efficiency
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
 ODIR = obj
-SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
+SORT_EXEC = bubble bibubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
 SEARCH_EXEC = secuential binary_search min_element max_element minmax_element
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node bst_node heap queue print helper bst
-MT_EXEC = mt_bubble spm mt_selection
-ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC) $(MT_EXEC)
+MT_EXEC = mt_bubble spm mt_selection mt_insertion mt_bibubble
+EF_EXEC = ef_bubble ef_bibubble ef_selection ef_insertion
+ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC) $(MT_EXEC) $(EF_EXEC)
 #LDIR =../lib
 
 #LIBS=-lm
@@ -48,6 +50,9 @@ $(ODIR)/%.o: $(TDIR_BASE)/%.cpp $(DEPS) $(EDEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 $(ODIR)/%.o: $(TDIR_MT)/%.cpp $(DEPS) $(EDEPS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) -fopenmp
+
+$(ODIR)/%.o: $(TDIR_EF)/%.cpp $(DEPS) $(EDEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS) -fopenmp
 
 $(ODIR)/%.o: $(TDIR_SORT)/%.cpp $(DEPS)
@@ -96,7 +101,7 @@ gaps: $(ODIR)/gaps.o
 bubble:	$(ODIR)/bubble.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
-bidirectional_bubble:	$(ODIR)/bidirectional_bubble.o
+bibubble:	$(ODIR)/bibubble.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 extern_merge:	$(ODIR)/extern_merge.o
@@ -126,11 +131,31 @@ shellsort:	$(ODIR)/shellsort.o
 counting:	$(ODIR)/counting.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
+##### efficiency tests ######
+ef_bubble:	$(ODIR)/ef_bubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+ef_bibubble:	$(ODIR)/ef_bibubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+ef_insertion:	$(ODIR)/ef_insertion.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+ef_selection:	$(ODIR)/ef_selection.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+
 ##### multithread algorithms ######
 mt_bubble:	$(ODIR)/mt_bubble.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
+mt_bibubble:	$(ODIR)/mt_bibubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
 mt_selection:	$(ODIR)/mt_selection.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+mt_insertion:	$(ODIR)/mt_insertion.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
 spm:	$(ODIR)/spm.o
@@ -167,7 +192,7 @@ clean: cleanslurm cleanobj
 	rm -f  *~ $(IDIR)/*~ $(ALL_EXEC)
 
 cleanobj:
-	rm -r $(ODIR)/*.o
+	rm -rf $(ODIR)/*.o
 
 cleanslurm:
 	rm -f slurm-*.out slurm-*.err

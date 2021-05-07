@@ -9,11 +9,12 @@ TDIR_MT = tests/parallel
 TDIR_EF = tests/efficiency
 CXX = g++
 CXXFLAGS = -I$(IDIR) -std=c++17 -ggdb
+MTFLAGS = -fopenmp
 ODIR = obj
 SORT_EXEC = bubble bibubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
 SEARCH_EXEC = secuential binary_search min_element max_element minmax_element
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node bst_node heap queue print helper bst
-MT_EXEC = mt_bubble spm mt_selection mt_insertion mt_bibubble
+MT_EXEC = mt_bubble spm mt_selection mt_insertion mt_bibubble mt_min_element mt_max_element
 EF_EXEC = ef_bubble ef_bibubble ef_selection ef_insertion
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC) $(MT_EXEC) $(EF_EXEC)
 #LDIR =../lib
@@ -133,33 +134,39 @@ counting:	$(ODIR)/counting.o
 
 ##### efficiency tests ######
 ef_bubble:	$(ODIR)/ef_bubble.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 ef_bibubble:	$(ODIR)/ef_bibubble.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 ef_insertion:	$(ODIR)/ef_insertion.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 ef_selection:	$(ODIR)/ef_selection.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 
 ##### multithread algorithms ######
 mt_bubble:	$(ODIR)/mt_bubble.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 mt_bibubble:	$(ODIR)/mt_bibubble.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 mt_selection:	$(ODIR)/mt_selection.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 mt_insertion:	$(ODIR)/mt_insertion.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
+
+mt_min_element:	$(ODIR)/mt_min_element.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
+
+mt_max_element:	$(ODIR)/mt_max_element.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 spm:	$(ODIR)/spm.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(MTFLAGS)
 
 ##### search algorithms #####
 min_element: $(ODIR)/min_element.o

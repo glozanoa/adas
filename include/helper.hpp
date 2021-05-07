@@ -14,6 +14,14 @@ using namespace std;
 
 #include "cast.hpp"
 
+template<class ForwardIterator>
+struct Boundaries
+{
+  ForwardIterator init; //begin iterator of a container
+  ForwardIterator end;  //end iterator of a container
+};
+
+
 //tested - date May 1 2021
 template<class InputIterator>
 void interchange_values(InputIterator itr1, InputIterator itr2)

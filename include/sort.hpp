@@ -23,18 +23,11 @@ using namespace std;
 #include "partition.hpp"
 #include "omp.h"
 
-typedef enum ORDER
-  {
+// typedef enum ORDER
+//   {
 
 
-  }ORDER;
-
-template<class RandomAccessIterator>
-struct Boundaries
-{
-  RandomAccessIterator init; //begin iterator of a container
-  RandomAccessIterator end;  //end iterator of a container
-};
+//   }ORDER;
 
 
 namespace sort

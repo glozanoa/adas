@@ -1,20 +1,10 @@
-#!/bin/bash
-#SBATCH --job-name=bibubble
-#SBATCH --nodes=1
-#SBATCH --mem=10GB
-#SBATCH --partition=strong
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
+#!/bin/bash (UPDATE)
+#SBATCH --job-name=hw      # name of the job
+#SBATCH --nodes=1          # execute only in 1 thread (shared memory)
+#SBATCH --mem=10GB         # allocate 10GB of memory to perform the tasl
+#SBATCH --partition=strong # partition to submit job
+#SBATCH --ntasks=1         # number of threads
+#SBATCH --cpus-per-task=1  # number of used CPUs
 
 
-#echo -e "Testing bubble algorithm efficiency:\n"
-#./bubble
-
-# echo -e "Testing insertion algorithm efficiency:\n"
-# ./insertion
-
-# echo -e "Testing selection algorithm efficiency:\n"
-# ./selection
-
-echo -e "Testing bidirectional bubble algorithm efficiency:\n"
-./bidirectional_bubble
+# PUT YOUR WORK HERE

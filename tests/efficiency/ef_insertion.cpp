@@ -1,0 +1,47 @@
+/*
+ * Testing efficiency of multithread algorithms against serial algorithms
+ *
+ * Task: sort 10000 random integer numbers
+ *
+ * Maintainer: glozanoa <glozanoa@uni.pe>
+ */
+
+#include <vector>
+using namespace std;
+
+#include "../include/io.hpp"
+#include "../include/sort.hpp"
+namespace ss = sort::serial;
+namespace sp = sort::parallel;
+
+
+int main()
+{
+  /*
+   * Random integer numbers were generated using intgen.py python script
+   * python3 dgen/intgen.py -u 1 15000 10000  tests/data/unsorted10000.txt
+   *
+   * READ UNSORTED NUMBERS - ONLY FOR TESTING PURPOSES
+   */
+
+  vector<int> numbers = read::from_file<int>("tests/data/unsorted10000.txt");
+  vector<int> cnumbers(numbers.size()); // copy of numbers to test serial algorithm
+  copy(numbers.begin(), numbers.end(), cnumbers.begin());
+  bool verbose = false;
+  Timer time;
+
+  time.start();
+  ss::insertion(cnumbers.begin(), cnumbers.end(), verbose);
+  time.stop();
+  time.report("Elapsed time (serial insertion algorithm)");
+
+  unsigned int nthreads = 8;
+
+  time.start();
+  sp::insertion(numbers.begin(), numbers.end(), nthreads, verbose);
+  time.stop();
+  time.report("Elapsed time (multithread insertion algorithm)");
+
+  // writing sorted numbers by multithread algorithms to check if they are sorted
+  write::to_file(numbers.begin(), numbers.end(), "tests/data/sorted10000.txt");
+}

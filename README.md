@@ -28,8 +28,8 @@ In this repository you can find `serial` and `multi-thread` algorithms to `sort`
 |----------------|:----------:|:------:|:-----------:|
 | secuential     | `O(n)`     | `YES`  | `NO`        |
 | binary_search  |            | `YES`  | `YES`       |
-| min_element    | `O(n)`     | `YES`  | `NO`        |
-| max_element    | `O(n)`     | `YES`  | `NO`        |
+| min_element    | `O(n)`     | `YES`  | `YES`        |
+| max_element    | `O(n)`     | `YES`  | `YES`        |
 | minmax_element | `O(n)`     | `YES`  | `NO`        |
 
 

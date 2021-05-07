@@ -12,7 +12,7 @@ ODIR = obj
 SORT_EXEC = bubble bidirectional_bubble selection insertion binary_insertion extern_merge shellsort mergesort heap_sort counting partition quicksort
 SEARCH_EXEC = secuential binary_search min_element max_element minmax_element
 BASE_EXEC =	matrix tree binary_tree gaps node binary_node bst_node heap queue print helper bst
-MT_EXEC = mt_bubble
+MT_EXEC = mt_bubble spm mt_selection
 ALL_EXEC = $(SORT_EXEC) $(SEARCH_EXEC) $(BASE_EXEC) $(MT_EXEC)
 #LDIR =../lib
 
@@ -128,6 +128,12 @@ counting:	$(ODIR)/counting.o
 
 ##### multithread algorithms ######
 mt_bubble:	$(ODIR)/mt_bubble.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+mt_selection:	$(ODIR)/mt_selection.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
+
+spm:	$(ODIR)/spm.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
 ##### search algorithms #####

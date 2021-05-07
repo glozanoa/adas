@@ -14,6 +14,7 @@
 #include <iterator>
 using namespace std;
 
+#include "search.hpp"
 #include "helper.hpp"
 #include "cast.hpp"
 #include "timer.hpp"
@@ -46,6 +47,9 @@ namespace sort
     /*
      * WITH COMPARISON SORT ALGORITHMS
      */
+
+    template<class RandomAccessIterator>
+    void wdc(RandomAccessIterator first, RandomAccessIterator last, bool verbose);
 
     // tested - data Apr 25 2021
     template<class RandomAccessIterator>
@@ -219,7 +223,7 @@ namespace sort
           if(verbose)
             print::to_stdout(first, last);
 
-          min = minimum(itr+1, last);
+          min = min_element(itr+1, last);
           if(*min  < *itr)
             interchange_values(itr, min);
         }
@@ -449,7 +453,7 @@ namespace sort
   {
 
     template <class RandomAccessIterator>
-    void multi_merge(vector<Boundaries<RandomAccessIterator>> limits)
+    void multi_merge(vector<Boundaries<RandomAccessIterator>> limits, bool verbose)
     {
       unsigned int size = limits.size();
       unsigned int nelems = 0;
@@ -474,18 +478,25 @@ namespace sort
           limit.end = next_limit.end;
           limit.init = init; // limit.init iterator is modify (incremented) in serial::merge
           merge_itr = init_merge;
-          //print::to_stdout("merge:", merge_aux); // ONLY FOR DEBUGING PURPOSES
+          if(verbose)
+            print::to_stdout("merge:", merge_aux); // ONLY FOR DEBUGING PURPOSES
         }
     }
 
-    template<class RandomAccessIterator>
-    void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
+    template<class RandomAccessIterator, class SerialSortAlgorithm>
+    void spm(RandomAccessIterator first, RandomAccessIterator last,
+             unsigned int omp_nthreads, SerialSortAlgorithm ssa, bool verbose)
+    /*
+     * spm : split, process and merge
+     * This algorithm sort a container in parallel using some serial sort algorithm.
+     * Splitting it by the number of threads, then proces each part in parallel with a serial algorithm
+     * and finaly merge the sorted parts.
+     */
     {
       unsigned int d = distance(first, last);
       unsigned int nthreads = omp_nthreads;
       omp_set_num_threads(nthreads);
       vector<Boundaries<RandomAccessIterator>> limits(nthreads);
-      cout << "Running bubble algorithm with " << nthreads <<  " threads." << endl;
 
 #pragma omp parallel shared(limits) firstprivate(first, last, verbose, nthreads)
       {
@@ -502,16 +513,66 @@ namespace sort
 
         limits[idthread] = limit;
 
-        serial::bubble(init, end, verbose);
-        // ONLY FOR DEBUGING PURPOSES
-        // #pragma omp critical
-        // {
-        //   print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
-        // }
+        ssa(init, end, false);
+        //ONLY FOR DEBUGING PURPOSES
+        if(verbose)
+          {
+#pragma omp critical
+            {
+              print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
+            }
+          }
       }
 
-      multi_merge(limits);
+      multi_merge(limits, verbose);
     }
+
+    template<class RandomAccessIterator>
+    void selection(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
+    {
+      spm(first, last, omp_nthreads, serial::selection<RandomAccessIterator>, verbose);
+    }
+
+    template<class RandomAccessIterator>
+    void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
+    {
+      spm(first, last, omp_nthreads, serial::bubble<RandomAccessIterator>, verbose);
+    }
+
+    // template<class RandomAccessIterator>
+//     void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
+//     {
+//       unsigned int d = distance(first, last);
+//       unsigned int nthreads = omp_nthreads;
+//       omp_set_num_threads(nthreads);
+//       vector<Boundaries<RandomAccessIterator>> limits(nthreads);
+//       cout << "Running bubble algorithm with " << nthreads <<  " threads." << endl;
+
+// #pragma omp parallel shared(limits) firstprivate(first, last, verbose, nthreads)
+//       {
+//         unsigned int idthread = omp_get_thread_num();
+//         RandomAccessIterator init = first + idthread*(d/nthreads);
+//         RandomAccessIterator end = first + (idthread+1)*(d/nthreads);
+
+//         if(idthread == nthreads-1)
+//           end = last;
+
+//         Boundaries<RandomAccessIterator> limit;
+//         limit.init = init;
+//         limit.end = end;
+
+//         limits[idthread] = limit;
+
+//         serial::bubble(init, end, verbose);
+//         // ONLY FOR DEBUGING PURPOSES
+//         // #pragma omp critical
+//         // {
+//         //   print::to_stdout("Thread " + to_string(idthread) + ":", init, end);
+//         // }
+//       }
+
+//       multi_merge(limits);
+//     }
   }
 };
 #endif // _SORT_H

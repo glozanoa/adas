@@ -1,8 +1,7 @@
 /*
- * Test of bubble parallel (multi thread) algorithm
+ * Test of selection parallel (multi thread) algorithm
  *
- * DEBUG EXECUTION WITH MORE THAN 2 THREADS (EXIT WITH ERROR) - SOLVED
- * Status - DEBUGGED (RUN SUCEFULLY WITH MORE THAN 2 THREADS)
+ * Status: DEBUGGED - date : May 7 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -28,9 +27,9 @@ int main()
   Timer time;
 
   time.start();
-  sp::bubble(numbers.begin(), numbers.end(), nthreads, verbose);
+  sp::selection(numbers.begin(), numbers.end(), nthreads, verbose);
   time.stop();
-  time.report("Elapsed time (parallel bubble):");
+  time.report("Elapsed time (parallel selection):");
 
   print::to_stdout("Sorted vector:", numbers); // ONLY FOR DEBUGING PURPOSES
   //write::to_file(sorted.begin(), sorted.end(), "tests/data/sorted_bubble.txt");

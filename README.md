@@ -39,4 +39,4 @@ In this repository you can find `serial` and `multi-thread` algorithms to `sort`
 
 
 ## Usage
-To learn how to use developed `algorithms` and `data structures` check ouw [wiki](https://github.com/glozanoa/algorithms/wiki).
+To learn how to use developed `algorithms` and `data structures` check our [wiki](https://github.com/glozanoa/algorithms/wiki).

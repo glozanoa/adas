@@ -95,16 +95,12 @@ namespace sort
     // tested - date Apr 30 2021
     template<class RandomAccessIterator>
     void insertion(RandomAccessIterator first, RandomAccessIterator last,
-                   bool verbose, bool timer)
+                   bool verbose)
     /*
      * Sort elements using insertion sort algorithm
      * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TYPE TO ENABLE SORT LIST DATA STRUCTURE
      */
     {
-      Timer time;
-      if(timer)
-        time.start();
-
       RandomAccessIterator prev2first = prev(first);
       RandomAccessIterator itr;
       RandomAccessIterator inner;
@@ -123,27 +119,17 @@ namespace sort
           if (verbose)
             print::to_stdout(first, last);
         }
-
-      if(timer)
-        {
-          time.stop();
-          time.default_report();
-        }
     }
 
     // tested - date Apr 30 2021
     template<class RandomAccessIterator, class Compare>
     void insertion(RandomAccessIterator first, RandomAccessIterator last, Compare comp,
-                   bool verbose, bool timer)
+                   bool verbose)
     /*
      * Sort elements using insertion sort algorithm
      * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TO ENABLE SORT LISTS
      */
     {
-      Timer time;
-      if(timer)
-        time.start();
-
       RandomAccessIterator prev2first = prev(first);
       RandomAccessIterator itr;
       RandomAccessIterator inner;
@@ -161,12 +147,6 @@ namespace sort
 
           if (verbose)
             print::to_stdout(first, last);
-        }
-
-      if(timer)
-        {
-          time.stop();
-          time.default_report();
         }
     }
 
@@ -528,15 +508,34 @@ namespace sort
     }
 
     template<class RandomAccessIterator>
-    void selection(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
-    {
-      spm(first, last, omp_nthreads, serial::selection<RandomAccessIterator>, verbose);
-    }
-
-    template<class RandomAccessIterator>
-    void bubble(RandomAccessIterator first, RandomAccessIterator last, unsigned int omp_nthreads, bool verbose)
+    void bubble(RandomAccessIterator first, RandomAccessIterator last,
+                unsigned int omp_nthreads, bool verbose)
     {
       spm(first, last, omp_nthreads, serial::bubble<RandomAccessIterator>, verbose);
+    }
+
+
+    template<class RandomAccessIterator>
+    void bibubble(RandomAccessIterator first, RandomAccessIterator last,
+                   unsigned int omp_nthreads, bool verbose)
+    {
+      spm(first, last, omp_nthreads, serial::bibubble<RandomAccessIterator>, verbose);
+    }
+
+
+    template<class RandomAccessIterator>
+    void selection(RandomAccessIterator first, RandomAccessIterator last,
+                   unsigned int omp_nthreads, bool verbose)
+    {
+      spm(first, last, omp_nthreads, serial::insertion<RandomAccessIterator>, verbose);
+    }
+
+
+    template<class RandomAccessIterator>
+    void insertion(RandomAccessIterator first, RandomAccessIterator last,
+                   unsigned int omp_nthreads, bool verbose)
+    {
+      spm(first, last, omp_nthreads, serial::selection<RandomAccessIterator>, verbose);
     }
 
     // template<class RandomAccessIterator>

@@ -99,35 +99,35 @@ namespace search
   }
 
 
-  template<class RandomAccessIterator, class T>
-  RandomAccessIterator binary_search(RandomAccessIterator first, RandomAccessIterator last,
-                                     const T value)
-  {
-    print::to_stdout(first, last);
-    unsigned int d = distance(first, last);
-    RandomAccessIterator midpoint  = first + d/2;
+//   template<class RandomAccessIterator, class T>
+//   RandomAccessIterator binary_search(RandomAccessIterator first, RandomAccessIterator last,
+//                                      const T value)
+//   {
+//     print::to_stdout(first, last);
+//     unsigned int d = distance(first, last);
+//     RandomAccessIterator midpoint  = first + d/2;
 
-    if(*midpoint == value)
-      return midpoint;
-    else if(1 < d)
-      {
-#pragma omp parallel sections
-        {
-#pragma omp section
-          {
-            RandomAccessIterator lsearch = binary_search(first, midpoint, value);
-            if(*lsearch == value) return lsearch;
-          }
+//     if(*midpoint == value)
+//       return midpoint;
+//     else if(1 < d)
+//       {
+// #pragma omp parallel sections
+//         {
+// #pragma omp section
+//           {
+//             RandomAccessIterator lsearch = binary_search(first, midpoint, value);
+//             if(*lsearch == value) return lsearch;
+//           }
 
-#pragma omp section
-          {
-            RandomAccessIterator rsearch = binary_search(midpoint+1, last, value);
-            if(*rsearch == value) return rsearch;
-          }
-        }
-      }
-    return last;
-  }
+// #pragma omp section
+//           {
+//             RandomAccessIterator rsearch = binary_search(midpoint+1, last, value);
+//             if(*rsearch == value) return rsearch;
+//           }
+//         }
+//       }
+//     return last;
+//   }
 
   // template<class BidirectionalIterator, class T>
   // BidirectionalIterator binary_search(BidirectionalIterator first, BidirectionalIterator last, const T value)

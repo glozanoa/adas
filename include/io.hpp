@@ -7,6 +7,7 @@
 #ifndef _IO_H
 #define _IO_H
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -55,6 +56,7 @@ namespace write
         for(ForwardIterator itr = first; itr != last; itr++)
           fn << *itr << endl;
         fn.close();
+        cout << "Data was saved to " << file_name << endl;
       }
     catch(exception& error)
       {

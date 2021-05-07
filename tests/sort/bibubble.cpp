@@ -1,7 +1,7 @@
 /*
  * Testing bidirectional bubble sorting algorithm
  *
- * Updated - date: May 4 2021
+ * Status: DEBUGGED - date : Mar 7 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -10,21 +10,23 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/sort.hpp"
 #include "../../include/io.hpp"
+#include "../../include/sort.hpp"
+namespace ss = sort::serial;
 
 int main()
 {
 
   Timer time;
   bool verbose = true;
-  vector<int> numbers = read::from_file("tests/data/unsorted.txt");
+  vector<int> numbers = read::from_file<int>("tests/data/unsorted.txt");
 
   time.start();
-  sort::bibubble(numbers.begin(), numbers.end(), verbose);
+  ss::bibubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (bibubble sorting algorithm)");
 
-  write::to_file(numbers.begin(), number.end(), "tests/data/sorted_bibubble.txt")
+  //write::to_file(numbers.begin(), number.end(), "tests/data/sorted_bibubble.txt")
+  print::to_stdout("Sorted:", numbers);
   return 0;
 }

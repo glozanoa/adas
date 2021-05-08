@@ -1,5 +1,5 @@
 # Algorithms
-In this repository you can find `serial` and `multi-thread` algorithms to `sort`, `search` and `manipulate` custom *Data Structures*.
+In this repository you can find `serial` and `multi-thread` algorithms to `sort`, `search` and `manipulate` customized *Data Structures*.
 
 ## Developed Algorithms and Data Structures
 

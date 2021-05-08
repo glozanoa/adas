@@ -13,7 +13,7 @@
 #include <time.h>
 using namespace std;
 
-//#include "omp"
+#include "omp.h"
 
 #include "helper.hpp"
 #include "exceptions/matrix.hpp"
@@ -86,7 +86,7 @@ public:
   {
     try
       {
-        if(rows <= row_index || ncols <= col_index)
+        if(nrows <= row_index || ncols <= col_index)
           throw InvalidIndex(row_index, col_index);
 
         data->at(row_index)[col_index] = value;
@@ -106,7 +106,7 @@ public:
   {
     try
       {
-        if(mrows <= index)
+        if(nrows <= index)
           throw new InvalidIndex(index, -1); // is_row_index=true
 
         return data->at(index);
@@ -168,11 +168,25 @@ public:
 
         Matrix<T> sum = Matrix<T>(nrows, ncols);
 
-        //#pragma omp parallel shared(sum)
+        omp_set_nested(true);
+        #pragma omp parallel for shared(sum, mtx) firstprivate(nrows, ncols)
         for(unsigned int i=0; i<nrows; i++)
           {
+            // unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
+            vector<T> row = this->get_row(i);
+            vector<T> mtx_row = mtx.get_row(i);
+            #pragma omp parallel for firstprivate(row, mtx_row, ncols)
             for(unsigned int j=0; j<ncols; j++)
-              sum.set_value(i, j, data->at(i)[j]+mtx(i, j));
+            {
+              sum.set_value(i, j, row[j]+mtx_row[j]);
+              // ONLY FOR GEBUG PURPOSE
+              // unsigned int col_thread = omp_get_thread_num();
+              // #pragma omp critical
+              // {
+              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  << 
+              //   ", sum(" << i << ", " << j << ") = " << sum(i, j) << endl; 
+              // }
+            }
           }
         return sum;
       }
@@ -193,14 +207,27 @@ public:
         if(nrows!= mtx_nrows || ncols != mtx_ncols)
           throw InvalidDim(nrows, ncols, mtx_nrows, mtx_ncols);
 
-
         Matrix<T> subs = Matrix<T>(nrows, ncols);
 
-        //#pragma omp parallel shared(sum)
+        omp_set_nested(true);
+        #pragma omp parallel for shared(subs, mtx) firstprivate(nrows, ncols)
         for(unsigned int i=0; i<nrows; i++)
           {
+            // unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
+            vector<T> row = this->get_row(i);
+            vector<T> mtx_row = mtx.get_row(i);
+            #pragma omp parallel for firstprivate(row, mtx_row, ncols)
             for(unsigned int j=0; j<ncols; j++)
-              subs.set_value(i, j, data->at(i)[j]-mtx(i, j));
+            {
+              subs.set_value(i, j, row[j]-mtx_row[j]);
+              // ONLY FOR GEBUG PURPOSE
+              // unsigned int col_thread = omp_get_thread_num();
+              // #pragma omp critical
+              // {
+              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  << 
+              //   ", subs(" << i << ", " << j << ") = " << subs(i, j) << endl; 
+              // }
+            }
           }
         return subs;
       }

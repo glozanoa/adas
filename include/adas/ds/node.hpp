@@ -13,7 +13,6 @@
 #include <list>
 using namespace std;
 
-#include "helper.hpp"
 #include "exceptions/node.hpp"
 
 template<typename T>

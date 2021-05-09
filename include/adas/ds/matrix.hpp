@@ -15,7 +15,6 @@ using namespace std;
 
 #include "omp.h"
 
-#include "helper.hpp"
 #include "exceptions/matrix.hpp"
 
 template<typename T>

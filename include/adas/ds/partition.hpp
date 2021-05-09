@@ -11,8 +11,6 @@
 #include <iterator>
 using namespace std;
 
-//#include "sort.hpp"
-#include "helper.hpp"
 #include "print.hpp"
 
 template<class T>
@@ -62,12 +60,11 @@ public:
 
   void show()
   {
-    cout << "(Pivots)" << endl;
-    print::to_stdout(pivots);
+    print::to_stdout("Pivots: "pivots);
     cout << "(Parts)" << endl;
     for(int i=0; i < parts->size(); i++)
     {
-      print::to_stdout(parts->at(i));
+      print::to_stdout("Part " + to_string(i) + ": ", parts->at(i));
     }
   }
 

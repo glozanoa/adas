@@ -1,6 +1,8 @@
 /*
  * Test of matrix template class
  *
+ * Status: 
+ * 
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -42,6 +44,7 @@ int main()
   cout << "mtx(1, 2) = " << mtx12 << endl;
 
 
+  //omp_set_num_threads(4);
   // arithmetic operations with matrix
   cout << endl;
   cout << "mtx + other:" << endl;

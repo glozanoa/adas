@@ -48,7 +48,7 @@ search: $(SEARCH_EXEC)
 base: $(BASE_EXEC)
 
 $(ODIR)/%.o: $(TDIR_BASE)/%.cpp $(DEPS) $(EDEPS)
-	$(CXX) -c -o $@ $< $(CXXFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) -fopenmp
 
 $(ODIR)/%.o: $(TDIR_MT)/%.cpp $(DEPS) $(EDEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS) -fopenmp
@@ -64,7 +64,7 @@ $(ODIR)/%.o: $(TDIR_SEARCH)/%.cpp $(DEPS)
 
 ##### base tests #####
 matrix:	$(ODIR)/matrix.o
-	$(CXX) -o $@ $^ $(CXXFLAGS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) -fopenmp
 
 print:	$(ODIR)/print.o
 	$(CXX) -o $@ $^ $(CXXFLAGS)

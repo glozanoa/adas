@@ -348,31 +348,6 @@ namespace sort
     //   return elements;
     // }
 
-    template<class T>
-    vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)
-    /*
-     * Improve efficiency of quicksort algorithm:
-     * + Reimplement Partition<T> class using pointer (to avoid copy data)
-     * + Parallelize for loop in quicksort body
-     * + change of sortng algorithm to sort partition's parts (codify mergesort algorithm)
-     */
-    {
-      Partition<T> partition = Partition<T>(pivots, elements);
-
-      unsigned int k = 0;
-      for(vector<T> part : *partition.get_parts())
-        {
-          if(1 < part.size()) // if part has some elements, otherwise it's sorted
-            {
-              bubble(part.begin(), part.end(), verbose);
-              partition.set_part(k, part);
-              k++;
-            }
-        }
-
-      return partition.join();
-    }
-
     /*
      * WITHOUT COMPARISON SORT ALGORITHMS
      */
@@ -458,6 +433,41 @@ namespace sort
             print::to_stdout("merge:", merge_aux); // ONLY FOR DEBUGING PURPOSES
         }
     }
+
+
+    template<class T>
+    vector<T> quicksort(vector<T> elements, vector<T> pivots, bool verbose)
+    /*
+     * Improve efficiency of quicksort algorithm:
+     * + Reimplement Partition<T> class using pointer (to avoid copy data)
+     * + Parallelize for loop in quicksort body
+     * + change of sortng algorithm to sort partition's parts (codify mergesort algorithm)
+     */
+    {
+      Partition<T> partition = Partition<T>(pivots, elements);
+      unsigned size = partition.size();
+
+#pragma omp parallel for shared(partition) firstprivate(size)
+      for(unsigned int k = 0; k < size; k++)
+        {
+          vector<T> part = partition.get_part(k);
+          if(1 < part.size()) // if part has some elements, otherwise it's sorted
+            {
+              serial::bubble(part.begin(), part.end(), verbose);
+              // ONLY FOR DEBUG PURPOSE
+              #pragma omp critical
+              {
+                unsigned int idthread = omp_get_thread_num();
+                cout << "Thread " << idthread << ": ";
+                print::to_stdout(part);
+              }
+              partition.set_part(k, part);
+            }
+        }
+
+      return partition.join();
+    }
+
 
     template<class RandomAccessIterator, class SerialSortAlgorithm>
     void spm(RandomAccessIterator first, RandomAccessIterator last,

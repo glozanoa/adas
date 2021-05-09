@@ -1,4 +1,4 @@
-# Algorithms
+# Algorithm
 Here you can find a colection of `serial` and `multi-thread` algorithms to be used on ranges of elements.
 
 ## Dependences

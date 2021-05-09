@@ -13,9 +13,9 @@
 #include <time.h>
 using namespace std;
 
-#include "omp.h"
-
 #include "exceptions/matrix.hpp"
+
+#include "omp.h"
 
 template<typename T>
 class Matrix

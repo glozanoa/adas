@@ -11,7 +11,7 @@
 #include <iterator>
 using namespace std;
 
-#include "print.hpp"
+#include "./utilities/print.hpp"
 
 template<class T>
 class Partition

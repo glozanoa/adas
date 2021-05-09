@@ -14,202 +14,207 @@
 #include <utility>
 using namespace std;
 
-#include "helper.hpp"
-#include "timer.hpp"
-#include "print.hpp" // ONLY FOR TESTING PURPOSES
+#include "./utilities/helper.hpp"
+#include "./utilities/timer.hpp"
+#include "./utilities/print.hpp" // ONLY FOR TESTING PURPOSES
+
 #include "omp.h"
 
-
-namespace search
+namespace adas::algorithm
 {
-  namespace serial
+  namespace search
   {
-    //tested - date May 1 2021
-    template<class ForwardIterator>
-    ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
+    namespace serial
     {
-      ForwardIterator min = first;
-      ForwardIterator itr = first;
-      while(++itr != last)
-        {
-          if(*itr < *min)
-            min = itr;
-        }
-      return min;
-    }
-
-    //tested - date May 1 2021
-    template<class ForwardIterator>
-    ForwardIterator _double_iterator_min_element(typename vector<ForwardIterator>::iterator first,
-                                                 typename vector<ForwardIterator>::iterator last)
-    {
-      typename vector<ForwardIterator>::iterator min = first;
-      typename vector<ForwardIterator>::iterator itr = first;
-      while(++itr != last)
-        {
-          if(**itr < **min)
-            min = itr;
-        }
-      return *min;
-    }
-
-
-    //debuged - date May 4 2021
-    template<class ForwardIterator>
-    ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
-    {
-      ForwardIterator max = first;
-      ForwardIterator itr = first;
-      while(++itr != last)
-        {
-          if(*max < *itr)
-            max = itr;
-        }
-      return max;
-    }
-
-    //tested - date May 7 2021
-    template<class ForwardIterator>
-    ForwardIterator _double_iterator_max_element(typename vector<ForwardIterator>::iterator first,
-                                                 typename vector<ForwardIterator>::iterator last)
-    {
-      typename vector<ForwardIterator>::iterator max = first;
-      typename vector<ForwardIterator>::iterator itr = first;
-      while(++itr != last)
-        {
-          if(**max < **itr)
-            max = itr;
-        }
-      return *max;
-    }
-
-    //debuged - date May 4 2021
-    template<class RandomAccessIterator>
-    pair<RandomAccessIterator, RandomAccessIterator> minmax_element(RandomAccessIterator first,
-                                                                    RandomAccessIterator last)
-    {
-      RandomAccessIterator min = first;
-      RandomAccessIterator max = first;
-      RandomAccessIterator itr = first+1;
-
-      while(itr != last && itr != last+1)
-        {
-          pair<RandomAccessIterator, RandomAccessIterator> mm = minmax(itr, itr+1);
-
-          if(*mm.first < *min)
-            min = mm.first;
-          if(*max < *mm.second)
-            max = mm.second;
-
-          itr += 2;
-        }
-      return make_pair(min, max);
-    }
-
-
-    template<class ForwardIterator, class T>
-    ForwardIterator secuential(ForwardIterator first, ForwardIterator last, const T value)
-    {
-      while(first != last)
-        {
-          if(*first == value)
-            return first;
-          first++;
-        }
-      return last;
-    }
-
-
-
-    template<class ForwardIterator, class T>
-    bool is_element(ForwardIterator first, ForwardIterator last, const T value)
-    {
-      while(first != last)
-        {
-          if(*first == value)
-            return true;
-          first++;
-        }
-      return false;
-    }
-  }
-
-  namespace parallel
-  {
-    template<class ForwardIterator>
-    ForwardIterator min_element(ForwardIterator first, ForwardIterator last, unsigned int omp_nthreads)
-    {
-      unsigned int d = distance(first, last);
-      unsigned int nthreads = omp_nthreads;
-      omp_set_num_threads(nthreads);
-      vector<Boundaries<ForwardIterator>> limits(nthreads);
-      vector<ForwardIterator> local_min(nthreads);
-
-#pragma omp parallel shared(limits) firstprivate(first, last, nthreads)
+      //tested - date May 1 2021
+      template<class ForwardIterator>
+      ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
       {
-        unsigned int idthread = omp_get_thread_num();
-        ForwardIterator init = first + idthread*(d/nthreads);
-        ForwardIterator end = first + (idthread+1)*(d/nthreads);
-
-        if(idthread == nthreads-1)
-          end = last;
-
-        Boundaries<ForwardIterator> limit;
-        limit.init = init;
-        limit.end = end;
-
-        limits[idthread] = limit;
-
-        ForwardIterator local_min_element =  serial::min_element(init, end);
-        local_min[idthread] = local_min_element;
-
-        // ONLY FOR DEBUG PURPOSE
-        #pragma omp critical
-        {
-          cout << "Thread " << idthread << " : " << *local_min_element << endl;
-        }
+        ForwardIterator min = first;
+        ForwardIterator itr = first;
+        while(++itr != last)
+          {
+            if(*itr < *min)
+              min = itr;
+          }
+        return min;
       }
 
-      return serial::_double_iterator_min_element<ForwardIterator>(local_min.begin(), local_min.end());
-    }
-
-    template<class ForwardIterator>
-    ForwardIterator max_element(ForwardIterator first, ForwardIterator last, unsigned int omp_nthreads)
-    {
-      unsigned int d = distance(first, last);
-      unsigned int nthreads = omp_nthreads;
-      omp_set_num_threads(nthreads);
-      vector<Boundaries<ForwardIterator>> limits(nthreads);
-      vector<ForwardIterator> local_max(nthreads);
-
-#pragma omp parallel shared(limits) firstprivate(first, last, nthreads)
+      //tested - date May 1 2021
+      template<class ForwardIterator>
+      ForwardIterator _double_iterator_min_element(typename vector<ForwardIterator>::iterator first,
+                                                   typename vector<ForwardIterator>::iterator last)
       {
-        unsigned int idthread = omp_get_thread_num();
-        ForwardIterator init = first + idthread*(d/nthreads);
-        ForwardIterator end = first + (idthread+1)*(d/nthreads);
-
-        if(idthread == nthreads-1)
-          end = last;
-
-        Boundaries<ForwardIterator> limit;
-        limit.init = init;
-        limit.end = end;
-
-        limits[idthread] = limit;
-
-        ForwardIterator local_max_element =  serial::max_element(init, end);
-        local_max[idthread] = local_max_element;
-
-        // ONLY FOR DEBUG PURPOSE
-        #pragma omp critical
-        {
-          cout << "Thread " << idthread << " : " << *local_max_element << endl;
-        }
+        typename vector<ForwardIterator>::iterator min = first;
+        typename vector<ForwardIterator>::iterator itr = first;
+        while(++itr != last)
+          {
+            if(**itr < **min)
+              min = itr;
+          }
+        return *min;
       }
 
-      return serial::_double_iterator_max_element<ForwardIterator>(local_max.begin(), local_max.end());
+
+      //debuged - date May 4 2021
+      template<class ForwardIterator>
+      ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
+      {
+        ForwardIterator max = first;
+        ForwardIterator itr = first;
+        while(++itr != last)
+          {
+            if(*max < *itr)
+              max = itr;
+          }
+        return max;
+      }
+
+      //tested - date May 7 2021
+      template<class ForwardIterator>
+      ForwardIterator _double_iterator_max_element(typename vector<ForwardIterator>::iterator first,
+                                                   typename vector<ForwardIterator>::iterator last)
+      {
+        typename vector<ForwardIterator>::iterator max = first;
+        typename vector<ForwardIterator>::iterator itr = first;
+        while(++itr != last)
+          {
+            if(**max < **itr)
+              max = itr;
+          }
+        return *max;
+      }
+
+      //debuged - date May 4 2021
+      template<class RandomAccessIterator>
+      pair<RandomAccessIterator, RandomAccessIterator> minmax_element(RandomAccessIterator first,
+                                                                      RandomAccessIterator last)
+      {
+        RandomAccessIterator min = first;
+        RandomAccessIterator max = first;
+        RandomAccessIterator itr = first+1;
+
+        while(itr != last && itr != last+1)
+          {
+            pair<RandomAccessIterator, RandomAccessIterator> mm = minmax(itr, itr+1);
+
+            if(*mm.first < *min)
+              min = mm.first;
+            if(*max < *mm.second)
+              max = mm.second;
+
+            itr += 2;
+          }
+        return make_pair(min, max);
+      }
+
+
+      template<class ForwardIterator, class T>
+      ForwardIterator secuential(ForwardIterator first, ForwardIterator last, const T value)
+      {
+        while(first != last)
+          {
+            if(*first == value)
+              return first;
+            first++;
+          }
+        return last;
+      }
+
+
+
+      template<class ForwardIterator, class T>
+      bool is_element(ForwardIterator first, ForwardIterator last, const T value)
+      {
+        while(first != last)
+          {
+            if(*first == value)
+              return true;
+            first++;
+          }
+        return false;
+      }
     }
-  }
+
+    namespace parallel
+    {
+      template<class ForwardIterator>
+      ForwardIterator min_element(ForwardIterator first, ForwardIterator last, unsigned int omp_nthreads)
+      {
+        unsigned int d = distance(first, last);
+        unsigned int nthreads = omp_nthreads;
+        omp_set_num_threads(nthreads);
+        vector<Boundaries<ForwardIterator>> limits(nthreads);
+        vector<ForwardIterator> local_min(nthreads);
+
+#pragma omp parallel shared(limits) firstprivate(first, last, nthreads)
+        {
+          unsigned int idthread = omp_get_thread_num();
+          ForwardIterator init = first + idthread*(d/nthreads);
+          ForwardIterator end = first + (idthread+1)*(d/nthreads);
+
+          if(idthread == nthreads-1)
+            end = last;
+
+          Boundaries<ForwardIterator> limit;
+          limit.init = init;
+          limit.end = end;
+
+          limits[idthread] = limit;
+
+          ForwardIterator local_min_element =  serial::min_element(init, end);
+          local_min[idthread] = local_min_element;
+
+          // ONLY FOR DEBUG PURPOSE
+#pragma omp critical
+          {
+            cout << "Thread " << idthread << " : " << *local_min_element << endl;
+          }
+        }
+
+        return serial::_double_iterator_min_element<ForwardIterator>(local_min.begin(), local_min.end());
+      }
+
+      template<class ForwardIterator>
+      ForwardIterator max_element(ForwardIterator first, ForwardIterator last, unsigned int omp_nthreads)
+      {
+        unsigned int d = distance(first, last);
+        unsigned int nthreads = omp_nthreads;
+        omp_set_num_threads(nthreads);
+        vector<Boundaries<ForwardIterator>> limits(nthreads);
+        vector<ForwardIterator> local_max(nthreads);
+
+#pragma omp parallel shared(limits) firstprivate(first, last, nthreads)
+        {
+          unsigned int idthread = omp_get_thread_num();
+          ForwardIterator init = first + idthread*(d/nthreads);
+          ForwardIterator end = first + (idthread+1)*(d/nthreads);
+
+          if(idthread == nthreads-1)
+            end = last;
+
+          Boundaries<ForwardIterator> limit;
+          limit.init = init;
+          limit.end = end;
+
+          limits[idthread] = limit;
+
+          ForwardIterator local_max_element =  serial::max_element(init, end);
+          local_max[idthread] = local_max_element;
+
+          // ONLY FOR DEBUG PURPOSE
+#pragma omp critical
+          {
+            cout << "Thread " << idthread << " : " << *local_max_element << endl;
+          }
+        }
+
+        return serial::_double_iterator_max_element<ForwardIterator>(local_max.begin(), local_max.end());
+      }
+    }
+
+}
+
 
 //   template<class RandomAccessIterator, class T>
 //   RandomAccessIterator binary_search(RandomAccessIterator first, RandomAccessIterator last,

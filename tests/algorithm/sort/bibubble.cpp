@@ -10,9 +10,13 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/io.hpp"
-#include "../../include/sort.hpp"
-namespace ss = sort::serial;
+#include "../../../include/adas/utilities/print.hpp"
+#include "../../../include/adas/utilities/timer.hpp"
+#include "../../../include/adas/utilities/io.hpp"
+
+#include "../../../include/adas/algorithm/sort.hpp"
+namespace as = adas::algorithm::sort;
+
 
 int main()
 {
@@ -22,7 +26,7 @@ int main()
   vector<int> numbers = read::from_file<int>("tests/data/unsorted.txt");
 
   time.start();
-  ss::bibubble(numbers.begin(), numbers.end(), verbose);
+  as::serial::bibubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (bibubble sorting algorithm)");
 

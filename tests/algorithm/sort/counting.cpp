@@ -9,10 +9,12 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/sort.hpp"
-#include "../../include/io.hpp"
-#include "../../include/print.hpp"
 
+#include "../../../include/adas/utilities/print.hpp"
+#include "../../../include/adas/utilities/io.hpp"
+
+#include "../../../include/adas/algorithm/sort.hpp"
+namespace as = adas::algorithm::sort;
 
 int main()
 {
@@ -20,7 +22,7 @@ int main()
   vector<int> numbers = read::from_file("tests/data/unsorted.txt")
   bool verbose = true;
 
-  vector<int> sorted = sort::counting(numbers.begin(), numbers.end(), verbose);
+  vector<int> sorted = as::serial::counting(numbers.begin(), numbers.end(), verbose);
 
   print::to_stdout("Sorted numbers:", sorted);
 

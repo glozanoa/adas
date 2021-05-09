@@ -7,8 +7,10 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/sort.hpp"
-#include "../../include/print.hpp"
+#include "../../../include/adas/utilities/print.hpp"
+
+#include "../../../include/adas/algorithm/sort.hpp"
+namespace as = adas::algorithm::sort;
 
 int main()
 {

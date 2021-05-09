@@ -9,11 +9,14 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/io.hpp"
-#include "../../include/print.hpp"
 
-#include "../../include/sort.hpp"
-namespace ss  = sort::serial;
+
+#include "../../../include/adas/utilities/print.hpp"
+#include "../../../include/adas/utilities/timer.hpp"
+#include "../../../include/adas/utilities/io.hpp"
+
+#include "../../../include/adas/algorithm/sort.hpp"
+namespace as = adas::algorithm::sort;
 
 int main()
 {
@@ -24,7 +27,7 @@ int main()
 
 
   time.start();
-  ss::insertion(numbers.begin(), numbers.end(), verbose);
+  as::serial::insertion(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (selection sort)");
 

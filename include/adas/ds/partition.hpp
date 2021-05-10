@@ -60,7 +60,7 @@ public:
 
   void show()
   {
-    print::to_stdout("Pivots: "pivots);
+    print::to_stdout("Pivots:", pivots);
     cout << "(Parts)" << endl;
     for(int i=0; i < parts->size(); i++)
     {

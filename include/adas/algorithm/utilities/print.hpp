@@ -1,7 +1,7 @@
 /*
- * print namespace of adas' utilities for algorithms
+ * print utilities
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
-#include "../utilities/print.hpp"
+#include "../../utilities/print.hpp"

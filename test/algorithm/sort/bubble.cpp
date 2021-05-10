@@ -1,7 +1,7 @@
  /*
  * Testing bubble sorting algorithm
  *
- * Status: DEBUGGED - date: May 7 2021
+ * Status: DEBUGGED - date: May 10 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -10,20 +10,24 @@
 #include <fstream>
 using namespace std;
 
-#include "../../../include/adas/utilities/print.hpp"
-#include "../../../include/adas/utilities/timer.hpp"
-#include "../../../include/adas/utilities/io.hpp"
-
-#include "../../../include/adas/algorithm/sort.hpp"
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
 namespace as = adas::algorithm::sort;
 
-int main()
+// ONLY FOR TESTING PURPOSE
+#include<boost/program_options.hpp>
+namespace po = boost::program_options;
+#include "../cmd_options.hpp"
+
+int main(int argc ,char* argv[])
 {
+
+  po::variables_map args = parse_cmd_options(argc, argv);
 
   Timer time;
   // READ UNSORTED NUMBERS - ONLY FOR TESTING PURPOSES
-  vector<int> numbers = read::from_file<int>("tests/data/unsorted.txt");
-  bool verbose = true;
+  vector<int> numbers = read::from_file<int>(args["file"].as<string>());
+  bool verbose = args["verbose"].as<bool>();
 
   time.start();
   as::serial::bubble(numbers.begin(), numbers.end(), verbose);

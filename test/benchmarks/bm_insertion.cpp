@@ -83,13 +83,13 @@ int main()
   time.start();
   ass::insertion(cnumbers.begin(), cnumbers.end(), verbose);
   time.stop();
-  time.report("Elapsed time (serial bibubble algorithm)");
+  time.report("Elapsed time (serial insertion algorithm)");
 
   cout << "Running multithread bibubble algorithm with " << nthreads << " threads" << endl;
   time.start();
   asp::insertion(numbers.begin(), numbers.end(), nthreads, verbose);
   time.stop();
-  time.report("Elapsed time (multithread bibubble algorithm)");
+  time.report("Elapsed time (multithread insertion algorithm)");
 
   // writing sorted numbers by multithread algorithms to check if they are sorted
   au::write::to_file(numbers.begin(), numbers.end(), args["output"].as<string>());

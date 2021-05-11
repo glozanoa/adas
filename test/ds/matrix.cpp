@@ -10,8 +10,8 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/matrix.hpp"
-#include "../../include/print.hpp"
+#include "adas/ds/matrix.hpp"
+#include "adas/utilities.hpp"
 
 int main()
 {

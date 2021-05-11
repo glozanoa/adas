@@ -8,10 +8,10 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/io.hpp"
-#include "../../include/sort.hpp"
-namespace sp = sort::parallel;
-namespace ss = sort::serial;
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace asp = adas::algorithm::sort::parallel;
+namespace ass = adas::algorithm::sort::serial;
 
 
 int main()
@@ -22,7 +22,7 @@ int main()
   Timer time;
 
   time.start();
-  sp::spm(numbers.begin(), numbers.end(), nthreads, ss::bubble<vector<int>::iterator>, verbose);
+  asp::spm(numbers.begin(), numbers.end(), nthreads, ass::bubble<vector<int>::iterator>, verbose);
   time.stop();
   time.report("Elapsed time (parallel bubble):");
 

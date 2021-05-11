@@ -7,10 +7,10 @@
 #include <iostream>
 using namespace std;
 
-#include "../../../include/adas/utilities/print.hpp"
 
-#include "../../../include/adas/algorithm/sort.hpp"
-namespace as = adas::algorithm::sort;
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace ass = adas::algorithm::sort::serial;
 
 int main()
 {
@@ -24,9 +24,9 @@ int main()
 
   vector<int> result = vector<int>(sels1.size()+sels2.size());
 
-  sort::merge(sels1.begin(), sels1.end(),
-              sels2.begin(), sels2.end(),
-              result.begin());
+  ass::merge(sels1.begin(), sels1.end(),
+             sels2.begin(), sels2.end(),
+             result.begin());
 
   print::to_stdout("merged:", result);
 

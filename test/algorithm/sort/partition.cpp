@@ -8,8 +8,8 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/partition.hpp"
-#include "../../include/print.hpp"
+
+#include "adas/ds.hpp"
 
 int main()
 {

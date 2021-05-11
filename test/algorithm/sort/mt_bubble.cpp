@@ -11,14 +11,9 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/io.hpp"
-#include "../../include/timer.hpp"
-#include "../../include/print.hpp"
-
-
-#include "../../include/sort.hpp"
-namespace sp = sort::parallel;
-namespace ss = sort::serial;
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace asp = adas::algorithm::sort::parallel;
 
 int main()
 {
@@ -29,7 +24,7 @@ int main()
   Timer time;
 
   time.start();
-  sp::bubble(numbers.begin(), numbers.end(), nthreads, verbose);
+  asp::bubble(numbers.begin(), numbers.end(), nthreads, verbose);
   time.stop();
   time.report("Elapsed time (parallel bubble):");
 

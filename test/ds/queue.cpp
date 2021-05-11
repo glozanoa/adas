@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/queue.hpp"
+#include "adas/ds/queue.hpp"
 
 int main()
 {

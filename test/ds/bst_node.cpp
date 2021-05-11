@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/bst_node.hpp"
+#include "adas/ds/bst_node.hpp"
 
 int main()
 {

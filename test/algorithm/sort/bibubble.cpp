@@ -12,7 +12,7 @@ using namespace std;
 
 #include "adas/utilities.hpp"
 #include "adas/algorithm/sort.hpp"
-namespace as = adas::algorithm::sort;
+namespace ass = adas::algorithm::sort::serial;
 
 
 int main()
@@ -23,7 +23,7 @@ int main()
   vector<int> numbers = read::from_file<int>("tests/data/unsorted.txt");
 
   time.start();
-  as::serial::bibubble(numbers.begin(), numbers.end(), verbose);
+  ass::bibubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (bibubble sorting algorithm)");
 

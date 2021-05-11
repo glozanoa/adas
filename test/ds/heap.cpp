@@ -4,7 +4,7 @@
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
-#include "../../include/heap.hpp"
+#include "adas/ds/heap.hpp"
 
 int main()
 {

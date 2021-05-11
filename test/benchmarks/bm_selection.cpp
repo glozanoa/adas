@@ -9,11 +9,11 @@
 #include <vector>
 using namespace std;
 
-#include "../include/io.hpp"
-#include "../include/sort.hpp"
-namespace ss = sort::serial;
-namespace sp = sort::parallel;
 
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace asp = adas::algorithm::sort::parallel;
+namespace ass = adas::algorithm::sort::serial;
 
 int main()
 {
@@ -31,14 +31,14 @@ int main()
   Timer time;
 
   time.start();
-  ss::selection(cnumbers.begin(), cnumbers.end(), verbose);
+  ass::selection(cnumbers.begin(), cnumbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (serial selection algorithm)");
 
   unsigned int nthreads = 8;
 
   time.start();
-  sp::selection(numbers.begin(), numbers.end(), nthreads, verbose);
+  asp::selection(numbers.begin(), numbers.end(), nthreads, verbose);
   time.stop();
   time.report("Elapsed time (multithread selection algorithm)");
 

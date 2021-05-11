@@ -8,9 +8,7 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/tree.hpp"
-//#include "../../include/timer.hpp"
-
+#include "adas/ds/tree.hpp"
 
 int main()
 {

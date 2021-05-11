@@ -10,11 +10,9 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/print.hpp"
-#include "../../include/io.hpp"
-
-#include "../../include/sort.hpp"
-namespace ss = sort::serial;
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace ass = adas::algorithm::sort::serial;
 
 int main()
 {
@@ -26,7 +24,7 @@ int main()
 
 
   time.start();
-  ss::selection(numbers.begin(), numbers.end(), verbose);
+  ass::selection(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (selection sort)");
 

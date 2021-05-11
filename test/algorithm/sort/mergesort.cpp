@@ -7,8 +7,9 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/sort.hpp"
-#include "../../include/print.hpp"
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace ass = adas::algorithm::sort::serial;
 
 int main()
 {
@@ -17,9 +18,9 @@ int main()
 
   vector<int> aux = vector<int>(numbers.size());
 
-  sort::mergesort(numbers.begin(), numbers.end(),
-                  aux.begin(), aux.end(),
-                  verbose);
+  ass::mergesort(numbers.begin(), numbers.end(),
+                 aux.begin(), aux.end(),
+                 verbose);
 
   print::to_stdout("Sorted:", numbers);
 

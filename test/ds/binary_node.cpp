@@ -4,8 +4,8 @@
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
-#include "../../include/node.hpp"
-#include "../../include/binary_node.hpp"
+#include "adas/ds/node.hpp"
+#include "adas/ds/binary_node.hpp"
 
 int main()
 {

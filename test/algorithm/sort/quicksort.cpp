@@ -7,10 +7,11 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/partition.hpp"
-#include "../../include/sort.hpp"
-#include "../../include/print.hpp"
 
+#include "adas/utilities.hpp"
+#include "adas/ds.hpp"
+#include "adas/algorithm.hpp"
+namespace asp = adas::algorithm::sort::parallel;
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
   vector<int> pivots = {50, 64};
   bool verbose = true;
 
-  vector<int> sorted_numbers = sort::quicksort(numbers, pivots, verbose);
+  vector<int> sorted_numbers = asp::quicksort(numbers, pivots, verbose);
   print::to_stdout("Sorted numbers:", sorted_numbers);
 
   return 0;

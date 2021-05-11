@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../../include/node.hpp"
+#include "adas/ds/node.hpp"
 
 
 int main()

@@ -9,9 +9,7 @@
 #include <iostream>
 using namespace std;
 
-
-#include "../../include/bst.hpp"
-
+#include "adas/ds/bst.hpp"
 
 int main()
 {

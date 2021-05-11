@@ -10,13 +10,10 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/io.hpp"
-#include "../../include/timer.hpp"
-#include "../../include/print.hpp"
 
-
-#include "../../include/search.hpp"
-namespace sp = search::parallel;
+#include "adas/utilities.hpp"
+#include "adas/algorithm.hpp"
+namespace asp = adas::algorithm::search::parallel;
 
 int main()
 {
@@ -26,7 +23,7 @@ int main()
   Timer time;
 
   time.start();
-  vector<int>::iterator min = sp::min_element(numbers.begin(), numbers.end(), nthreads);
+  vector<int>::iterator min = asp::min_element(numbers.begin(), numbers.end(), nthreads);
   time.stop();
   time.report("Elapsed time (multi-thread min_element):");
 

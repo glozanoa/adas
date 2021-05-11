@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-#include "../../include/binary_tree.hpp"
+#include "adas/ds/binary_tree.hpp"
 
 
 int main()

@@ -8,14 +8,15 @@
 using namespace std;
 
 
-#include "../../include/search.hpp"
+#include "adas/algorithm.hpp"
+namespace ass = adas::algorithm::search::serial;
 
 int main()
 {
 
   vector<int> numbers = {1, 3, 7, 0, 4, 2, 5, -1};
 
-  auto  minmax = search::minmax_element(numbers.begin(), numbers.end());
+  auto  minmax = ass::minmax_element(numbers.begin(), numbers.end());
 
   cout << "Maximum number: " << *minmax.first << endl;
   cout << "Maximum number: " << *minmax.second << endl;

@@ -11,8 +11,8 @@
 using namespace std;
 
 #include "adas/utilities.hpp"
-#include "adas/algorithm.hpp"
-namespace as = adas::algorithm::sort;
+#include "adas/algorithm/sort.hpp"
+namespace ass = adas::algorithm::sort::serial;
 
 // ONLY FOR TESTING PURPOSE
 #include<boost/program_options.hpp>
@@ -31,7 +31,7 @@ int main(int argc ,char* argv[])
   bool verbose = args["verbose"].as<bool>();
 
   time.start();
-  as::serial::bubble(numbers.begin(), numbers.end(), verbose);
+  ass::bubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
   time.report("Elapsed time (bubble sort)");
 

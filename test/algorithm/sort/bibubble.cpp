@@ -10,11 +10,8 @@
 #include <vector>
 using namespace std;
 
-#include "../../../include/adas/utilities/print.hpp"
-#include "../../../include/adas/utilities/timer.hpp"
-#include "../../../include/adas/utilities/io.hpp"
-
-#include "../../../include/adas/algorithm/sort.hpp"
+#include "adas/utilities.hpp"
+#include "adas/algorithm/sort.hpp"
 namespace as = adas::algorithm::sort;
 
 

@@ -26,7 +26,8 @@ int main(int argc ,char* argv[])
 
   Timer time;
   // READ UNSORTED NUMBERS - ONLY FOR TESTING PURPOSES
-  vector<int> numbers = read::from_file<int>(args["file"].as<string>());
+  //vector<int> numbers = read::from_file<int>(args["file"].as<string>());
+  vector<int> numbers = random::uniform<int>(1, 300, 100);
   bool verbose = args["verbose"].as<bool>();
 
   time.start();

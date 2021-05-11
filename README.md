@@ -2,7 +2,7 @@
 **Adas** is a collection of (`serial` and `multi-thread`) algorithms and *template data structures*.
 
 ## Dependences
-* Bost (`Test Library` and `Program Options` libraries)
+* Boost (`Test Library` and `Program Options` libraries) (only for tests)
 * C++ Compiler with `OpenMP` support
 
 Check [Dependencies Installation](https://github.com/glozanoa/adas/wiki/Dependencies) guide in our [wiki](https://github.com/glozanoa/adas/wiki)

@@ -12,5 +12,6 @@
 #include "./utilities/io.hpp"
 #include "./utilities/print.hpp"
 #include "./utilities/timer.hpp"
+#include "./utilities/random.hpp"
 
 #endif //_ADAS_UTILITIES_H

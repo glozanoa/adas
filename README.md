@@ -1,5 +1,5 @@
 # Adas
-Here you can find a colection of `serial` and `multi-thread` algorithms and *template data structures*.
+**Adas** is a collection of algorithms (`serial` and `multi-thread`) and *template data structures*.
 
 ## Dependences
 * Bost (`Test Library` and `Program Options` libraries)

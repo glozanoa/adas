@@ -17,6 +17,7 @@ using namespace std;
 #include "./utilities/helper.hpp"
 #include "./utilities/timer.hpp"
 #include "./utilities/print.hpp" // ONLY FOR TESTING PURPOSES
+using namespace adas::utilities;
 
 #include "omp.h"
 

@@ -35,6 +35,7 @@ namespace adas::utilities
 
     return casted;
   }
+
 }
 
 #endif //_CAST_H

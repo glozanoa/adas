@@ -1,15 +1,16 @@
 /*
  * Testing max_element function of search template
  *
+ * State: DEBUGED - date: May 11 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #include <vector>
 using namespace std;
 
-
-#include "adas/algorithm.hpp"
-namespace ass = adas::algorithm::search:serial;
+#include "adas/algorithm/search/serial.hpp"
+namespace ass = adas::algorithm::search::serial;
 
 int main()
 {

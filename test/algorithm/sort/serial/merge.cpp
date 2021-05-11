@@ -16,15 +16,14 @@ namespace au = adas::utilities;
 #include "adas/algorithm/sort/serial.hpp"
 namespace ass = adas::algorithm::sort::serial;
 
-int main()
+int main(int argc ,char* argv[])
 {
 
   // PARSING CMD ARGUMENTS (ONLY FOR TESTING PURPOSES)
   po::options_description test("Options for serial bubble algorithm");
   test.add_options()
     ("help,h", "Show help.")
-    ("input,i", po::value<string>(), "Input file with unsorted numbers.")
-    ("verbose,v", po::bool_switch()->default_value(false), "Increase algorithm's verbosity.");
+    ("input,i", po::value<string>(), "Input file with unsorted numbers.");
 
   po::variables_map args;
 
@@ -56,7 +55,6 @@ int main()
   //sels: sorted elements
   vector<int> sels1 = au::read::from_file<int>(files[0]);
   vector<int> sels2 = au::read::from_file<int>(files[1]);
-  bool verbose = args["verbose"].as<bool>();
   // END - READING CMD PARSED OPTIONS
 
   vector<int> result = vector<int>(sels1.size()+sels2.size());

@@ -1,6 +1,8 @@
 /*
  * Testing minmax_element function of search template
  *
+ * State: DEBUGED - date: May 11 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -8,7 +10,7 @@
 using namespace std;
 
 
-#include "adas/algorithm.hpp"
+#include "adas/algorithm/search/serial.hpp"
 namespace ass = adas::algorithm::search::serial;
 
 int main()

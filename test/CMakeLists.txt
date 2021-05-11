@@ -30,6 +30,22 @@ if(Boost_FOUND)
   endforeach()
 endif()
 
+# benchmarks
+message(DEBUG "Compiling benchmark tests")
+if(OpenMP_FOUND AND Boost_FOUND)
+  file(GLOB MT_ALGORITHM benchmarks/bm_*.cpp)
+  foreach(MT_ALGORITHM_EXAMPLE ${MT_ALGORITHM})
+    get_filename_component(MT_ALGORITHM_NAME ${MT_ALGORITHM_EXAMPLE} NAME_WE)
+    message(DEBUG "Adding ${MT_ALGORITHM_NAME} executable")
+    add_executable(${MT_ALGORITHM_NAME} ${MT_ALGORITHM_EXAMPLE})
+
+    target_link_libraries(${MT_ALGORITHM_NAME} PRIVATE OpenMP::OpenMP_CXX)
+    target_link_libraries(${MT_ALGORITHM_NAME} PRIVATE Boost::program_options)
+    target_link_libraries(${MT_ALGORITHM_NAME} PRIVATE libadas)
+  endforeach()
+endif()
+
+
 # # data structures
 # message(DEBUG "Compiling data structures examples")
 # file(GLOB DS ds/*.cpp)

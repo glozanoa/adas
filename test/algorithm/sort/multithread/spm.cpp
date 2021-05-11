@@ -23,7 +23,7 @@ namespace asp = adas::algorithm::sort::parallel;
 
 int main(int argc, char* argv[])
 {
-    // PARSING CMD ARGUMENTS (ONLY FOR TESTING PURPOSES)
+  // PARSING CMD ARGUMENTS (ONLY FOR TESTING PURPOSES)
   po::options_description test("Options for spm algorithm");
   test.add_options()
     ("help,h", "Show help.")

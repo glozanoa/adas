@@ -58,7 +58,7 @@ int main(int argc ,char* argv[])
   time.start();
   ass::insertion(numbers.begin(), numbers.end(), verbose);
   time.stop();
-  time.report("Elapsed time (bibubble sorting algorithm)");
+  time.report("Elapsed time (insertion sorting algorithm)");
 
   print::to_stdout("Sorted:", numbers);
 

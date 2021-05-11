@@ -1,0 +1,140 @@
+/*
+ * serial search algortihms
+ *
+ * State:
+ *
+ * Maintainer: glozanoa <glozanoa@uni.pe>
+ */
+
+
+#ifndef _SERIAL_SEARCH_H
+#define _SERIAL_SEARCH_H
+
+#include <iostream>
+#include <iterator>
+#include <utility>
+using namespace std;
+
+#include "../utilities/helper.hpp"
+#include "../utilities/timer.hpp"
+#include "../utilities/print.hpp" // ONLY FOR TESTING PURPOSES
+using namespace adas::utilities;
+
+namespace adas::algorithm
+{
+  namespace search
+  {
+    namespace serial
+    {
+      //tested - date May 1 2021
+      template<class ForwardIterator>
+      ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
+      {
+        ForwardIterator min = first;
+        ForwardIterator itr = first;
+        while(++itr != last)
+          {
+            if(*itr < *min)
+              min = itr;
+          }
+        return min;
+      }
+
+      //tested - date May 1 2021
+      template<class ForwardIterator>
+      ForwardIterator _double_iterator_min_element(typename vector<ForwardIterator>::iterator first,
+                                                   typename vector<ForwardIterator>::iterator last)
+      {
+        typename vector<ForwardIterator>::iterator min = first;
+        typename vector<ForwardIterator>::iterator itr = first;
+        while(++itr != last)
+          {
+            if(**itr < **min)
+              min = itr;
+          }
+        return *min;
+      }
+
+
+      //debuged - date May 4 2021
+      template<class ForwardIterator>
+      ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
+      {
+        ForwardIterator max = first;
+        ForwardIterator itr = first;
+        while(++itr != last)
+          {
+            if(*max < *itr)
+              max = itr;
+          }
+        return max;
+      }
+
+      //tested - date May 7 2021
+      template<class ForwardIterator>
+      ForwardIterator _double_iterator_max_element(typename vector<ForwardIterator>::iterator first,
+                                                   typename vector<ForwardIterator>::iterator last)
+      {
+        typename vector<ForwardIterator>::iterator max = first;
+        typename vector<ForwardIterator>::iterator itr = first;
+        while(++itr != last)
+          {
+            if(**max < **itr)
+              max = itr;
+          }
+        return *max;
+      }
+
+      //debuged - date May 4 2021
+      template<class RandomAccessIterator>
+      pair<RandomAccessIterator, RandomAccessIterator> minmax_element(RandomAccessIterator first,
+                                                                      RandomAccessIterator last)
+      {
+        RandomAccessIterator min = first;
+        RandomAccessIterator max = first;
+        RandomAccessIterator itr = first+1;
+
+        while(itr != last && itr != last+1)
+          {
+            pair<RandomAccessIterator, RandomAccessIterator> mm = minmax(itr, itr+1);
+
+            if(*mm.first < *min)
+              min = mm.first;
+            if(*max < *mm.second)
+              max = mm.second;
+
+            itr += 2;
+          }
+        return make_pair(min, max);
+      }
+
+
+      template<class ForwardIterator, class T>
+      ForwardIterator secuential(ForwardIterator first, ForwardIterator last, const T value)
+      {
+        while(first != last)
+          {
+            if(*first == value)
+              return first;
+            first++;
+          }
+        return last;
+      }
+
+
+
+      template<class ForwardIterator, class T>
+      bool is_element(ForwardIterator first, ForwardIterator last, const T value)
+      {
+        while(first != last)
+          {
+            if(*first == value)
+              return true;
+            first++;
+          }
+        return false;
+      }
+    }
+  }
+}
+#endif // _SERIAL_SEARCH_H

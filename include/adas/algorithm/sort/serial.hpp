@@ -15,6 +15,8 @@
 #include "../utilities/print.hpp"
 using namespace adas::utilities;
 
+#include "../../ds/heap.hpp"
+
 namespace adas::algorithm
 {
   namespace sort
@@ -188,18 +190,21 @@ namespace adas::algorithm
 
       // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
       template <class T>
-      vector<T> heap_sort(vector<T> keys)
+      vector<T> heap_sort(vector<T> keys, bool verbose)
       {
         //vector<T> sorted;
         Heap<T> heap = Heap<T>(keys);
         heap.build_max_heap(false);
 
-        for(int heap_size=heap.get_size(); heap_size>1; heap_size--)
+        int  heap_size = heap.get_size();
+        while(1 < heap_size)
           {
             heap.interchange(0, heap_size-1);
             heap.resize(heap_size-1);
             heap.max_heapify(0, false);
             heap_size = heap.get_size();
+            if(verbose)
+              print::to_stdout(heap.get_keys());
           }
 
         //return sorted;

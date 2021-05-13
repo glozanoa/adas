@@ -29,13 +29,13 @@ private:
 
 public:
   Contact(vector<string> data);
-  string get_fullname(){return first_name + " " + last_name;}
+  string get_full_name(){return first_name + " " + last_name;}
   string get_city(){return city;}
   string get_address(){return address;}
   vector<string> get_phones(){return phones;}
 
   bool operator<(Contact contact); // sort alphabetically by full_name
-  ostream& operator<<(ostream& out, Contact contact);
-}
+  friend ostream& operator<<(ostream& out, Contact contact);
+};
 
 #endif //_CONTACT_H

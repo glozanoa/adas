@@ -2,7 +2,7 @@ find_package(OpenMP REQUIRED)
 find_package(Boost REQUIRED COMPONENTS program_options unit_test_framework)
 
 # multi-thread algorithms
-message(DEBUG "Compiling multi-thread algorithm examples")
+message(DEBUG "Multi-thread algorithm examples labels")
 if(OpenMP_FOUND AND Boost_FOUND)
   file(GLOB MT_ALGORITHM algorithm/sort/multithread/*.cpp algorithm/search/multithread/*.cpp)
   foreach(MT_ALGORITHM_EXAMPLE ${MT_ALGORITHM})
@@ -17,7 +17,7 @@ if(OpenMP_FOUND AND Boost_FOUND)
 endif()
 
 # serial algorithms
-message(DEBUG "Compiling serial algorithms examples")
+message(DEBUG "Serial algorithms examples labels")
 if(Boost_FOUND)
   file(GLOB ALGORITHM algorithm/sort/serial/*.cpp algorithm/search/serial/*.cpp)
   foreach(ALGORITHM_EXAMPLE ${ALGORITHM})
@@ -31,7 +31,7 @@ if(Boost_FOUND)
 endif()
 
 # benchmarks
-message(DEBUG "Compiling benchmark tests")
+message(DEBUG "Benchmark tests labels")
 if(OpenMP_FOUND AND Boost_FOUND)
   file(GLOB MT_ALGORITHM benchmarks/bm_*.cpp)
   foreach(MT_ALGORITHM_EXAMPLE ${MT_ALGORITHM})
@@ -45,6 +45,8 @@ if(OpenMP_FOUND AND Boost_FOUND)
   endforeach()
 endif()
 
+# adding phone_book example
+add_subdirectory(phonebook)
 
 # # data structures
 # message(DEBUG "Compiling data structures examples")

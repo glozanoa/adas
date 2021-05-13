@@ -25,14 +25,24 @@ vector<Contact> read_phone_book(string filename)
   vector<Contact> phone_book;
 
   ifstream file(filename);
-  string line = "";
-  string delimiter = ",";
+  string line;
+  string delimeter = ",";
   // Iterate through each line and split the content using delimeter
-  while (getline(file, line))
+  getline(file, line, '\r'); // read the first line and throw away
+  while(getline(file, line, '\r'))
     {
       vector<string> data;
       boost::algorithm::split(data, line, boost::is_any_of(delimeter));
-      phone_book.push_back(Contact(data));
+      if(data.size() == 11)
+        {
+          Contact contact(data);
+          phone_book.push_back(contact);
+        }
+      else
+        {
+          cout << "Invalid number of paremeters:" << data.size() << endl;
+          cout << "line: " << line << endl;
+        }
     }
   // Close the File
   file.close();

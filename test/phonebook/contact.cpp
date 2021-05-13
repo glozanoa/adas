@@ -4,10 +4,24 @@
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
+#include <iostream>
+#include <string>
+using namespace std;
+
+
 #include "contact.hpp"
 
 Contact::Contact(vector<string> data)
 {
+  // remove " characters from read data
+  for(unsigned int k=0; k < data.size(); k++)
+    {
+      string datak = data[k];
+      datak.erase(remove(datak.begin(), datak.end(), '"'), datak.end());
+      data[k] = datak;
+    }
+
+
   first_name = data[0];
   last_name = data[1];
   company = data[2];
@@ -31,11 +45,11 @@ bool Contact::operator<(Contact contact) // sort alphabetically by full_name
                                  full_name_contact.begin(), full_name_contact.end());
 }
 
-ostream& Contact::operator<<(ostream& out, Contact contact)
+ostream& operator<<(ostream& out, Contact contact)
   {
-    out << "Contact(Name: " << contact.get_fullname();
+    out << "Contact(Name: " << contact.get_full_name();
 
-    out << ", Phones: "
+    out << ", Phones: ";
     for(string phone : contact.get_phones())
       {
         out << phone << ", ";

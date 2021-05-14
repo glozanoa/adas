@@ -14,6 +14,8 @@
 using namespace std;
 
 #include "exceptions/node.hpp"
+#include "./utilities/helper.hpp"
+namespace au = adas::utilities;
 
 template<typename T>
 class Node
@@ -137,7 +139,7 @@ public:
   {
     unsigned int depth = node->get_depth();
     T key = node->get_key();
-    string tab = repeat("\t", depth);
+    string tab = au::repeat("\t", depth);
 
     out << tab << key << endl;
     //tab += "\t";

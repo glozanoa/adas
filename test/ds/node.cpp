@@ -1,6 +1,8 @@
 /*
  * Testing Node template class
  *
+ * Status: DEBUGED - date: May 14 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -13,7 +15,7 @@ using namespace std;
 int main()
 {
   /* Node structure for testing Node<T> template class
-   * r -- a0
+     r -- a0
        |   |- b0
        |   |- c0
        |
@@ -24,6 +26,21 @@ int main()
        |   |- b0
        |   |- c0
    */
+
+  string node_structure = R"""(
+           r -- a0
+             |   |- b0
+             |   |- c0
+             |
+             |- d0
+             |   |- e0
+             |
+             |- a1
+             |   |- b0
+             |   |- c0
+           )""";
+
+  cout << "Structure:\n" << node_structure << endl;
 
   Node<int>* r = new Node<int>(1);
 

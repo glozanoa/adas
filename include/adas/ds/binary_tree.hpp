@@ -13,7 +13,7 @@
 using namespace std;
 
 #include "binary_node.hpp"
-#include "exceptions/general.hpp"
+#include "../exceptions/general.hpp"
 
 
 template<class T>
@@ -115,7 +115,7 @@ public:
   bool is_node(BinaryNode<T>* node)
   {
     //IMPROVE PERFORMANCE OF Node<T>::has_child method (implement a BINARY SEARCH)
-    for(BinaryNode<T>* child : root->get_children())
+    for(Node<T>* child : root->get_children())
       if(child->is_equal(node) || node->has_child(node))
         return true;
     return false;

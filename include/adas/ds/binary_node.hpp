@@ -1,7 +1,7 @@
 /*
  * BinaryNode template class
  *
- * Debuged class - May 3 2021
+ * Debuged class - May 14 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */

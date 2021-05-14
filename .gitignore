@@ -1,0 +1,13 @@
+**/*~
+**/#*#
+**/.*
+**/a.out
+test/**/a.out
+obj/*
+test/data/*
+test/base/parallel/*
+test/sort/tmp.txt
+include/bst_node.hpp
+build/*
+test/algorithm/sort/serial/tmp/*
+test/algorithm/search/serial/tmp/*

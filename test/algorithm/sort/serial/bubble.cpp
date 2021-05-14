@@ -55,11 +55,10 @@ int main(int argc ,char* argv[])
 
   Timer time;
 
-  cout << "Antes de ejecutar bubble" << endl;
   time.start();
   ass::bubble(numbers.begin(), numbers.end(), verbose);
   time.stop();
-  time.report("Elapsed time (bibubble sorting algorithm)");
+  time.report("Elapsed time (bubble sorting algorithm)");
 
   print::to_stdout("Sorted:", numbers);
 

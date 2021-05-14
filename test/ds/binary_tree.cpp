@@ -1,6 +1,8 @@
 /*
  * Test of binary tree base class
  *
+ * Status: Exit with a Segmentation fault (NOTE: DEBUG binary_tree.hpp header file)
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -26,6 +28,21 @@ int main()
              |- c0
   */
 
+
+  string binary_tree_struct = R"""(
+      r -- a0
+       |   |- b0 (left)
+       |   |- c0 (right)
+       |
+       |- d0
+          |- e0
+          |- a1
+             |- b0
+             |- c0
+)""";
+
+  cout << "Binary tree structure:\n" << binary_tree_struct << endl;
+
   BinaryNode<int>* a0  = new BinaryNode<int>(2);
   BinaryNode<int>* b0  = new BinaryNode<int>(3, a0, NT::LEFT_NODE);
   BinaryNode<int>* c0  = new BinaryNode<int>(4, a0, NT::RIGHT_NODE);
@@ -50,8 +67,8 @@ int main()
   cout << bt;
 
   //check if b0 belows to the binary tree
-  bool is_node = bt->is_node(b0);
-  cout << "Is b0 a binary tree's node?: " << is_node << endl;
+  //bool is_node = bt->is_node(b0);
+  //cout << "Is b0 a binary tree's node?: " << is_node << endl;
 
   // // check if a0 and d0 have equal children
   // bool equal_children = a0->equal_children(d0);

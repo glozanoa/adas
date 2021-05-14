@@ -1,8 +1,15 @@
 /*
  * Test of BinaryNode<T> template class
  *
+ * Status: DEBUGED - date: May 14 2021
+ *
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
+
+#include <string>
+#include <iostream>
+using namespace std;
 
 #include "adas/ds/node.hpp"
 #include "adas/ds/binary_node.hpp"
@@ -20,6 +27,21 @@ int main()
              |- b0
              |- c0
    */
+
+  string node_struct = R"""(
+      r -- a0
+       |   |- b0 (left)
+       |   |- c0 (right)
+       |
+       |- d0
+          |- e0
+          |- a1
+             |- b0
+             |- c0
+)""";
+
+  cout << "Binary node structure:\n" << node_struct << endl;
+
 
   BinaryNode<int>* r   = new BinaryNode<int>(1);
 

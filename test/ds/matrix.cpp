@@ -1,8 +1,8 @@
 /*
  * Test of matrix template class
  *
- * Status: 
- * 
+ * Status: DEBUGED - date: May 14 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -12,6 +12,7 @@ using namespace std;
 
 #include "adas/ds/matrix.hpp"
 #include "adas/utilities.hpp"
+namespace au = adas::utilities;
 
 int main()
 {
@@ -32,11 +33,11 @@ int main()
   // operation with matrix rows and columns
   vector<int> row0 = mtx.get_row(0);
   cout << "row 0 of mtx: ";
-  print::to_stdout(row0);
+  au::print::to_stdout(row0);
 
   cout << "column 0 of mtx: ";
   vector<int> col0 = mtx.get_col(0);
-  print::to_stdout(col0);
+  au::print::to_stdout(col0);
 
   // () operator
 

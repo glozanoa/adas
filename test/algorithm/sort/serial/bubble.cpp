@@ -55,6 +55,7 @@ int main(int argc ,char* argv[])
 
   Timer time;
 
+  cout << "Antes de ejecutar bubble" << endl;
   time.start();
   ass::bubble(numbers.begin(), numbers.end(), verbose);
   time.stop();

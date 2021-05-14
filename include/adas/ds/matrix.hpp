@@ -1,6 +1,8 @@
 /*
  * Template matrix class
  *
+ * State: DEBUGED - date: May 14 2021
+ *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
@@ -171,7 +173,7 @@ public:
         #pragma omp parallel for shared(sum, mtx) firstprivate(nrows, ncols)
         for(unsigned int i=0; i<nrows; i++)
           {
-            // unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
+            //unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
             vector<T> row = this->get_row(i);
             vector<T> mtx_row = mtx.get_row(i);
             #pragma omp parallel for firstprivate(row, mtx_row, ncols)
@@ -182,8 +184,8 @@ public:
               // unsigned int col_thread = omp_get_thread_num();
               // #pragma omp critical
               // {
-              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  << 
-              //   ", sum(" << i << ", " << j << ") = " << sum(i, j) << endl; 
+              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  <<
+              //   ", sum(" << i << ", " << j << ") = " << sum(i, j) << endl;
               // }
             }
           }
@@ -208,11 +210,11 @@ public:
 
         Matrix<T> subs = Matrix<T>(nrows, ncols);
 
-        omp_set_nested(true);
+        //omp_set_nested(true);
         #pragma omp parallel for shared(subs, mtx) firstprivate(nrows, ncols)
         for(unsigned int i=0; i<nrows; i++)
           {
-            // unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
+            //unsigned int row_thread = omp_get_thread_num(); // ONLY FOR DEBUG PURPOSE
             vector<T> row = this->get_row(i);
             vector<T> mtx_row = mtx.get_row(i);
             #pragma omp parallel for firstprivate(row, mtx_row, ncols)
@@ -223,8 +225,8 @@ public:
               // unsigned int col_thread = omp_get_thread_num();
               // #pragma omp critical
               // {
-              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  << 
-              //   ", subs(" << i << ", " << j << ") = " << subs(i, j) << endl; 
+              //   cout << "Row Thread: " << row_thread << " , Column Thread: " << col_thread  <<
+              //   ", subs(" << i << ", " << j << ") = " << subs(i, j) << endl;
               // }
             }
           }

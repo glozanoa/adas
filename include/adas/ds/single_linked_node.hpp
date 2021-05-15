@@ -44,7 +44,7 @@ namespace adas::ds
 
     friend ostream& operator<<(ostream& out, SLNode<T> node)
     {
-      out << "SLNode( key: " << node.get_key() << ", next: " << node.get_next() << ")" << endl;
+      out << "SLNode(key: " << node.get_key() << ", next: " << node.get_next() << ")" << endl;
       return out;
     }
   };

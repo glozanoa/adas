@@ -36,7 +36,7 @@ namespace adas::ds
       while(list_size > 0)
         {
           SLNode<T>* next_node = new SLNode(default_key);
-          itr.set_next(net_node);
+          itr.set_next(next_node);
           itr = next_node;
           list_size--;
         }

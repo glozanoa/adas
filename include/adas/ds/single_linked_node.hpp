@@ -21,7 +21,7 @@ namespace adas::ds
     T key;
     SLNode<T>* next;
   public:
-    SLNode(T node_key): key{key_node}, next{nullptr} {}
+    SLNode(T node_key): key{node_key}, next{nullptr} {}
     void update_key(T node_key)
     {
       key = node_key;
@@ -29,10 +29,10 @@ namespace adas::ds
 
     void set_next(SLNode<T> next_node){next = next_node;}
     void set_key(T node_key){key = node_key;}
-    SLNode<T>* get_next(){return next};
-    T get_key(){return key};
+    SLNode<T>* get_next(){return next;}
+    T get_key(){return key;}
 
-    bool operation==(SLNode<T> node)
+    bool operator==(SLNode<T> node)
       {
         T node_key = node.get_key();
         SLNode<T>* next_node = node.get_next();
@@ -41,7 +41,8 @@ namespace adas::ds
           return true;
         return false;
       }
-    friend ostream& operation<<(ostream& out, SLNode<T> node)
+
+    friend ostream& operator<<(ostream& out, SLNode<T> node)
     {
       out << "SLNode( key: " << node.get_key() << ", next: " << node.get_next() << ")" << endl;
       return out;

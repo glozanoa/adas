@@ -11,37 +11,40 @@
 #include <vector>
 using namespace std;
 
-template<class T>
-class Stack
+namespace adas::ds
 {
-protected:
-  vector<T> keys;
-  unsigned int size;
-
-public:
-  Stack():size{0} {}
-  Stack(T keys[], unsigned size)
-    :size{size}
+  template<class T>
+  class Stack
   {
-    this->keys = vector<T>(size);
-    copy(keys, keys+size, this->keys.begin());
-  }
+  protected:
+    vector<T> keys;
+    unsigned int size;
 
-  Stack(vector<T> keys)
-    :keys{keys}
-  {
-    size = keys.size();
-  }
+  public:
+    Stack():size{0} {}
+    Stack(T keys[], unsigned size)
+      :size{size}
+    {
+      this->keys = vector<T>(size);
+      copy(keys, keys+size, this->keys.begin());
+    }
 
-  void push(T key)
-  {
-    keys.push_back(key);
-  }
+    Stack(vector<T> keys)
+      :keys{keys}
+    {
+      size = keys.size();
+    }
 
-  void pop()
-  {
-    keys.pop_back();
-  }
+    void push(T key)
+    {
+      keys.push_back(key);
+    }
+
+    void pop()
+    {
+      keys.pop_back();
+    }
+  };
 }
 
 #endif //_STACK_H

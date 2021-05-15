@@ -17,139 +17,142 @@ using namespace std;
 #include "./utilities/helper.hpp"
 namespace au = adas::utilities;
 
-template<typename T>
-class Node
+namespace adas::ds
 {
-protected:
-  T key;
-  unsigned int depth;
-  unsigned int height;
-  Node<T>* parent;
-  list<Node<T>*> children;
-
-public:
-  Node(T key): key{key}, parent{nullptr}, depth{0} {}
-  Node(T key, Node<T>* parent): key{key}, parent{parent}, depth{0}
+  template<typename T>
+  class Node
   {
-    parent->add_child(this);
-  }
+  protected:
+    T key;
+    unsigned int depth;
+    unsigned int height;
+    Node<T>* parent;
+    list<Node<T>*> children;
 
-  Node(T key, Node<T>* parent, list<Node<T>*> children)
-    : key{key}, parent{parent}, children{children}
-  {
-    parent->add_child(this);
+  public:
+    Node(T key): key{key}, parent{nullptr}, depth{0} {}
+    Node(T key, Node<T>* parent): key{key}, parent{parent}, depth{0}
+    {
+      parent->add_child(this);
+    }
 
-    for(Node<T>* child: children)
-      if(child != nullptr)
-        this->add_child(child);
-  }
+    Node(T key, Node<T>* parent, list<Node<T>*> children)
+      : key{key}, parent{parent}, children{children}
+    {
+      parent->add_child(this);
 
-  T get_key(){return key;}
-  Node<T>* get_parent(){return parent;}
-  void set_depth(unsigned int tree_depth)
-  {
-    depth = tree_depth;
-    for(Node<T>* child: children)
-      if(child != nullptr)
-        child->set_depth(depth +1);
-  }
+      for(Node<T>* child: children)
+        if(child != nullptr)
+          this->add_child(child);
+    }
 
-  list<Node<T>*> get_children(){return children;}
-  unsigned int get_depth(){return depth;}
+    T get_key(){return key;}
+    Node<T>* get_parent(){return parent;}
+    void set_depth(unsigned int tree_depth)
+    {
+      depth = tree_depth;
+      for(Node<T>* child: children)
+        if(child != nullptr)
+          child->set_depth(depth +1);
+    }
 
-  void add_child(Node<T>* child)
-  {
-    child->set_depth(depth+1);
-    child->set_parent(this);
-    children.push_back(child);
-  }
+    list<Node<T>*> get_children(){return children;}
+    unsigned int get_depth(){return depth;}
 
-  void set_parent(Node<T>* parent)
-  {
-    try
-      {
-        if(parent == nullptr)
-          throw NullParentNode();
+    void add_child(Node<T>* child)
+    {
+      child->set_depth(depth+1);
+      child->set_parent(this);
+      children.push_back(child);
+    }
 
-        this->parent = parent;
-      }
-    catch(exception& error)
-      {
-        cout << error.what() << endl;
-        exit(EXIT_FAILURE);
-      }
-    //parent->add_child(this); // NOTE
-  }
+    void set_parent(Node<T>* parent)
+    {
+      try
+        {
+          if(parent == nullptr)
+            throw NullParentNode();
 
-  bool equal_children(Node<T>* node)
-  {
-    // implemnt a more efficient algorithm to compare 2 sets
-    // using this theorem:
-    // A = B  <-> A c B and |A| = |B|
+          this->parent = parent;
+        }
+      catch(exception& error)
+        {
+          cout << error.what() << endl;
+          exit(EXIT_FAILURE);
+        }
+      //parent->add_child(this); // NOTE
+    }
 
-    list<Node<T>*> node_children = node->get_children();
-    if(this->children.size() != node_children.size())
-      return false;
+    bool equal_children(Node<T>* node)
+    {
+      // implemnt a more efficient algorithm to compare 2 sets
+      // using this theorem:
+      // A = B  <-> A c B and |A| = |B|
 
-    for(Node<T>* child: node_children)
-      if(!this->has_child(child))
+      list<Node<T>*> node_children = node->get_children();
+      if(this->children.size() != node_children.size())
         return false;
 
-    return true;
-  }
+      for(Node<T>* child: node_children)
+        if(!this->has_child(child))
+          return false;
 
-  bool is_equal(Node<T>* node)
-  {
-    unsigned int node_depth = node->get_depth();
-    T node_key = node->get_key();
+      return true;
+    }
 
-    if(depth != node_depth || key != node_key)
+    bool is_equal(Node<T>* node)
+    {
+      unsigned int node_depth = node->get_depth();
+      T node_key = node->get_key();
+
+      if(depth != node_depth || key != node_key)
+        return false;
+
+      Node<T>* parent_node = node->get_parent();
+      if(!(parent == parent_node)) // pointer comparison
+        return false;
+
+      if(!this->equal_children(node))
+        return false;
+
+      return true;
+    }
+
+    bool operator==(Node<T> node)
+    {
+      return this->is_equal(&node);
+    }
+
+    bool has_child(Node<T>* node)
+    {
+      // implemet a more efficient search (BINARY SEARCH)
+      unsigned int node_depth = node->get_depth();
+      if(node_depth != depth+1)
+        return false;
+
+      for(Node<T>* child : children)
+        if(child == node) //pointer comparison
+          return true;
+
       return false;
+    }
 
-    Node<T>* parent_node = node->get_parent();
-    if(!(parent == parent_node)) // pointer comparison
-      return false;
+    friend ostream& operator<<(ostream& out, Node<T>* node)
+    {
+      unsigned int depth = node->get_depth();
+      T key = node->get_key();
+      string tab = au::repeat("\t", depth);
 
-    if(!this->equal_children(node))
-      return false;
+      out << tab << key << endl;
+      //tab += "\t";
+      for(Node<T>* child: node->get_children())
+        {
+          if(child != nullptr)
+            out << child;
+        }
+      return out;
+    }
+  };
 
-    return true;
-  }
-
-  bool operator==(Node<T> node)
-  {
-    return this->is_equal(&node);
-  }
-
-  bool has_child(Node<T>* node)
-  {
-    // implemet a more efficient search (BINARY SEARCH)
-    unsigned int node_depth = node->get_depth();
-    if(node_depth != depth+1)
-      return false;
-
-    for(Node<T>* child : children)
-      if(child == node) //pointer comparison
-        return true;
-
-    return false;
-  }
-
-  friend ostream& operator<<(ostream& out, Node<T>* node)
-  {
-    unsigned int depth = node->get_depth();
-    T key = node->get_key();
-    string tab = au::repeat("\t", depth);
-
-    out << tab << key << endl;
-    //tab += "\t";
-    for(Node<T>* child: node->get_children())
-      {
-        if(child != nullptr)
-          out << child;
-      }
-    return out;
-  }
-};
-
+}
 #endif //_NODE_H

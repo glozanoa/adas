@@ -78,10 +78,43 @@ namespace adas::ds
     //   return out;
     // }
 
+
     friend ostream& operator<<(ostream& out, DLNode<T>* node)
     {
-      out << "DLNode(key: " << node->get_key()
-          << ", prev: " << node->get_prev() << ", next: " << node->get_next() << ")" << endl;
+      T node_key = node->get_key();
+      DLNode<T>* prev_node = node->get_prev();
+      DLNode<T>* next_node = node->get_next();
+
+      if(next_node != nullptr && prev_node != nullptr)
+        {
+          T prev_node_key = prev_node->get_key();
+          T next_node_key = next_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: " << prev_node_key
+              << ", next: " << next_node_key << ")";
+        }
+      else if(next_node != nullptr)
+        {
+          T next_node_key = next_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: NONE"
+              << ", next: " << next_node_key << ")";
+        }
+      else if (prev_node != nullptr)
+        {
+          T prev_node_key = prev_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: " << prev_node_key
+              << ", next: NONE)";
+        }
+      else
+        {
+          out << "DLNode(key: " << node_key
+              << ", prev: NONE , next: NONE)";
+        }
       return out;
     }
   };

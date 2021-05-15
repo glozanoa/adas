@@ -1,7 +1,7 @@
 /*
  * Testing DLNode template class
  *
- * Status: Exit with segementation fault (DEBUG operator<< friend method) - date May 15 2021
+ * Status: DEBUGED - date May 15 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -25,8 +25,8 @@ int main()
   DLNode<int>* c = new DLNode<int>(0);
 
   cout << "a's key:" << a->get_key() << endl;
-  //cout << "a DLNode (init):" << endl;
-  //cout << a << endl;
+  cout << "a DLNode (init):" << endl;
+  cout << a << endl;
 
   a->set_next(b);
   cout << "a DLNode (after linking with b):" << endl;

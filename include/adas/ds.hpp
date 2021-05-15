@@ -18,5 +18,7 @@
 #include "./ds/heap.hpp"
 #include "./ds/queue.hpp"
 #include "./ds/stack.hpp"
+#include "./ds/single_linked_list.hpp"
+#include "./ds/single_linked_node.hpp"
 
 #endif //_ADAS_DS_H

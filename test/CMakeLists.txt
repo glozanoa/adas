@@ -50,7 +50,7 @@ add_subdirectory(phonebook)
 
 # # data structures
 message(DEBUG "Data structures examples labels")
-file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/binary_tree.cpp)
+file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/sllist.cpp ds/slnode.cpp)
 foreach(DS_EXAMPLE ${DS})
   get_filename_component(DS_NAME ${DS_EXAMPLE} NAME_WE)
   message(DEBUG "Adding executable ${DS_NAME}")

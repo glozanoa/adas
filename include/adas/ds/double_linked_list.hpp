@@ -54,7 +54,7 @@ namespace adas::ds
               {
                 node = node->get_next();
                 if(node == nullptr)
-                  throw out_of_range("next node is nullptr");
+                  throw out_of_range("node is nullptr");
                   steps--;
               }
             return *this;
@@ -118,48 +118,7 @@ namespace adas::ds
     DLNode<T>* get_tail(){return tail;}
     unsigned int get_size(){return size;}
 
-    void push_back(DLNode<T>* node)
-    {
-      node->only_set_next(nullptr);
-      if(tail == nullptr && head == nullptr) // this is a empty list
-        {
-          head = node;
-          tail = node;
-        }
-      else
-        {
-          tail->set_next(node);
-          tail = node;
-        }
-    }
 
-    void push_front(DLNode<T>* node)
-    {
-      node->only_set_prev(nullptr);
-      if(tail == nullptr && head == nullptr) // this is a empty list
-        {
-          head = node;
-          tail = node;
-          node->only_set_next(nullptr);
-        }
-      else
-        {
-          node->set_next(head);
-          head = node;
-        }
-    }
-
-    void push_back(T node_key)
-    {
-      DLNode<T>* node = new DLNode<T>(node_key);
-      this->push_back(node);
-    }
-
-    void push_front(T node_key)
-    {
-      DLNode<T>* node = new DLNode<T>(node_key);
-      this->push_front(node);
-    }
 
     iterator insert(iterator position, T key)
     /*
@@ -202,24 +161,48 @@ namespace adas::ds
         }
     }
 
-    // iterator erase(iterator position)
-    // {
-    //   DLNode<T>* node = position->get_node();
-    //   DLNode<T>* prev2node = node->get_prev();
-    //   DLNOde<T>* next2node = node->get_next();
+    void push_back(DLNode<T>* node)
+    {
+      node->only_set_next(nullptr);
+      if(tail == nullptr && head == nullptr) // this is a empty list
+        {
+          head = node;
+          tail = node;
+        }
+      else
+        {
+          tail->set_next(node);
+          tail = node;
+        }
+    }
 
-    //   if(next2node == nullptr) // node == tail
-    //     {
-    //       prev2node->only_set_next(nullptr);
-    //       tail = prev2node;
-    //       delete [] node;
-    //     }
-    //   else
-    //     {
-    //       prev2node->set_next(next2node);
-    //       delete [] node;
-    //     }
-    // }
+    void push_front(DLNode<T>* node)
+    {
+      node->only_set_prev(nullptr);
+      if(tail == nullptr && head == nullptr) // this is a empty list
+        {
+          head = node;
+          tail = node;
+          node->only_set_next(nullptr);
+        }
+      else
+        {
+          node->set_next(head);
+          head = node;
+        }
+    }
+
+    void push_back(T node_key)
+    {
+      DLNode<T>* node = new DLNode<T>(node_key);
+      this->push_back(node);
+    }
+
+    void push_front(T node_key)
+    {
+      DLNode<T>* node = new DLNode<T>(node_key);
+      this->push_front(node);
+    }
 
     void pop_front()
     /*

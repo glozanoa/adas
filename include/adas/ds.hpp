@@ -1,7 +1,7 @@
 /*
  * Adas' data structures header file
  *
- * Maintiner: glozanoa <glozanoa@uni.pe>
+ * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #ifndef _ADAS_DS_H

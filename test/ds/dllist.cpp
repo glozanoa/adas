@@ -20,7 +20,7 @@ int main()
 {
   /*
    * List Structure
-   nullptr <- a(key:1) <-> b (key:3) <-> c (key:0) -> nullptr
+   nullptr <- Node(key:2) <-> Node(key:4) <-> Node(key:1) <-> Node(key:3) -> nullptr
   */
 
   cout << "Init empty list" << endl;

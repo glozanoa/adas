@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <iterator>
+#include <iterator>
 #include <utility>
 using namespace std;
 
@@ -117,6 +118,39 @@ namespace adas::algorithm
             if(*first == value)
               return first;
             first++;
+          }
+        return last;
+      }
+
+      template<class ForwardIterator, class Comparison, class T>
+      ForwardIterator secuential(ForwardIterator first, ForwardIterator last,
+                                 Comparison comp, const T value)
+      {
+        while(first != last)
+          {
+            if(comp(*first, value))
+              return first;
+            first++;
+          }
+        return last;
+      }
+
+      template<class ForwardIterator, class Comparison, class T>
+      ForwardIterator search_prev(ForwardIterator first, ForwardIterator last,
+                                  Comparison comp, const T value)
+      {
+        ForwardIterator prev;
+
+        // compare the first element
+        if(first != last && comp(*first, value))
+          return last; // there isnt prev element
+
+        while(first != last)
+          {
+            prev = first;
+            first++;
+            if(comp(*first, value))
+              return prev;
           }
         return last;
       }

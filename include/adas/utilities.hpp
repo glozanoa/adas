@@ -1,7 +1,7 @@
 /*
  * Adas' utilities header file
  *
- * Maintiner: glozanoa <glozanoa@uni.pe>
+ * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #ifndef _ADAS_UTILITIES_H

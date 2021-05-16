@@ -10,6 +10,8 @@
 #define _DLLIST_H
 
 #include <iostream>
+#include <vector>
+#include <initializer_list>
 
 #include "../exceptions/general.hpp"
 
@@ -46,18 +48,22 @@ namespace adas::ds
       iterator& operator--(){node = node->get_prev(); return *this;}
       iterator& operator++(){node = node->get_next(); return *this;}
       iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+      // TLMGLA
+      iterator& get_this(){return *this;}
       iterator& operator+(unsigned int steps)
       {
         try
           {
+            DLNode<T>* tmp_node = node;
             while(steps > 0)
               {
-                node = node->get_next();
+                tmp_node = tmp_node->get_next();
                 if(node == nullptr)
                   throw out_of_range("node is nullptr");
-                  steps--;
+
+                steps--;
               }
-            return *this;
+            return iterator(tmp_node).get_this();
           }
         catch(exception& error)
           {
@@ -99,8 +105,20 @@ namespace adas::ds
     /*
      * Create a list of size list_size with 0 as node's key
      */
+      :DLList(list_size, 0) {}
+
+    DLList(std::initializer_list<T> keys)
+      :DLList<T>()
     {
-      DLList(list_size, 0);
+      for(T key : keys)
+        this->push_back(key);
+    }
+
+    DLList(std::vector<T> keys)
+      :DLList<T>()
+    {
+      for(T key : keys)
+        this->push_back(key);
     }
 
     DLList<T>::iterator begin(){return DLList<T>::iterator(head);}
@@ -118,10 +136,23 @@ namespace adas::ds
     DLNode<T>* get_tail(){return tail;}
     unsigned int get_size(){return size;}
 
+    using Interchange = void (*)(ads::DLList<T>::iterator, ads::DLList<T>::iterator);
+    static void interchange_keys(DLList<T>::iterator node, DLList<T>::iterator other_node)
+    /*
+     * Interchange keys of nodes (pointed by iterators)
+     */
+    {
+      //DLList<T>::iterator end = this->end();
+      T node_key = node->get_key();
+      T other_key = other_node->get_key();
+
+      node->set_key(other_key);
+      other_node->set_key(node_key);
+    }
 
     DLList<T>::iterator insert(DLList<T>::iterator position, T key)
     /*
-     * Insert a DLNode<T> after the suplied position
+     * Insert a DLNode<T> in the suplied position
      */
     {
       DLNode<T>* node = new DLNode<T>(key);
@@ -154,13 +185,11 @@ namespace adas::ds
         {
           prev2node->only_set_next(nullptr);
           tail = prev2node;
-          delete [] node;
         }
       else
-        {
-          prev2node->set_next(next2node);
-          delete [] node;
-        }
+        prev2node->set_next(next2node);
+
+      delete [] node;
       size--;
     }
 

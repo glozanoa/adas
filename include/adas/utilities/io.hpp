@@ -45,6 +45,35 @@ namespace adas::utilities
         }
       return numbers;
     }
+
+    template<class Container, class T>
+    Container from_file(string file_name)
+    /*
+     * Container must have a contructor with a vector<T> as argument
+     */
+    {
+      ifstream fn;
+      vector<T> numbers;
+      try
+        {
+          fn.open(file_name);
+          T number;
+          string line;
+          while(getline(fn, line))
+            {
+              number = str2<T>(line);
+              numbers.push_back(number);
+            }
+          fn.close();
+        }
+      catch(exception& error)
+        {
+          cout << error.what() << endl;
+          if(fn.is_open())
+            fn.close();
+        }
+      return Container(numbers);
+    }
   };
 
   namespace write

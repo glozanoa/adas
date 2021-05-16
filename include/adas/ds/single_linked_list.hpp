@@ -57,7 +57,8 @@ namespace adas::ds
                 node = node->get_next();
                 if(node == nullptr)
                   throw out_of_range("node is nullptr");
-                  steps--;
+
+                steps--;
               }
             return *this;
           }
@@ -102,6 +103,12 @@ namespace adas::ds
       SLList(list_size, 0);
     }
 
+    SLList(std::initializer_list<T> keys)
+      :SLList<T>()
+    {
+      for(T key : keys)
+        this->push_back(key);
+    }
 
     SLList<T>::iterator begin(){return iterator(head);}
     SLList<T>::iterator end(){return iterator(tail->get_next());}

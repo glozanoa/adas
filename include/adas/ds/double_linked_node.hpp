@@ -60,25 +60,24 @@ namespace adas::ds
     DLNode<T>* get_prev(){return prev;}
     T get_key(){return key;}
 
-   bool operator==(DLNode<T> node)
-      {
-        T node_key = node.get_key();
-        DLNode<T>* next_node = node.get_next();
-        DLNode<T>* prev_node = node.get_prev();
 
-        if(key == node_key &&
-           next == next_node && prev == prev_node)
-          return true;
-        return false;
-      }
+    bool operator<(DLNode<T> node)
+    {
+      T node_key = node.get_key();
+      return key < node_key;
+    }
 
-    // friend ostream& operator<<(ostream& out, DLNode<T> node)
-    // {
-    //   out << "DLNode(key: " << node.get_key()
-    //       << ", prev: " << node.get_prev() << ", next: " << node.get_next() << ")" << endl;
-    //   return out;
-    // }
+    bool operator==(DLNode<T> node)
+    {
+      T node_key = node.get_key();
+      DLNode<T>* next_node = node.get_next();
+      DLNode<T>* prev_node = node.get_prev();
 
+      if(key == node_key &&
+         next == next_node && prev == prev_node)
+        return true;
+      return false;
+    }
 
     friend ostream& operator<<(ostream& out, DLNode<T> node)
     {
@@ -118,42 +117,42 @@ namespace adas::ds
     }
 
 
-    friend ostream& operator<<(ostream& out, DLNode<T>* node)
-    {
-      T node_key = node->get_key();
-      DLNode<T>* prev_node = node->get_prev();
-      DLNode<T>* next_node = node->get_next();
+    // friend ostream& operator<<(ostream& out, DLNode<T>* node)
+    // {
+    //   T node_key = node->get_key();
+    //   DLNode<T>* prev_node = node->get_prev();
+    //   DLNode<T>* next_node = node->get_next();
 
-      if(next_node != nullptr && prev_node != nullptr)
-        {
-          T prev_node_key = prev_node->get_key();
-          T next_node_key = next_node->get_key();
+    //   if(next_node != nullptr && prev_node != nullptr)
+    //     {
+    //       T prev_node_key = prev_node->get_key();
+    //       T next_node_key = next_node->get_key();
 
-          out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
-              << ", next: " << next_node_key << ")";
-        }
-      else if(next_node != nullptr)
-        {
-          T next_node_key = next_node->get_key();
+    //       out << "DLNode(key: " << node_key
+    //           << ", prev: " << prev_node_key
+    //           << ", next: " << next_node_key << ")";
+    //     }
+    //   else if(next_node != nullptr)
+    //     {
+    //       T next_node_key = next_node->get_key();
 
-          out << "DLNode(key: " << node_key
-              << ", prev: NONE"
-              << ", next: " << next_node_key << ")";
-        }
-      else if (prev_node != nullptr)
-        {
-          T prev_node_key = prev_node->get_key();
+    //       out << "DLNode(key: " << node_key
+    //           << ", prev: NONE"
+    //           << ", next: " << next_node_key << ")";
+    //     }
+    //   else if (prev_node != nullptr)
+    //     {
+    //       T prev_node_key = prev_node->get_key();
 
-          out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
-              << ", next: NONE)";
-        }
-      else
-        out << "DLNode(key: " << node_key << ", prev: NONE , next: NONE)";
+    //       out << "DLNode(key: " << node_key
+    //           << ", prev: " << prev_node_key
+    //           << ", next: NONE)";
+    //     }
+    //   else
+    //     out << "DLNode(key: " << node_key << ", prev: NONE , next: NONE)";
 
-      return out;
-    }
+    //   return out;
+    // }
   };
 }
 

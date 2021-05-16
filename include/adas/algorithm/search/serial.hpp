@@ -16,6 +16,9 @@
 #include <utility>
 using namespace std;
 
+#include "../../ds/heap.hpp"
+namespace ads = adas::ds;
+
 #include "../utilities/helper.hpp"
 #include "../utilities/timer.hpp"
 #include "../utilities/print.hpp" // ONLY FOR TESTING PURPOSES
@@ -143,7 +146,7 @@ namespace adas::algorithm
 
         // compare the first element
         if(first != last && comp(*first, value))
-          return last; // there isnt prev element
+          return last; // there is not prev element
 
         while(first != last)
           {

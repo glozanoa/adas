@@ -16,6 +16,8 @@
 using namespace adas::utilities;
 
 #include "../../ds/heap.hpp"
+namespace ads = adas::ds;
+
 
 namespace adas::algorithm
 {
@@ -33,10 +35,13 @@ namespace adas::algorithm
       // tested - data Apr 25 2021
       template<class RandomAccessIterator>
       void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
+      /*
+       * Supported containers: vector<T>, array[T]
+       */
       {
         RandomAccessIterator itr, inner;
 
-        for(itr=first; itr!= last-1; itr++)
+        for(itr=first; itr!= last; itr++)
           {
             for(inner=itr+1; inner!=last; inner++)
               {
@@ -48,23 +53,43 @@ namespace adas::algorithm
           }
       }
 
-      template<class RandomAccessIterator, class Compare>
-      void bubble(RandomAccessIterator first, RandomAccessIterator last, Compare comp, bool verbose)
+      // template<class RandomAccessIterator, class Compare>
+      // void bubble(RandomAccessIterator first, RandomAccessIterator last, Compare comp, bool verbose)
+      // /*
+      //  * Comp: is a function that compare two elements and return a bool
+      //  */
+      // {
+      //   RandomAccessIterator itr, inner;
+
+      //   for(itr=first; itr!= last; itr++)
+      //     {
+      //       for(inner=itr+1; inner!=last; inner++)
+      //         {
+      //           if(comp(*itr, *inner))
+      //             interchange_values(itr, inner);
+      //         }
+      //       if(verbose)
+      //         print::to_stdout(first, last);
+      //     }
+      // }
+
+      template<class RandomAccessIterator, class Interchange>
+      void bubble(RandomAccessIterator first, RandomAccessIterator last, Interchange inter, bool verbose)
       /*
        * Comp: is a function that compare two elements and return a bool
        */
       {
         RandomAccessIterator itr, inner;
 
-        for(itr=first; itr!= last-1; itr++)
+        for(itr=first; itr != last; itr++)
           {
             for(inner=itr+1; inner!=last; inner++)
               {
-                if(comp(*itr, *inner))
-                  interchange_values(itr, inner);
+                if(*inner < *itr)
+                  inter(itr, inner);
               }
             if(verbose)
-              print::to_stdout(first, last);
+              print::to_stdout(first, last, "\n");
           }
       }
 
@@ -193,7 +218,7 @@ namespace adas::algorithm
       vector<T> heap_sort(vector<T> keys, bool verbose)
       {
         //vector<T> sorted;
-        Heap<T> heap = Heap<T>(keys);
+        ads::Heap<T> heap = ads::Heap<T>(keys);
         heap.build_max_heap(false);
 
         int  heap_size = heap.get_size();

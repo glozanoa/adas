@@ -1,9 +1,9 @@
 /*
  * Double Linked node template data structure (for implement DLList template class)
  *
- * Status:
+ * Status: DEBUGGED - date: May 16 2021
  *
- * Maintiner: glozanoa <glozanoa@uni.pe>
+ * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #ifndef _DLNODE_H
@@ -55,11 +55,12 @@ namespace adas::ds
     }
 
     void set_key(T node_key){key = node_key;}
+    DLNode<T>* get_node(){return this;}
     DLNode<T>* get_next(){return next;}
     DLNode<T>* get_prev(){return prev;}
     T get_key(){return key;}
 
-    bool operator==(DLNode<T> node)
+   bool operator==(DLNode<T> node)
       {
         T node_key = node.get_key();
         DLNode<T>* next_node = node.get_next();

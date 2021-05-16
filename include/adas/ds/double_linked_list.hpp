@@ -1,9 +1,9 @@
 /*
  * Double Linked List template data structure
  *
- * Status:
+ * Status: DEBUGGED - date: May 16 2021
  *
- * Maintiner: glozanoa <glozanoa@uni.pe>
+ * Maintainer: glozanoa <glozanoa@uni.pe>
  */
 
 #ifndef _DLLIST_H
@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+#include "../exceptions/general.hpp"
 
 #include "double_linked_node.hpp"
 using namespace adas::ds;
@@ -45,6 +46,25 @@ namespace adas::ds
       iterator& operator--(){node = node->get_prev(); return *this;}
       iterator& operator++(){node = node->get_next(); return *this;}
       iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+      iterator& operator+(unsigned int steps)
+      {
+        try
+          {
+            while(steps > 0)
+              {
+                node = node->get_next();
+                if(node == nullptr)
+                  throw out_of_range("next node is nullptr");
+                  steps--;
+              }
+            return *this;
+          }
+        catch(exception& error)
+          {
+            std::cout << error.what() << endl;
+            exit(EXIT_FAILURE);
+          }
+      }
       friend bool operator==(const iterator& a, const iterator& b){return a.node == b.node;}
       friend bool operator!=(const iterator& a, const iterator& b){return a.node != b.node;}
 
@@ -75,13 +95,6 @@ namespace adas::ds
       tail = node;
     }
 
-    iterator begin(){return iterator(head);}
-    iterator end(){return iterator(tail->get_next());}
-
-    DLNode<T>* get_head(){return head;}
-    DLNode<T>* get_tail(){return tail;}
-    unsigned int get_size(){return size;}
-
     DLList(unsigned int list_size)
     /*
      * Create a list of size list_size with 0 as node's key
@@ -89,6 +102,21 @@ namespace adas::ds
     {
       DLList(list_size, 0);
     }
+
+    iterator set_key(iterator position, T node_key)
+    {
+      DLNode<T>* node = position->get_node();
+      node->set_key(node_key);
+      return position;
+    }
+
+    iterator begin(){return iterator(head);}
+    iterator end(){return iterator(tail->get_next());}
+
+
+    DLNode<T>* get_head(){return head;}
+    DLNode<T>* get_tail(){return tail;}
+    unsigned int get_size(){return size;}
 
     void push_back(DLNode<T>* node)
     {
@@ -133,23 +161,86 @@ namespace adas::ds
       this->push_front(node);
     }
 
-    friend ostream& operator<<(ostream& out, DLList<T> list)
+    iterator insert(iterator position, T key)
+    /*
+     * Insert a DLNode<T> after the suplied position
+     */
     {
-      DLNode<T>* node = list.get_head();
-      if(node != nullptr)
-        {
-          while(node->get_next() != nullptr)
-            {
-              T key = node->get_key();
-              out << key << std::endl;
-              node = node->get_next();
-            }
+      DLNode<T>* node = new DLNode<T>(key);
 
-          DLNode<T>* tail = list.get_tail();
-          out << tail->get_key();
+      DLNode<T>* prev_node = position->get_node();
+      DLNode<T>* next_node = position->get_next();
+
+      prev_node->set_next(node);
+      if(next_node != nullptr)
+        next_node->set_prev(node);
+      else // if position == tail -> next_node == nullptr
+        {
+          node->only_set_next(nullptr);
+          tail = node;
         }
 
-      return out;
+      return position;
+    }
+
+    void erase(iterator position)
+    {
+      DLNode<T>* node = position->get_node();
+      DLNode<T>* prev2node = node->get_prev();
+      DLNode<T>* next2node = node->get_next();
+
+      if(next2node == nullptr) // node == tail
+        {
+          prev2node->only_set_next(nullptr);
+          tail = prev2node;
+          delete [] node;
+        }
+      else
+        {
+          prev2node->set_next(next2node);
+          delete [] node;
+        }
+    }
+
+    // iterator erase(iterator position)
+    // {
+    //   DLNode<T>* node = position->get_node();
+    //   DLNode<T>* prev2node = node->get_prev();
+    //   DLNOde<T>* next2node = node->get_next();
+
+    //   if(next2node == nullptr) // node == tail
+    //     {
+    //       prev2node->only_set_next(nullptr);
+    //       tail = prev2node;
+    //       delete [] node;
+    //     }
+    //   else
+    //     {
+    //       prev2node->set_next(next2node);
+    //       delete [] node;
+    //     }
+    // }
+
+    void pop_front()
+    /*
+     * Delete first element
+     */
+    {
+      DLNode<T>* next2head = head->get_next();
+      next2head->only_set_prev(nullptr);
+      delete [] head;
+      head = next2head;
+    }
+
+    void pop_back()
+    /*
+     * Delete last element
+     */
+    {
+      DLNode<T>* prev2tail = tail->get_prev();
+      prev2tail->only_set_next(nullptr);
+      delete [] tail;
+      tail = prev2tail;
     }
   };
 }

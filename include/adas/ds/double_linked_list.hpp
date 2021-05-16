@@ -9,6 +9,9 @@
 #ifndef _DLLIST_H
 #define _DLLIST_H
 
+#include <iostream>
+
+
 #include "double_linked_node.hpp"
 using namespace adas::ds;
 
@@ -21,8 +24,8 @@ namespace adas::ds
    */
   {
   protected:
-    SLNode<T>* head;
-    SLNode<T>* tail;
+    DLNode<T>* head;
+    DLNode<T>* tail;
     unsigned int size;
   public:
     DLList(): size{0}, head{nullptr}, tail{nullptr} {}
@@ -36,9 +39,9 @@ namespace adas::ds
       DLNode<T>* node = new DLNode(default_key);
       node->set_prev(head);
       list_size--;
-      while(list_size > 0)
+      while(list_size > 1)
         {
-          DLNode<T>* next_node = new SLNode(default_key);
+          DLNode<T>* next_node = new DLNode(default_key);
           node->set_next(next_node);
           next_node->set_prev(node);
           node = next_node;
@@ -47,18 +50,22 @@ namespace adas::ds
       tail = node;
     }
 
+    DLNode<T>* get_head(){return head;}
+    DLNode<T>* get_tail(){return tail;}
+    unsigned int get_size(){return size;}
+
     DLList(unsigned int list_size)
     /*
      * Create a list of size list_size with 0 as node's key
      */
     {
-      SLList(list_size, 0);
+      DLList(list_size, 0);
     }
 
-    void push_back(SLNode<T>* node)
+    void push_back(DLNode<T>* node)
     {
-      node->set_next(nullptr);
-      if(tail == nullptr && head = nullptr) // this is a empty list
+      node->only_set_next(nullptr);
+      if(tail == nullptr && head == nullptr) // this is a empty list
         {
           head = node;
           tail = node;
@@ -66,16 +73,55 @@ namespace adas::ds
       else
         {
           tail->set_next(node);
-          node->set_prev(tail);
           tail = node;
         }
     }
 
-    void push_front(SLNode<T>* node)
+    void push_front(DLNode<T>* node)
     {
-      node->set_next(head);
-      node->set_prev(nullptr);
-      head = node;
+      node->only_set_prev(nullptr);
+      if(tail == nullptr && head == nullptr) // this is a empty list
+        {
+          head = node;
+          tail = node;
+          node->only_set_next(nullptr);
+        }
+      else
+        {
+          node->set_next(head);
+          head = node;
+        }
+    }
+
+    void push_back(T node_key)
+    {
+      DLNode<T>* node = new DLNode<T>(node_key);
+      this->push_back(node);
+    }
+
+    void push_front(T node_key)
+    {
+      DLNode<T>* node = new DLNode<T>(node_key);
+      this->push_front(node);
+    }
+
+    friend ostream& operator<<(ostream& out, DLList<T> list)
+    {
+      DLNode<T>* node = list.get_head();
+      if(node != nullptr)
+        {
+          while(node->get_next() != nullptr)
+            {
+              T key = node->get_key();
+              out << key << std::endl;
+              node = node->get_next();
+            }
+
+          DLNode<T>* tail = list.get_tail();
+          out << tail->get_key();
+        }
+
+      return out;
     }
   };
 }

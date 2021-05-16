@@ -9,6 +9,8 @@
 #ifndef _SLLIST_H
 #define _SLLIST_H
 
+#include <iostream>
+
 #include "single_linked_node.hpp"
 using namespace adas::ds;
 
@@ -52,6 +54,11 @@ namespace adas::ds
       SLList(list_size, 0);
     }
 
+
+    SLNode<T>* get_head(){return head;}
+    SLNode<T>* get_tail(){return tail;}
+    unsigned int get_size(){return size;}
+
     void push_back(SLNode<T>* node)
     {
       node->set_next(nullptr);
@@ -73,6 +80,22 @@ namespace adas::ds
       head = node;
     }
 
+    friend ostream& operator<<(ostream& out, SLList<T> list)
+    {
+      SLNode<T>* node = list.get_head();
+
+      while(node->get_next() != nullptr)
+        {
+          T key = node->get_key();
+          out << key << std::endl;
+          node = node->get_next();
+        }
+
+      SLNode<T>* tail = list.get_tail();
+      out << tail->get_key();
+
+      return out;
+    }
 
   };
 }

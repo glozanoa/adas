@@ -27,7 +27,32 @@ namespace adas::ds
     DLNode<T>* head;
     DLNode<T>* tail;
     unsigned int size;
+
   public:
+
+    struct iterator
+    {
+      using iterator_category = std::bidirectional_iterator_tag;
+      using value_type        = T;
+      using difference_type   = std::ptrdiff_t;
+      using pointer           = DLNode<T>*;
+      using reference         = DLNode<T>&;
+
+      iterator() :node{nullptr} {}
+      iterator(pointer node) :node{node} {}
+      reference operator*() const {return *node;}
+      pointer operator->(){return node;}
+      iterator& operator--(){node = node->get_prev(); return *this;}
+      iterator& operator++(){node = node->get_next(); return *this;}
+      iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+      friend bool operator==(const iterator& a, const iterator& b){return a.node == b.node;}
+      friend bool operator!=(const iterator& a, const iterator& b){return a.node != b.node;}
+
+    private:
+      pointer node;
+    };
+
+
     DLList(): size{0}, head{nullptr}, tail{nullptr} {}
     DLList(unsigned int list_size, T default_key)
     /*
@@ -49,6 +74,9 @@ namespace adas::ds
         }
       tail = node;
     }
+
+    iterator begin(){return iterator(head);}
+    iterator end(){return iterator(tail->get_next());}
 
     DLNode<T>* get_head(){return head;}
     DLNode<T>* get_tail(){return tail;}

@@ -10,6 +10,8 @@
 #define _SLLIST_H
 
 #include <iostream>
+#include <iterator>
+#include <cstddef>
 
 #include "single_linked_node.hpp"
 using namespace adas::ds;
@@ -27,6 +29,30 @@ namespace adas::ds
     SLNode<T>* tail;
     unsigned int size;
   public:
+
+
+    struct iterator
+    {
+      using iterator_category = std::forward_iterator_tag;
+      using value_type        = T;
+      using difference_type   = std::ptrdiff_t;
+      using pointer           = SLNode<T>*;
+      using reference         = SLNode<T>&;
+
+      iterator() :node{nullptr} {}
+      iterator(pointer node) :node{node} {}
+      reference operator*() const {return *node;}
+      pointer operator->(){return node;}
+      iterator& operator++(){node = node->get_next(); return *this;}
+      iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+      friend bool operator==(const iterator& a, const iterator& b){return a.node == b.node;}
+      friend bool operator!=(const iterator& a, const iterator& b){return a.node != b.node;}
+
+    private:
+      pointer node;
+    };
+
+
     SLList(): size{0}, head{nullptr}, tail{nullptr} {}
     SLList(unsigned int list_size, T default_key)
     /*
@@ -54,6 +80,9 @@ namespace adas::ds
       SLList(list_size, 0);
     }
 
+
+    iterator begin(){return iterator(head);}
+    iterator end(){return iterator(tail->get_next());}
 
     SLNode<T>* get_head(){return head;}
     SLNode<T>* get_tail(){return tail;}

@@ -103,15 +103,15 @@ namespace adas::ds
       DLList(list_size, 0);
     }
 
-    iterator set_key(iterator position, T node_key)
+    DLList<T>::iterator begin(){return DLList<T>::iterator(head);}
+    DLList<T>::iterator end(){return DLList<T>::iterator(tail->get_next());}
+
+    DLList<T>::iterator set_key(DLList<T>::iterator position, T node_key)
     {
       DLNode<T>* node = position->get_node();
       node->set_key(node_key);
       return position;
     }
-
-    iterator begin(){return iterator(head);}
-    iterator end(){return iterator(tail->get_next());}
 
 
     DLNode<T>* get_head(){return head;}
@@ -119,30 +119,32 @@ namespace adas::ds
     unsigned int get_size(){return size;}
 
 
-
-    iterator insert(iterator position, T key)
+    DLList<T>::iterator insert(DLList<T>::iterator position, T key)
     /*
      * Insert a DLNode<T> after the suplied position
      */
     {
       DLNode<T>* node = new DLNode<T>(key);
 
-      DLNode<T>* prev_node = position->get_node();
-      DLNode<T>* next_node = position->get_next();
+      DLNode<T>* next_node = position->get_node();
+      DLNode<T>* prev_node = next_node->get_prev();
 
-      prev_node->set_next(node);
-      if(next_node != nullptr)
-        next_node->set_prev(node);
-      else // if position == tail -> next_node == nullptr
+
+      node->set_next(next_node);
+      if(prev_node != nullptr)
+        node->set_prev(prev_node);
+      else // position == head -> prev_node == nullptr
         {
-          node->only_set_next(nullptr);
-          tail = node;
+          node->only_set_prev(nullptr);
+          head = node;
         }
+
+      size++;
 
       return position;
     }
 
-    void erase(iterator position)
+    void erase(DLList<T>::iterator position)
     {
       DLNode<T>* node = position->get_node();
       DLNode<T>* prev2node = node->get_prev();
@@ -159,6 +161,7 @@ namespace adas::ds
           prev2node->set_next(next2node);
           delete [] node;
         }
+      size--;
     }
 
     void push_back(DLNode<T>* node)
@@ -174,6 +177,8 @@ namespace adas::ds
           tail->set_next(node);
           tail = node;
         }
+
+      size++;
     }
 
     void push_front(DLNode<T>* node)
@@ -190,6 +195,8 @@ namespace adas::ds
           node->set_next(head);
           head = node;
         }
+
+      size++;
     }
 
     void push_back(T node_key)
@@ -213,6 +220,7 @@ namespace adas::ds
       next2head->only_set_prev(nullptr);
       delete [] head;
       head = next2head;
+      size--;
     }
 
     void pop_back()
@@ -224,6 +232,7 @@ namespace adas::ds
       prev2tail->only_set_next(nullptr);
       delete [] tail;
       tail = prev2tail;
+      size--;
     }
   };
 }

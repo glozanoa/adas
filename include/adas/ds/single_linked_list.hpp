@@ -103,61 +103,91 @@ namespace adas::ds
     }
 
 
-    iterator begin(){return iterator(head);}
-    iterator end(){return iterator(tail->get_next());}
+    SLList<T>::iterator begin(){return iterator(head);}
+    SLList<T>::iterator end(){return iterator(tail->get_next());}
 
-    SLNode<T>* get_head(){return head;}
-    SLNode<T>* get_tail(){return tail;}
-    SLNode<T>* get_node(){return this;}
-    unsigned int get_size(){return size;}
-
-    iterator set_key(iterator position, T node_key)
+    SLList<T>::iterator set_key(SLList<T>::iterator position, T node_key)
     {
       SLNode<T>* node = position->get_node();
       node->set_key(node_key);
       return position;
     }
+    SLNode<T>* get_head(){return head;}
+    SLNode<T>* get_tail(){return tail;}
+    unsigned int get_size(){return size;}
+    SLList<T>::iterator get_prev(iterator position)
+    /*
+     * return iterator to the previous node (if there isn't previose node, return end)
+     */
+    {
+      SLList<T>::iterator prev;
+      SLList<T>::iterator itr = this->begin();
+      SLList<T>::iterator end = this->end();
 
-    // iterator insert(iterator position, T key)
-    // /*
-    //  * Insert a SLNode<T> after the suplied position
-    //  */
-    // {
-    //   SLNode<T>* node = new SLNode<T>(key);
+      while(itr != end)
+        {
+          prev = itr;
+          itr++;
+          if(itr == position)
+            return prev;
+        }
 
-    //   SLNode<T>* prev_node = position->get_node();
-    //   SLNode<T>* next_node = prev_node->get_next();
+      return end;
+    }
 
-    //   prev_node->set_next(node);
-    //   node->set_next(next_node);
+    SLNode<T>* get_prev_node(SLList<T>::iterator position)
+    {
+      SLList<T>::iterator prev = this->get_prev(position);
+      if(prev != this->end())
+        return prev->get_node();
+      else
+        return nullptr;
+    }
 
-    //   if(next_node == nullptr)
-    //     tail = node;
 
-    //   return position;
-    // }
+    SLList<T>::iterator insert(SLList<T>::iterator position, T key)
+    /*
+     * Insert a SLNode<T> after the suplied position
+     */
+    {
+      SLNode<T>* node = new SLNode<T>(key);
 
+      SLNode<T>* next_node = position->get_node();
+      SLNode<T>* prev_node = this->get_prev_node(position);
 
-    // void erase(iterator position)
-    // {
-    //   SLNode<T>* node = position->get_node();
-    //   T node_key = node->get_key();
-    //   typename SLList<T>::iterator prev = ases::search_prev(this->begin(), this->end(),
-    //                                                         SLNode<T>::has_key, node_key);
-    //   if(prev != this->end())
-    //     {
-    //       SLNode<T>* prev2node = prev->get_node();
-    //       SLNode<T>* next2node = node->get_next();
+      if(prev_node == nullptr)
+        head = node;
+      else
+        prev_node->set_next(node);
 
-    //       prev2node->set_next(next2node);
-    //       delete [] node;
+      node->set_next(next_node);
+      size++;
 
-    //       if(next2node == nullptr) // node == tail
-    //         tail = prev2node;
-    //     }
-    //   else //in this case position == head
-    //     this->pop_front();
-    // }
+      return position;
+    }
+
+    void erase(SLList<T>::iterator position)
+    {
+      SLNode<T>* node = position->get_node();
+      T node_key = node->get_key();
+
+      SLList<T>::iterator prev = this->get_prev(position);
+
+      if(prev != this->end()) // position isn't list's head node
+        {
+          SLNode<T>* prev2node = prev->get_node();
+          SLNode<T>* next2node = node->get_next();
+
+          prev2node->set_next(next2node);
+          delete [] node;
+          size--;
+
+          if(next2node == nullptr) // node == tail
+            tail = prev2node;
+        }
+      else //in this case position == head
+        this->pop_front();
+    }
 
 
     void push_back(SLNode<T>* node)
@@ -173,6 +203,8 @@ namespace adas::ds
           tail->set_next(node);
           tail = node;
         }
+
+      size++;
     }
 
     void push_front(SLNode<T>* node)
@@ -188,6 +220,8 @@ namespace adas::ds
           node->set_next(head);
           head = node;
         }
+
+      size++;
     }
 
     void push_back(T node_key)
@@ -210,18 +244,21 @@ namespace adas::ds
       SLNode<T>* next2head = head->get_next();
       delete [] head;
       head = next2head;
+      size--;
     }
 
-    // void pop_back()
-    // /*
-    //  * Delete last element
-    //  */
-    // {
-    //   SLNode<T>* prev2tail = tail->get_prev();
-    //   prev2tail->set_next(nullptr);
-    //   delete [] tail;
-    //   tail = prev2tail;
-    // }
+    void pop_back()
+    /*
+     * Delete last element
+     */
+    {
+      SLList<T>::iterator pre2tail_itr = this->get_prev(tail);
+      SLNode<T>* prev2tail = pre2tail_itr->get_node();
+      prev2tail->set_next(nullptr);
+      delete [] tail;
+      tail = prev2tail;
+      size--;
+    }
   };
 }
 

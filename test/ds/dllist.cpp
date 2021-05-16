@@ -1,7 +1,7 @@
 /*
  * Testing DLList template class
  *
- * Status: DEBUGGED - date: May 15 2021
+ * Status: DEBUGGED - date: May 16 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -20,7 +20,7 @@ int main()
 {
   /*
    * List Structure
-   nullptr <- Node(key:2) <-> Node(key:4) <-> Node(key:1) <-> Node(key:3) -> nullptr
+   nullptr <- Node(key:2) <-> Node(key:4) <-> Node(key:1) <-> Node(key:3) -> nullptr (UPDATE)
   */
 
   cout << "Init empty list" << endl;
@@ -45,7 +45,7 @@ int main()
   list.set_key(list.begin()+1, key);
   au::print::to_stdout("List after changing node's key:\n", list, "\n");
 
-  cout << "Inserting a DLNode<T>(4) in position 1" << endl;
+  cout << "Inserting DLNode<T>(4) in position 1" << endl;
   key = 4;
   list.insert(list.begin()+1, key);
   au::print::to_stdout("List after insertion:\n", list, "\n");

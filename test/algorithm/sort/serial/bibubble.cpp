@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
   // READING PARSED CMD OPTIONS
   vector<int> numbers = au::read::from_file<int>(args["input"].as<string>());
   bool verbose = args["verbose"].as<bool>();
-  // END - READING CMD PARSED OPTIONS
+  // END - READING PARSED CMD OPTIONS
 
   Timer time;
 

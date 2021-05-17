@@ -196,6 +196,49 @@ namespace adas::algorithm
           }
       }
 
+      template<class BidirectionalIterator, class Interchange>
+      void bibubble(BidirectionalIterator first, BidirectionalIterator last, Interchange inter, bool verbose)
+      {
+
+        BidirectionalIterator init = prev(first);
+        BidirectionalIterator end = last;
+
+        BidirectionalIterator itr; // iterator to iterate in bidirectional data structure
+        BidirectionalIterator aux; // auxiliary iterator to store maximum and minimum element
+
+
+        while(init != end)
+          {
+            itr=init;
+            aux = init;
+            while(++itr != end)
+              {
+                if(*itr < *aux) // aux = max
+                  inter(aux, itr);
+                aux = itr;
+              }
+
+            //end--;
+            if(--end == init)
+              break;
+
+            itr = end;
+            aux = end;
+
+            while(--itr != init)
+              {
+                if(*aux < *itr) // aux = min
+                  inter(aux, itr);
+                aux = itr;
+              }
+            init++;
+
+            if(verbose)
+              print::to_stdout(first, last, "\n");
+          }
+      }
+
+
       // tested - date Apr 30 2021
       template<class RandomAccessIterator>
       void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)

@@ -32,7 +32,6 @@ namespace adas::algorithm
        * WITH COMPARISON SORT ALGORITHMS
        */
 
-      // tested - data Apr 25 2021
       template<class RandomAccessIterator>
       void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
       /*
@@ -52,6 +51,70 @@ namespace adas::algorithm
               print::to_stdout(first, last);
           }
       }
+
+
+      template<class Container>
+      void bubble(typename Container::iterator first, typename Container::iterator last, bool verbose)
+      /*
+       * bubble sort algorithm for adas's containers
+       * Supported containers: DLList<T>
+       */
+      {
+        Container::bubble(first, last, verbose);
+      }
+
+
+      // template<class RandomAccessIterator>
+      // void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
+      // /*
+      //  * Supported containers: vector<T>, array[T]
+      //  */
+      // {
+
+      //   RandomAccessIterator itr, min;
+      //   for(itr=first; itr != last-1; itr++)
+      //     {
+      //       if(verbose)
+      //         print::to_stdout(first, last);
+
+      //       min = min_element(itr+1, last);
+      //       if(*min  < *itr)
+      //         interchange_values(itr, min);
+      //     }
+      // }
+
+      template<class Container>
+      void selection(typename Container::iterator first, typename Container::iterator last, bool verbose)
+      /*
+       * selection sort algorithm for adas's containers
+       * Supported containers: DLList<T>
+       */
+      {
+        Container::selection(first, last, verbose);
+      }
+
+
+
+      // // tested - data Apr 25 2021
+      // template<class RandomAccessIterator>
+      // void bubble(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
+      // /*
+      //  * Supported containers: vector<T>, array[T]
+      //  */
+      // {
+      //   RandomAccessIterator itr, inner;
+
+      //   for(itr=first; itr!= last; itr++)
+      //     {
+      //       for(inner=itr+1; inner!=last; inner++)
+      //         {
+      //           if(*inner < *itr)
+      //             interchange_values(itr, inner);
+      //         }
+      //       if(verbose)
+      //         print::to_stdout(first, last);
+      //     }
+      // }
 
       // template<class RandomAccessIterator, class Compare>
       // void bubble(RandomAccessIterator first, RandomAccessIterator last, Compare comp, bool verbose)
@@ -73,41 +136,39 @@ namespace adas::algorithm
       //     }
       // }
 
-      template<class RandomAccessIterator, class Interchange>
-      void bubble(RandomAccessIterator first, RandomAccessIterator last, Interchange inter, bool verbose)
-      /*
-       * Comp: is a function that compare two elements and return a bool
-       */
-      {
-        RandomAccessIterator itr, inner;
+      // template<class RandomAccessIterator, class Interchange>
+      // void bubble(RandomAccessIterator first, RandomAccessIterator last, Interchange inter, bool verbose)
+      // /*
+      //  * Inter: is a function that interchange keys of 2 elements pointed by the iterators
+      //  */
+      // {
+      //   RandomAccessIterator itr, inner;
 
-        for(itr=first; itr != last; itr++)
-          {
-            for(inner=itr+1; inner!=last; inner++)
-              {
-                if(*inner < *itr)
-                  inter(itr, inner);
-              }
-            if(verbose)
-              print::to_stdout(first, last, "\n");
-          }
-      }
+      //   for(itr=first; itr != last; itr++)
+      //     {
+      //       for(inner=itr+1; inner!=last; inner++)
+      //         {
+      //           if(*inner < *itr)
+      //             inter(itr, inner);
+      //         }
+      //       if(verbose)
+      //         print::to_stdout(first, last, "\n");
+      //     }
+      // }
 
 
 
 
       // tested - date Apr 30 2021
-      template<class RandomAccessIterator>
-      void insertion(RandomAccessIterator first, RandomAccessIterator last,
-                     bool verbose)
+      template<class BidirectionalIterator>
+      void insertion(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
       /*
-       * Sort elements using insertion sort algorithm
-       * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TYPE TO ENABLE SORT LIST DATA STRUCTURE
+       * Supported containers: vector<T>, array[T]
        */
       {
-        RandomAccessIterator prev2first = prev(first);
-        RandomAccessIterator itr;
-        RandomAccessIterator inner;
+        BidirectionalIterator prev2first = prev(first);
+        BidirectionalIterator itr;
+        BidirectionalIterator inner;
 
         for(itr=first+1; itr != last; itr++)
           {
@@ -125,34 +186,46 @@ namespace adas::algorithm
           }
       }
 
-      // tested - date Apr 30 2021
-      template<class RandomAccessIterator, class Compare>
-      void insertion(RandomAccessIterator first, RandomAccessIterator last, Compare comp,
-                     bool verbose)
+
+      template<class Container>
+      void insertion(typename Container::iterator first, typename Container::iterator last, bool verbose)
       /*
-       * Sort elements using insertion sort algorithm
-       * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TO ENABLE SORT LISTS
+       * selection sort algorithm for adas's containers
+       * Supported containers: DLList<T>
        */
       {
-        RandomAccessIterator prev2first = prev(first);
-        RandomAccessIterator itr;
-        RandomAccessIterator inner;
-
-        for(itr=first+1; itr != last; itr++)
-          {
-            auto key = *itr;
-            inner = prev(itr);
-            while(inner != prev2first && comp(key, *inner))
-              {
-                *next(inner) = *inner;
-                inner--;
-              }
-            *next(inner) = key;
-
-            if (verbose)
-              print::to_stdout(first, last);
-          }
+        Container::insertion(first, last, verbose);
       }
+
+
+      // // tested - date Apr 30 2021
+      // template<class RandomAccessIterator, class Compare>
+      // void insertion(RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+      //                bool verbose)
+      // /*
+      //  * Sort elements using insertion sort algorithm
+      //  * NOTE: ONLY SORT VECTOR - CHANGE ITERATOR TO ENABLE SORT LISTS
+      //  */
+      // {
+      //   RandomAccessIterator prev2first = prev(first);
+      //   RandomAccessIterator itr;
+      //   RandomAccessIterator inner;
+
+      //   for(itr=first+1; itr != last; itr++)
+      //     {
+      //       auto key = *itr;
+      //       inner = prev(itr);
+      //       while(inner != prev2first && comp(key, *inner))
+      //         {
+      //           *next(inner) = *inner;
+      //           inner--;
+      //         }
+      //       *next(inner) = key;
+
+      //       if (verbose)
+      //         print::to_stdout(first, last);
+      //     }
+      // }
 
       template<class BidirectionalIterator>
       void bibubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
@@ -239,22 +312,6 @@ namespace adas::algorithm
       }
 
 
-      // tested - date Apr 30 2021
-      template<class RandomAccessIterator>
-      void selection(RandomAccessIterator first, RandomAccessIterator last, bool verbose)
-      {
-
-        RandomAccessIterator itr, min;
-        for(itr=first; itr != last-1; itr++)
-          {
-            if(verbose)
-              print::to_stdout(first, last);
-
-            min = min_element(itr+1, last);
-            if(*min  < *itr)
-              interchange_values(itr, min);
-          }
-      }
 
       // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
       template <class T>

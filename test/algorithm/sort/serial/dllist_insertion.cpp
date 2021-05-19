@@ -1,7 +1,7 @@
  /*
- * Testing bubble sorting algorithm
+ * Testing insertion sorting algorithm in DLList<T> data structure
  *
- * Status: DEBUGGED - date: May 11 2021
+ * Status:
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -19,11 +19,14 @@ namespace au = adas::utilities;
 #include "adas/algorithm/sort/serial.hpp"
 namespace asos = adas::algorithm::sort::serial;
 
+#include "adas/ds/double_linked_list.hpp"
+namespace ads = adas::ds;
+
 int main(int argc ,char* argv[])
 {
 
   // PARSING CMD ARGUMENTS (ONLY FOR TESTING PURPOSES)
-  po::options_description test("Options for serial bubble algorithm");
+  po::options_description test("Options for serial insertion algorithm for DLList<T> structure");
   test.add_options()
     ("help,h", "Show help.")
     ("input,i", po::value<string>(), "Input file with unsorted numbers.")
@@ -49,18 +52,18 @@ int main(int argc ,char* argv[])
   // END - PARSING CMD ARGUMENTS
 
   // READING PARSED CMD OPTIONS
-  vector<int> numbers = au::read::from_file<int>(args["input"].as<string>());
+  ads::DLList<int> list = au::read::from_file<DLList<int>, int>(args["input"].as<string>());
   bool verbose = args["verbose"].as<bool>();
-  // END - READING CMD PARSED OPTIONS
+  // END - READING PARSED CMD OPTIONS
 
   Timer time;
 
   time.start();
-  asos::bubble(numbers.begin(), numbers.end(), verbose);
+  asos::insertion<ads::DLList<int>>(list.begin(), list.end(), verbose);
   time.stop();
-  time.report("Elapsed time (bubble sorting algorithm)");
+  time.report("Elapsed time (insertion sorting algorithm in DLList<T> ds)");
 
-  print::to_stdout("Sorted:", numbers);
+  au::print::to_stdout("sorted: ", list, "\n");
 
   return 0;
 }

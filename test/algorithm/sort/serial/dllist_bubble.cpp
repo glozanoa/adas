@@ -60,12 +60,12 @@ int main(int argc ,char* argv[])
 
   time.start();
   // bubble with custom interchange function
-  asos::bubble<ads::DLList<int>::iterator, ads::DLList<int>::Interchange>(list.begin(), list.end(),
-                                                                          ads::DLList<int>::interchange_keys, verbose);
+  asos::bubble<ads::DLList<int>>(list.begin(), list.end(), verbose);
   time.stop();
   time.report("Elapsed time (bubble sorting algorithm in DLList<T> ds)");
 
-  au::write::to_file(list.begin(), list.end(), "sorted_dllist_bubble.txt");
+  au::print::to_stdout("Sorted:\n", list, "\n");
+  //au::write::to_file(list.begin(), list.end(), "sorted_dllist_bubble.txt");
 
   return 0;
 }

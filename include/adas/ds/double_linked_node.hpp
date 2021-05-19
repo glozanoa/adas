@@ -29,6 +29,7 @@ namespace adas::ds
     DLNode<T>* next;
     DLNode<T>* prev;
   public:
+    DLNode() :prev{nullptr}, next{nullptr} {}
     DLNode(T node_key): key{node_key}, prev{nullptr}, next{nullptr} {}
     DLNode(T node_key, DLNode<T>* node, DLNT node_type)
       : key{node_key}

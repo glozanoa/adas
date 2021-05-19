@@ -44,7 +44,8 @@ namespace adas::utilities
     {
       cout << prefix + " ";
       typename T::iterator itr;
-      for(itr=container.begin(); itr!=container.end(); itr++)
+      typename T::iterator last = container.end();
+      for(itr=container.begin(); itr != last; itr++)
         {
           cout << *itr << split << " ";
         }
@@ -55,7 +56,7 @@ namespace adas::utilities
     template<typename ForwardIterator>
     void to_stdout(ForwardIterator first, ForwardIterator last)
     {
-      for(ForwardIterator itr=first; itr!=last; itr++)
+      for(ForwardIterator itr=first; itr!=last; ++itr)
         {
           cout << *itr << " ";
         }
@@ -77,7 +78,7 @@ namespace adas::utilities
     void to_stdout(string prefix, ForwardIterator first, ForwardIterator last, string split)
     {
       cout << prefix + " ";
-      for(ForwardIterator itr=first; itr!=last; itr++)
+      for(ForwardIterator itr=first; itr!=last; ++itr)
         {
           cout << *itr << split << " ";
         }

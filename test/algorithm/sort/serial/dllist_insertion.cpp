@@ -1,7 +1,7 @@
  /*
  * Testing insertion sorting algorithm in DLList<T> data structure
  *
- * Status:
+ * Status: DEBUGGED - date: May 20 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */

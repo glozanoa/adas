@@ -1,7 +1,7 @@
  /*
  * Testing bubble sorting algorithm in DLList<T> data structure
  *
- * Status:
+ * Status: DEBUGGED - date: May 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */

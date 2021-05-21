@@ -82,10 +82,8 @@ namespace adas::ds
         try
           {
             DLNode<T>* tmp_node = node;
-            //cout << "(init) node: " << *tmp_node << endl;
             while(steps > 0)
               {
-                //cout << "tmp node: " << *tmp_node << endl;
                 tmp_node = tmp_node->get_prev();
                 if(tmp_node == nullptr)
                   throw out_of_range("node is nullptr");
@@ -101,17 +99,18 @@ namespace adas::ds
           }
       }
 
-      iterator& next(){return node+1;}
-      iterator& prev()
+      iterator& next(iterator itr){return itr+1;}
+      iterator& prev(iterator itr)
       {
-        if(node == this->begin())
+        pointer node = itr->get_node();
+        if(*node == *head)
           {
             DLNode<T>* prev2head = new DLNode<T>();
             prev2head->set_prev(head);
             return iterator(prev2head).get_this();
           }
         else
-          return node-1;
+          return itr-1;
       };
 
       friend bool operator==(const iterator& a, const iterator& b){return a.node == b.node;}
@@ -136,7 +135,6 @@ namespace adas::ds
     unsigned int get_size(){return size;}
 
     // methods to manipulate DLList<T> data structure
-    //using Interchange = void (*)(ads::DLList<T>::iterator, ads::DLList<T>::iterator);
     static void copy_key(DLList<T>::iterator node, DLList<T>::iterator other);
     static void interchange_keys(DLList<T>::iterator node, DLList<T>::iterator other_node);
     DLList<T>::iterator insert(DLList<T>::iterator position, T key);
@@ -150,9 +148,10 @@ namespace adas::ds
     void pop_back();
 
     // sort methods
-    static void bubble(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose);
-    static void selection(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose);
-    static void insertion(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose);
+    static void bubble(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose = false);
+    static void bibubble(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose = false);
+    static void selection(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose = false);
+    static void insertion(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose = false);
 
     // search methods
   };
@@ -391,6 +390,48 @@ namespace adas::ds
           au::print::to_stdout(first, last, "\n");
       }
   }
+
+  template<class T>
+  void DLList<T>::bibubble(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose)
+  {
+
+    DLList<T>::iterator init = prev(first);
+    DLList<T>::iterator end = last;
+
+    DLList<T>::iterator itr; // iterator to iterate in bidirectional data structure
+    DLList<T>::iterator aux; // auxiliary iterator to store maximum and minimum element
+
+
+    while(init != end)
+      {
+        itr=init;
+        aux = init;
+        while(++itr != end)
+          {
+            if(*itr < *aux) // aux = max
+              DLList<T>::interchange_keys(aux, itr);
+            aux = itr;
+          }
+
+        if(--end == init)
+          break;
+
+        itr = end;
+        aux = end;
+
+        while(--itr != init)
+          {
+            if(*aux < *itr) // aux = min
+              DLList<T>::interchange_keys(aux, itr);
+            aux = itr;
+          }
+        init++;
+
+        if(verbose)
+          au::print::to_stdout(first, last, "\n");
+      }
+  }
+
 
   template<class T>
   void DLList<T>::selection(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose)

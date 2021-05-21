@@ -61,8 +61,7 @@ int main(int argc ,char* argv[])
 
   time.start();
   // bubble with custom interchange function
-  asos::bibubble<ads::DLList<int>::iterator, ads::DLList<int>::Interchange>(list.begin(), list.end(),
-                                                                            ads::DLList<int>::interchange_keys, verbose);
+  asos::bibubble<ads::DLList<int>>(list.begin(), list.end(), verbose);
   time.stop();
   time.report("Elapsed time (bibubble sorting algorithm in DLList<T> ds)");
 

@@ -10,6 +10,7 @@
 #define _DLLIST_H
 
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <initializer_list>
 
@@ -99,14 +100,14 @@ namespace adas::ds
           }
       }
 
-      iterator& next(iterator itr){return itr+1;}
-      iterator& prev(iterator itr)
+      friend iterator& next(iterator itr){return itr+1;}
+      friend iterator& prev(iterator itr)
       {
         pointer node = itr->get_node();
-        if(*node == *head)
+        if(itr->get_prev() == nullptr) // itr = head
           {
             DLNode<T>* prev2head = new DLNode<T>();
-            prev2head->set_prev(head);
+            prev2head->set_next(itr->get_node());
             return iterator(prev2head).get_this();
           }
         else
@@ -126,6 +127,7 @@ namespace adas::ds
     DLList(unsigned int list_size) :DLList(list_size, 0) {}
     DLList(std::initializer_list<T> keys);
     DLList(std::vector<T> keys);
+    //~DLList();
 
     DLList<T>::iterator begin();
     DLList<T>::iterator end(); // return a iterator to a node next to tail

@@ -13,7 +13,7 @@
 #include "../utilities/cast.hpp"
 #include "../utilities/timer.hpp"
 #include "../utilities/print.hpp"
-using namespace adas::utilities;
+namespace au = adas::utilities;
 
 #include "../../ds/heap.hpp"
 namespace ads = adas::ds;
@@ -45,10 +45,10 @@ namespace adas::algorithm
             for(inner=itr+1; inner!=last; inner++)
               {
                 if(*inner < *itr)
-                  interchange_values(itr, inner);
+                  au::interchange_values(itr, inner);
               }
             if(verbose)
-              print::to_stdout(first, last);
+              au::print::to_stdout(first, last);
           }
       }
 
@@ -57,6 +57,62 @@ namespace adas::algorithm
       void bubble(typename Container::iterator first, typename Container::iterator last, bool verbose)
       /*
        * bubble sort algorithm for adas's containers
+       * Supported containers: DLList<T>
+       */
+      {
+        Container::bubble(first, last, verbose);
+      }
+
+
+      template<class BidirectionalIterator>
+      void bibubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
+      /*
+       * Supported containers: vector<T>, array[T]
+       */
+      {
+
+        BidirectionalIterator init = prev(first);
+        BidirectionalIterator end = last;
+
+        BidirectionalIterator itr; // iterator to iterate in bidirectional data structure
+        BidirectionalIterator aux; // auxiliary iterator to store maximum and minimum element
+
+
+        while(init != end)
+          {
+            itr=init;
+            aux = init;
+            while(++itr != end)
+              {
+                if(*itr < *aux) // aux = max
+                  au::interchange_values(aux, itr);
+                aux = itr;
+              }
+
+            //end--;
+            if(--end == init)
+              break;
+
+            itr = end;
+            aux = end;
+
+            while(--itr != init)
+              {
+                if(*aux < *itr) // aux = min
+                  au::interchange_values(aux, itr);
+                aux = itr;
+              }
+            init++;
+
+            if(verbose)
+              au::print::to_stdout(first, last, "\n");
+          }
+      }
+
+      template<class Container>
+      void bibubble(typename Container::iterator first, typename Container::iterator last, bool verbose)
+      /*
+       * bibubble sort algorithm for adas's containers
        * Supported containers: DLList<T>
        */
       {
@@ -75,11 +131,11 @@ namespace adas::algorithm
         for(itr=first; itr != last-1; itr++)
           {
             if(verbose)
-              print::to_stdout(first, last);
+              au::print::to_stdout(first, last);
 
             min = min_element(itr+1, last);
             if(*min  < *itr)
-              interchange_values(itr, min);
+              au::interchange_values(itr, min);
           }
       }
 
@@ -118,7 +174,7 @@ namespace adas::algorithm
             *next(inner) = key;
 
             if (verbose)
-              print::to_stdout(first, last);
+              au::print::to_stdout(first, last);
           }
       }
 
@@ -133,60 +189,6 @@ namespace adas::algorithm
       {
         Container::insertion(first, last, verbose);
       }
-
-      template<class BidirectionalIterator>
-      void bibubble(BidirectionalIterator first, BidirectionalIterator last, bool verbose)
-      {
-
-        BidirectionalIterator init = prev(first);
-        BidirectionalIterator end = last;
-
-        BidirectionalIterator itr; // iterator to iterate in bidirectional data structure
-        BidirectionalIterator aux; // auxiliary iterator to store maximum and minimum element
-
-
-        while(init != end)
-          {
-            itr=init;
-            aux = init;
-            while(++itr != end)
-              {
-                if(*itr < *aux) // aux = max
-                  interchange_values(aux, itr);
-                aux = itr;
-              }
-
-            //end--;
-            if(--end == init)
-              break;
-
-            itr = end;
-            aux = end;
-
-            while(--itr != init)
-              {
-                if(*aux < *itr) // aux = min
-                  interchange_values(aux, itr);
-                aux = itr;
-              }
-            init++;
-
-            if(verbose)
-              print::to_stdout(first, last);
-          }
-      }
-
-
-      template<class Container>
-      void bibubble(typename Container::iterator first, typename Container::iterator last, bool verbose)
-      /*
-       * bibubble sort algorithm for adas's containers
-       * Supported containers: DLList<T>
-       */
-      {
-        Container::bibubble(first, last, verbose);
-      }
-
 
       // TRY TO IMPLEMENT WITH ITERATOR IF IT IS POSSIBLE
       template <class T>
@@ -204,26 +206,12 @@ namespace adas::algorithm
             heap.max_heapify(0, false);
             heap_size = heap.get_size();
             if(verbose)
-              print::to_stdout(heap.get_keys());
+              au::print::to_stdout(heap.get_keys());
           }
 
         //return sorted;
         return heap.get_keys();
       }
-
-
-      // vector<int> shell_gap_sequences(unsigned int n)
-      // {
-      //   vector<int> gaps;
-      //   int gap = n/2;
-      //   while (0 < gap)
-      //     {
-      //       gaps.push_back(gap);
-      //       gap/=2;
-      //     }
-
-      //   return gaps;
-      // }
 
       template <class InputIterator1, class InputIterator2, class OutputIterator>
       OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
@@ -243,103 +231,6 @@ namespace adas::algorithm
           }
       }
 
-      // template<class T>
-      // vector<T> mergesort(vector<T> elements, bool verbose)
-      // {
-      //   typename vector<T>::iterator first = elements.begin();
-      //   typename vector<T>::iterator last = elements.end();
-
-      //   unsigned int d = distance(first, last);
-
-      //   if(d <= 2)
-      //     {
-      //       if(d == 2) // sort the 2 elements, when d = 1, there is only 1 element (so it's sorted)
-      //         {
-      //           if(*first > *last)
-      //             interchange_values(first, last);
-      //         }
-      //     }
-      //   else
-      //     {
-      //       typename vector<T>::iterator midpoint = first + d/2;
-      //       if(verbose)
-      //         {
-      //           print::to_stdout("unsorted:", first, last);
-      //           print::to_stdout("lpart:", first, midpoint);
-      //           print::to_stdout("rpart:", midpoint+1, last);
-      //         }
-
-      //       mergesort(first, midpoint, first_aux, midpoint_aux, verbose);
-      //       mergesort(midpoint+1, last, midpoint_aux+1, last, verbose);
-
-      //       merge(first_aux, midpoint_aux,
-      //             midpoint_aux+1, last_aux,
-      //             first);
-
-      //       if(verbose)
-      //         print::to_stdout("merged:", first_aux, last_aux);
-      //     }
-
-      //}
-      // template<class RandomAccessIterator>
-      // void mergesort(RandomAccessIterator first, RandomAccessIterator last,
-      //                RandomAccessIterator first_aux, RandomAccessIterator last_aux,
-      //                bool verbose)
-      // {
-      //   unsigned int d = distance(first, last);
-
-      //   if(d <= 2)
-      //     {
-      //       if(d == 2) // sort the 2 elements, when d = 1, there is only 1 element (so it's sorted)
-      //         {
-      //           if(*first > *last)
-      //             interchange_values(first, last);
-      //         }
-      //     }
-      //   else
-      //     {
-      //       RandomAccessIterator midpoint = first + d/2;
-      //       RandomAccessIterator midpoint_aux = first + d/2;
-      //       if(verbose)
-      //         {
-      //           print::to_stdout("unsorted:", first, last);
-      //           print::to_stdout("lpart:", first, midpoint);
-      //           print::to_stdout("rpart:", midpoint+1, last);
-      //         }
-
-      //       mergesort(first, midpoint, first_aux, midpoint_aux, verbose);
-      //       mergesort(midpoint+1, last, midpoint_aux+1, last, verbose);
-
-      //       merge(first_aux, midpoint_aux,
-      //             midpoint_aux+1, last_aux,
-      //             first);
-
-      //       if(verbose)
-      //         print::to_stdout("merged:", first_aux, last_aux);
-      //     }
-      // }
-
-
-      //template<class T>
-      // improvised shellsort algorithm (implement a more efficient algorithm using iterators)
-      // vector<int> shellsort(vector<int> elements, vector<int> gaps, bool verbose)
-      // {
-      //   for(int gap : gaps)
-      //     {
-      //       for(int i=gap; i<elements.size(); i++)
-      //         {
-      //           int tmp = elements[i];
-      //           for(int j=i; j >= gap && a[j-gap] > tmp; j -= gap)
-      //             {
-      //               a[j] = a[j-gap];
-      //             }
-      //           a[j] = tmp;
-      //         }
-      //     }
-
-      //   return elements;
-      // }
-
       /*
        * WITHOUT COMPARISON SORT ALGORITHMS
        */
@@ -347,6 +238,9 @@ namespace adas::algorithm
       //debuged - date Mar 3 2021
       template<class BidirectionalIterator>
       vector<int> counting(BidirectionalIterator init, BidirectionalIterator last, bool verbose)
+      /*
+       * Supported containers: vector<int>, array[int]
+       */
       {
         unsigned int nelem = distance(init, last);
         vector<int> sorted = vector<int>(nelem);
@@ -360,13 +254,13 @@ namespace adas::algorithm
           counter[*it] += 1;
 
         if(verbose)
-          print::to_stdout("(init) counter:", counter);
+          au::print::to_stdout("(init) counter:", counter);
 
         for(it=counter.begin(); it != counter.end(); it++)
           *it += *prev(it);
 
         if(verbose)
-          print::to_stdout("(accumulated) counter:", counter);
+          au::print::to_stdout("(accumulated) counter:", counter);
 
         for(it=prev(last); it != prev(init); it--)
           {
@@ -374,8 +268,8 @@ namespace adas::algorithm
             counter[*it] -= 1;
             if(verbose)
               {
-                print::to_stdout("sorted:", sorted);
-                print::to_stdout("counter:", counter);
+                au::print::to_stdout("sorted:", sorted);
+                au::print::to_stdout("counter:", counter);
               }
           }
 

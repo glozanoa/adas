@@ -1,7 +1,7 @@
  /*
  * Testing bibubble sorting algorithm in DLList<T> data structure
  *
- * Status: RETURN INCONSISITENT RESULTS (DEBUG serial bibubble algorithm) - date May 16 2021
+ * Status: DEBUGGED - date May 21 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -30,7 +30,7 @@ int main(int argc ,char* argv[])
   test.add_options()
     ("help,h", "Show help.")
     ("input,i", po::value<string>(), "Input file with unsorted numbers.")
-    ("output,o", po::value<string>(), "File to write sorted numbers.")
+    //("output,o", po::value<string>(), "File to write sorted numbers.")
     ("verbose,v", po::bool_switch()->default_value(false), "Increase algorithm's verbosity.");
 
   po::variables_map args;
@@ -65,7 +65,7 @@ int main(int argc ,char* argv[])
   time.stop();
   time.report("Elapsed time (bibubble sorting algorithm in DLList<T> ds)");
 
-  au::write::to_file(list.begin(), list.end(), args["output"].as<string>());
+  au::print::to_stdout("Sorted:\n", list, "\n");
 
   return 0;
 }

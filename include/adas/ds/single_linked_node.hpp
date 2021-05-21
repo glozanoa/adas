@@ -1,7 +1,7 @@
 /*
  * Single Linked node template data structure (for implement SLList template class)
  *
- * Status:
+ * Status: DEBUGGED - date May 21 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -22,6 +22,7 @@ namespace adas::ds
     SLNode<T>* next;
 
   public:
+    SLNode(): next{nullptr} {}
     SLNode(T node_key): key{node_key}, next{nullptr} {}
     SLNode(T node_key, SLNode<T>* next_node)
       : key{node_key}, next{next_node} {}
@@ -57,6 +58,12 @@ namespace adas::ds
       return key == node_key;
     }
 
+    bool operator<(SLNode<T> node)
+    {
+      T node_key = node.get_key();
+      return key < node_key;
+    }
+
     bool operator==(SLNode<T> node)
       {
         T node_key = node.get_key();
@@ -71,25 +78,6 @@ namespace adas::ds
     {
       T node_key = node.get_key();
       SLNode<T>* next_node = node.get_next();
-
-      if(next_node != nullptr)
-        {
-          T next_node_key = next_node->get_key();
-
-          out << "SLNode(key: " << node_key
-              << ", next: " << next_node_key << ")";
-        }
-      else
-        out << "SLNode(key: " << node_key << ", next: NONE)";
-
-      return out;
-    }
-
-
-    friend ostream& operator<<(ostream& out, SLNode<T>* node)
-    {
-      T node_key = node->get_key();
-      SLNode<T>* next_node = node->get_next();
 
       if(next_node != nullptr)
         {

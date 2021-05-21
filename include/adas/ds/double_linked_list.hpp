@@ -213,9 +213,9 @@ namespace adas::ds
   template<class T>
   DLList<T>::iterator DLList<T>::end(){
     DLNode<T>* next2tail = new DLNode<T>();
-    next2tail->set_prev(tail);
-    DLList<T>::iterator itr =  DLList<T>::iterator(next2tail);
-    return itr;
+    tail->set_next(next2tail);
+    //next2tail->set_prev(tail);
+    return DLList<T>::iterator(next2tail);
   }
 
   template<class T>

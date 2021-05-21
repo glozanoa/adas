@@ -21,7 +21,7 @@ namespace adas::ds
   template<class T>
   class DLNode
   /*
-   * DLNode : Double Linked Node
+   * DLNode : Doubly Linked Node
    */
   {
   protected:

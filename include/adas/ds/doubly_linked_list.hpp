@@ -21,7 +21,7 @@ namespace au = adas::utilities;
 #include "../algorithm/search/serial.hpp"
 namespace ases = adas::algorithm::search::serial;
 
-#include "double_linked_node.hpp"
+#include "doubly_linked_node.hpp"
 using namespace adas::ds;
 
 namespace adas::ds
@@ -29,7 +29,7 @@ namespace adas::ds
   template<class T>
   class DLList
   /*
-   * DLList : Double Linked List
+   * DLList : Doubly Linked List
    */
   {
   protected:

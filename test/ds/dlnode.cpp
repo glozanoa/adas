@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-#include "adas/ds/double_linked_node.hpp"
+#include "adas/ds/doubly_linked_node.hpp"
 using namespace adas::ds;
 
 

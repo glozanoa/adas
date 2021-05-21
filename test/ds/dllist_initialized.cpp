@@ -13,7 +13,7 @@ using namespace std;
 #include "adas/utilities.hpp"
 namespace au = adas::utilities;
 
-#include "adas/ds/double_linked_list.hpp"
+#include "adas/ds/doubly_linked_list.hpp"
 using namespace adas::ds;
 
 

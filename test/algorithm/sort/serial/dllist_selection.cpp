@@ -19,7 +19,7 @@ namespace au = adas::utilities;
 #include "adas/algorithm/sort/serial.hpp"
 namespace asos = adas::algorithm::sort::serial;
 
-#include "adas/ds/double_linked_list.hpp"
+#include "adas/ds/doubly_linked_list.hpp"
 namespace ads = adas::ds;
 
 int main(int argc ,char* argv[])

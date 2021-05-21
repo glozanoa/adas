@@ -1,7 +1,7 @@
 /*
- * Double Linked node template data structure (for implement DLList template class)
+ * Double Linked node data structure (for implementing DLList<T> class)
  *
- * Status: DEBUGGED - date: May 16 2021
+ * Status: DEBUGGED - date: May 21 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -40,13 +40,20 @@ namespace adas::ds
     void set_next(DLNode<T>* next_node);
     void set_prev(DLNode<T>* prev_node);
     void set_key(T node_key){key = node_key;}
+    static bool has_key(DLNode<T>* node, T key);
     DLNode<T>* get_node(){return this;}
     DLNode<T>* get_next(){return next;}
     DLNode<T>* get_prev(){return prev;}
     T get_key(){return key;}
     bool operator<(DLNode<T> node);
     bool operator==(DLNode<T> node);
-    friend ostream& operator<<(ostream& out, DLNode<T> node);
+
+    // T2LMGLA
+    template<class L>
+    friend ostream& operator<<(ostream& out, DLNode<L>* node);
+
+    template<class L>
+    friend ostream& operator<<(ostream& out, DLNode<L> node);
   };
 
 
@@ -83,6 +90,17 @@ namespace adas::ds
   }
 
   template<class T>
+  bool DLNode<T>::has_key(DLNode<T>* node, T node_key)
+  /*
+   * Check if node has a key node_key
+   */
+  {
+    T key = node->get_key();
+
+    return key == node_key;
+  }
+
+  template<class T>
   bool DLNode<T>::operator<(DLNode<T> node)
   {
     T node_key = node.get_key();
@@ -102,7 +120,46 @@ namespace adas::ds
     return false;
   }
 
-  template<class T>
+  template<typename T>
+  ostream& operator<<(ostream& out, DLNode<T>* node)
+    {
+      T node_key = node->get_key();
+      DLNode<T>* prev_node = node->get_prev();
+      DLNode<T>* next_node = node->get_next();
+
+      if(next_node != nullptr && prev_node != nullptr)
+        {
+          T prev_node_key = prev_node->get_key();
+          T next_node_key = next_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: " << prev_node_key
+              << ", next: " << next_node_key << ")";
+        }
+      else if(next_node != nullptr)
+        {
+          T next_node_key = next_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: NONE"
+              << ", next: " << next_node_key << ")";
+        }
+      else if (prev_node != nullptr)
+        {
+          T prev_node_key = prev_node->get_key();
+
+          out << "DLNode(key: " << node_key
+              << ", prev: " << prev_node_key
+              << ", next: NONE)";
+        }
+      else
+        out << "DLNode(key: " << node_key << ", prev: NONE , next: NONE)";
+
+
+      return out;
+    }
+
+  template<typename T>
   ostream& operator<<(ostream& out, DLNode<T> node)
     {
       T node_key = node.get_key();
@@ -136,6 +193,7 @@ namespace adas::ds
         }
       else
         out << "DLNode(key: " << node_key << ", prev: NONE , next: NONE)";
+
 
       return out;
     }

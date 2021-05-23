@@ -1,5 +1,5 @@
 # Adas
-**Adas** is a collection of (`serial` and `multi-thread`) algorithms and *template data structures*.
+**Adas** is a collection of (`serial` and `multi-thread`) template algorithms and *template* data structures.
 
 ## Dependences
 * Boost (`Test Library` and `Program Options` libraries) (only for tests)

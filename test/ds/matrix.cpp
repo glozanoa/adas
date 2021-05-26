@@ -11,17 +11,18 @@
 using namespace std;
 
 #include "adas/ds/matrix.hpp"
+namespace ads =  adas::ds;
+
 #include "adas/utilities.hpp"
 namespace au = adas::utilities;
 
 int main()
 {
-
   vector<int> data1 = {1, 2, 3, 4, 5, 6};
-  Matrix<int> mtx = Matrix<int>(2, 3, data1);
+  ads::Matrix<int> mtx = ads::Matrix<int>(2, 3, data1);
 
   vector<int> data2 = {5, 3, 1, 0, 2, 7};
-  Matrix<int> other = Matrix<int>(2, 3, data2);
+  ads::Matrix<int> other = ads::Matrix<int>(2, 3, data2);
 
   // << operator for Matrix<T>
   cout << "mtx:" << endl;
@@ -40,12 +41,10 @@ int main()
   au::print::to_stdout(col0);
 
   // () operator
-
   int mtx12 = mtx(1, 2);
   cout << "mtx(1, 2) = " << mtx12 << endl;
 
 
-  //omp_set_num_threads(4);
   // arithmetic operations with matrix
   cout << endl;
   cout << "mtx + other:" << endl;

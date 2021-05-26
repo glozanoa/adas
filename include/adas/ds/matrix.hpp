@@ -30,137 +30,157 @@ namespace adas::ds
     unsigned int ncols;
 
   public:
-    Matrix()
-      :nrows{0},ncols{0}
-    {
-      data = new vector<vector<T>>(ncols, vector<T>(nrows));
-    }
+    Matrix();
+    Matrix(unsigned int rows, unsigned int cols);
+    Matrix(unsigned int rows, unsigned int cols, T value);
+    Matrix(unsigned int rows, unsigned int cols, vector<T> values);
 
-    Matrix(unsigned int rows, unsigned int cols)
-      :nrows{rows},ncols{cols}
-    {
-      data = new vector<vector<T>>(nrows, vector<T>(ncols, 0));
-    }
 
-    Matrix(unsigned int rows, unsigned int cols, T value)
-      :nrows{rows},ncols{cols}
-    {
-      data = new vector<vector<T>>(nrows, vector<T>(ncols, value));
-    }
-
-    // tested - date Apr 22 2021
-    Matrix(unsigned int rows, unsigned int cols, vector<T> values)
-    {
-      try
-        {
-          unsigned int size = values.size();
-          if(size != rows*cols)
-            throw InvalidDim(rows, cols, size);
-
-          ncols = cols;
-          nrows = rows;
-          data = new vector<vector<T>>(nrows, vector<T>(ncols));
-
-          unsigned int i = 0; // row index
-          unsigned int j = 0; // col index
-          T aij; // element aij
-
-          for(int k=0; k<size; k++)
-            {
-              aij = values[k];
-              this->set_value(i, j, aij);
-              j++;
-              if (j == ncols)
-                {
-                  j = 0;
-                  i++;
-                }
-            }
-        }
-      catch(exception& error)
-        {
-          cout << error.what() << endl;
-          exit(EXIT_FAILURE);
-        }
-    }
-
-    // tested - date Apr 22 2021
-    void set_value(unsigned int row_index, unsigned int col_index, T value)
-    {
-      try
-        {
-          if(nrows <= row_index || ncols <= col_index)
-            throw InvalidIndex(row_index, col_index);
-
-          data->at(row_index)[col_index] = value;
-        }
-      catch(InvalidIndex& error)
-        {
-          cout << error.what() << endl;
-          exit(EXIT_FAILURE);
-        }
-    }
-
+    /*  methods to manipulate Matrix<T> ds */
+    void set_value(unsigned int row_index, unsigned int col_index, T value);
     unsigned int get_nrows(){return nrows;}
-    unsigned int get_ncols(){return ncols;}
+    unsigned int get_ncols(){return ncols;)
+    vector<T> get_row(unsigned int index);
+    vector<T> get_col(unsigned int index);
+    T operator()(unsigned int row, unsigned int col);
+    Matrix<T> operator+(Matrix<T> mtx);
+    Matrix<T> operator-(Matrix<T> mtx);
 
-    // tested - date Apr 22 2021
-    vector<T> get_row(unsigned int index)
-    {
-      try
-        {
-          if(nrows <= index)
-            throw new InvalidIndex(index, -1); // is_row_index=true
+    template<L>
+    friend ostream& operator<<(ostream& out, Matrix<L> mtx)
+  };
 
-          return data->at(index);
-        }
-      catch(InvalidIndex& error)
-        {
-          cout << error.what() << endl;
-          exit(EXIT_FAILURE);
-        }
-    }
+  /*  IMPLEMENTATION Matrix<T> class */
 
-    // tested - date Apr 22 2021
-    vector<T> get_col(unsigned int index)
-    {
-      vector<T> col;
-      try
-        {
-          if(ncols <= index)
-            throw new InvalidIndex(-1, index); // is_row_index=false
+  Matrix<T>::Matrix()
+    :nrows{0},ncols{0}
+  {
+    data = new vector<vector<T>>(ncols, vector<T>(nrows));
+  }
 
-          for(int i=0; i<nrows; i++)
-            col.push_back(data->at(i)[index]);
-          return col;
-        }
-      catch(InvalidIndex& error)
-        {
-          cout << error.what() << endl;
-          exit(EXIT_FAILURE);
-        }
-    }
+  Matrix<T>::Matrix(unsigned int rows, unsigned int cols)
+    :nrows{rows},ncols{cols}
+  {
+    data = new vector<vector<T>>(nrows, vector<T>(ncols, 0));
+  }
 
-    // tested - date Apr 22 2021
-    T operator()(unsigned int row, unsigned int col)
-    {
-      try
-        {
-          if(nrows <= row || ncols <= col)
-            throw InvalidIndex(row, col);
+  Matrix<T>::Matrix(unsigned int rows, unsigned int cols, T value)
+    :nrows{rows},ncols{cols}
+  {
+    data = new vector<vector<T>>(nrows, vector<T>(ncols, value));
+  }
 
-          T element = data->at(row)[col];
-          return element;
-        }
-      catch(InvalidIndex& error)
-        {
-          cout << error.what() << endl;
-          exit(EXIT_FAILURE);
-        }
-    }
 
-    // tested - date Apr 22 2021
-    Matrix<T> operator+(Matrix<T> mtx)
+  Matrix<T>::Matrix(unsigned int rows, unsigned int cols, vector<T> values)
+  {
+    try
+      {
+        unsigned int size = values.size();
+        if(size != rows*cols)
+          throw InvalidDim(rows, cols, size);
+
+        ncols = cols;
+        nrows = rows;
+        data = new vector<vector<T>>(nrows, vector<T>(ncols));
+
+        unsigned int i = 0; // row index
+        unsigned int j = 0; // col index
+        T aij; // element aij
+
+        for(int k=0; k<size; k++)
+          {
+            aij = values[k];
+            this->set_value(i, j, aij);
+            j++;
+            if (j == ncols)
+              {
+                j = 0;
+                i++;
+              }
+          }
+      }
+    catch(exception& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+
+  template<class T>
+  void Matrix<T>::set_value(unsigned int row_index, unsigned int col_index, T value)
+  {
+    try
+      {
+        if(nrows <= row_index || ncols <= col_index)
+          throw InvalidIndex(row_index, col_index);
+
+        data->at(row_index)[col_index] = value;
+      }
+    catch(InvalidIndex& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  template<class T>
+  vector<T> Matrix<T>::get_row(unsigned int index)
+  {
+    try
+      {
+        if(nrows <= index)
+          throw new InvalidIndex(index, -1); // is_row_index=true
+
+        return data->at(index);
+      }
+    catch(InvalidIndex& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  template<class T>
+  vector<T> Matrix<T>::get_col(unsigned int index)
+  {
+    vector<T> col;
+    try
+      {
+        if(ncols <= index)
+          throw new InvalidIndex(-1, index); // is_row_index=false
+
+        for(int i=0; i<nrows; i++)
+          col.push_back(data->at(i)[index]);
+        return col;
+      }
+    catch(InvalidIndex& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  template<class T>
+  T Matrix<T>::operator()(unsigned int row, unsigned int col)
+  {
+    try
+      {
+        if(nrows <= row || ncols <= col)
+          throw InvalidIndex(row, col);
+
+        T element = data->at(row)[col];
+        return element;
+      }
+    catch(InvalidIndex& error)
+      {
+        cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  template<class T>
+  Matrix<T> Matrix<T>::operator+(Matrix<T> mtx)
     {
       try
         {
@@ -200,8 +220,9 @@ namespace adas::ds
         }
     }
 
-    // tested - date Apr 22 2021
-    Matrix<T> operator-(Matrix<T> mtx)
+
+  template<class T>
+  Matrix<T> Matrix<T>::operator-(Matrix<T> mtx)
     {
       try
         {
@@ -241,19 +262,18 @@ namespace adas::ds
         }
     }
 
+  template<class T>
+  ostream& operator<<(ostream& out, Matrix<T> mtx)
+  {
+    for(unsigned int i=0; i < mtx.get_nrows(); i++)
+      {
+        for(unsigned int j=0; j < mtx.get_ncols(); j++)
+          out << mtx(i, j) << " ";
+        out << endl;
+      }
+    return out;
+  }
 
-    // tested - date Apr 22 2021
-    friend ostream& operator<<(ostream& out, Matrix<T> mtx)
-    {
-      for(unsigned int i=0; i < mtx.get_nrows(); i++)
-        {
-          for(unsigned int j=0; j < mtx.get_ncols(); j++)
-            out << mtx(i, j) << " ";
-          out << endl;
-        }
-      return out;
-    }
-  };
 
 }
 

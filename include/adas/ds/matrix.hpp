@@ -1,7 +1,7 @@
 /*
- * Template matrix class
+ * Template matrix data structure (ds)
  *
- * State: DEBUGED - date: May 14 2021
+ * State: DEBUGGED - date: May 26 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -11,8 +11,6 @@
 
 #include <iostream>
 #include <vector>
-#include <stdlib.h>
-#include <time.h>
 using namespace std;
 
 #include "exceptions/matrix.hpp"
@@ -21,6 +19,7 @@ using namespace std;
 
 namespace adas::ds
 {
+
   template<typename T>
   class Matrix
   {
@@ -39,38 +38,41 @@ namespace adas::ds
     /*  methods to manipulate Matrix<T> ds */
     void set_value(unsigned int row_index, unsigned int col_index, T value);
     unsigned int get_nrows(){return nrows;}
-    unsigned int get_ncols(){return ncols;)
+    unsigned int get_ncols(){return ncols;}
     vector<T> get_row(unsigned int index);
     vector<T> get_col(unsigned int index);
     T operator()(unsigned int row, unsigned int col);
     Matrix<T> operator+(Matrix<T> mtx);
     Matrix<T> operator-(Matrix<T> mtx);
 
-    template<L>
-    friend ostream& operator<<(ostream& out, Matrix<L> mtx)
+    template<typename L>
+    friend ostream& operator<<(ostream& out, Matrix<L> mtx);
   };
 
   /*  IMPLEMENTATION Matrix<T> class */
 
+  template<class T>
   Matrix<T>::Matrix()
-    :nrows{0},ncols{0}
+    :nrows{0}, ncols{0}
   {
     data = new vector<vector<T>>(ncols, vector<T>(nrows));
   }
 
+  template<class T>
   Matrix<T>::Matrix(unsigned int rows, unsigned int cols)
-    :nrows{rows},ncols{cols}
+    :nrows{rows}, ncols{cols}
   {
     data = new vector<vector<T>>(nrows, vector<T>(ncols, 0));
   }
 
+  template<class T>
   Matrix<T>::Matrix(unsigned int rows, unsigned int cols, T value)
-    :nrows{rows},ncols{cols}
+    :nrows{rows}, ncols{cols}
   {
     data = new vector<vector<T>>(nrows, vector<T>(ncols, value));
   }
 
-
+  template<class T>
   Matrix<T>::Matrix(unsigned int rows, unsigned int cols, vector<T> values)
   {
     try

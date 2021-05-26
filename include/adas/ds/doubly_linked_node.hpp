@@ -118,7 +118,7 @@ namespace adas::ds
     return false;
   }
 
-  template<typename T>
+  template<class T>
   ostream& operator<<(ostream& out, DLNode<T>* node)
     {
       T node_key = node->get_key();
@@ -157,7 +157,7 @@ namespace adas::ds
       return out;
     }
 
-  template<typename T>
+  template<class T>
   ostream& operator<<(ostream& out, DLNode<T> node)
     {
       T node_key = node.get_key();

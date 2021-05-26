@@ -40,8 +40,9 @@ namespace adas::ds
 
   public:
 
-    struct iterator
+    class iterator
     {
+    public:
       using iterator_category = std::bidirectional_iterator_tag;
       using value_type        = T;
       using difference_type   = std::ptrdiff_t;
@@ -56,52 +57,13 @@ namespace adas::ds
       iterator& operator++(){node = node->get_next(); return *this;}
       iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
       iterator operator--(int) { iterator tmp = *this; --(*this); return tmp; }
-      // TLMGLA
+      // T2LMGLA
       iterator& get_this(){return *this;}
-      iterator& operator+(unsigned int steps)
-      {
-        try
-          {
-            DLNode<T>* tmp_node = node;
-            while(steps > 0)
-              {
-                tmp_node = tmp_node->get_next();
-                if(tmp_node == nullptr)
-                  throw out_of_range("node is nullptr");
-
-                steps--;
-              }
-            return iterator(tmp_node).get_this();
-          }
-        catch(exception& error)
-          {
-            std::cout << error.what() << endl;
-            exit(EXIT_FAILURE);
-          }
-      }
-      iterator& operator-(unsigned int steps)
-      {
-        try
-          {
-            DLNode<T>* tmp_node = node;
-            while(steps > 0)
-              {
-                tmp_node = tmp_node->get_prev();
-                if(tmp_node == nullptr)
-                  throw out_of_range("node is nullptr");
-
-                steps--;
-              }
-            return iterator(tmp_node).get_this();
-          }
-        catch(exception& error)
-          {
-            std::cout << error.what() << endl;
-            exit(EXIT_FAILURE);
-          }
-      }
-
+      iterator& operator+(unsigned int steps);
+      iterator& operator-(unsigned int steps);
+      iterator& advance(int steps); // IMPLEMENT
       friend iterator& next(iterator itr){return itr+1;}
+      // TRY TO IMPLEMENT "prev" (friend function) AFTER DEFINITION OF DLList<T> class
       friend iterator& prev(iterator itr)
       {
         pointer node = itr->get_node();
@@ -113,7 +75,7 @@ namespace adas::ds
           }
         else
           return itr-1;
-      };
+      }
 
       friend bool operator==(const iterator& a, const iterator& b){return a.node == b.node;}
       friend bool operator!=(const iterator& a, const iterator& b){return a.node != b.node;}
@@ -121,7 +83,6 @@ namespace adas::ds
     private:
       pointer node;
     };
-
 
     DLList(): size{0}, head{nullptr}, tail{nullptr}, next2tail{nullptr} {}
     DLList(unsigned int list_size, T default_key);
@@ -161,6 +122,75 @@ namespace adas::ds
   };
 
 
+  /*
+   * Implementation of inner DLList<T>::iterator class
+   */
+
+  template<class T>
+  DLList<T>::iterator& DLList<T>::iterator::operator+(unsigned int steps)
+  {
+    try
+      {
+        DLNode<T>* tmp_node = node;
+        while(steps > 0)
+          {
+            tmp_node = tmp_node->get_next();
+            if(tmp_node == nullptr)
+              throw out_of_range("node is nullptr");
+
+            steps--;
+          }
+        return iterator(tmp_node).get_this();
+      }
+    catch(exception& error)
+      {
+        std::cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  template<class T>
+  DLList<T>::iterator& DLList<T>::iterator::operator-(unsigned int steps)
+  {
+    try
+      {
+        DLNode<T>* tmp_node = node;
+        while(steps > 0)
+          {
+            tmp_node = tmp_node->get_prev();
+            if(tmp_node == nullptr)
+              throw out_of_range("node is nullptr");
+
+            steps--;
+          }
+        return iterator(tmp_node).get_this();
+      }
+    catch(exception& error)
+      {
+        std::cout << error.what() << endl;
+        exit(EXIT_FAILURE);
+      }
+  }
+
+  // IMPLEMENT THIS FUNCTION TO USE IN next AND prev friend FUNCTIONS
+  // template<class T>
+  // DLList<T>::iterator& DLList<T>::iterator::advance(int steps)
+  // {
+  // }
+
+  // template<class T>
+  // DLList<T>::iterator& prev(DLList<T>::iterator itr)
+  // {
+  //   pointer node = itr->get_node();
+  //   if(itr->get_prev() == nullptr) // itr = head
+  //     {
+  //       DLNode<T>* prev2head = new DLNode<T>();
+  //       prev2head->set_next(itr->get_node());
+  //       return iterator(prev2head).get_this();
+  //     }
+  //   else
+  //     return itr-1;
+  // }
 
 
   /*

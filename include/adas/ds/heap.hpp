@@ -12,6 +12,7 @@
 using namespace std;
 
 #include "./utilities/print.hpp"
+namespace au = adas::utilities;
 
 namespace adas::ds
 {
@@ -147,7 +148,7 @@ namespace adas::ds
 
     void print_keys()
     {
-      print::to_stdout(keys);
+      au::print::to_stdout(keys);
     }
   };
 

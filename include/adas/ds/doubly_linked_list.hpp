@@ -157,6 +157,7 @@ namespace adas::ds
     static void insertion(DLList<T>::iterator first, DLList<T>::iterator last, bool verbose = false);
 
     // search methods
+    static DLList<T>::iterator secuential_search(DLList<T>::iterator first, DLList<T>::iterator last, T value);
   };
 
 
@@ -473,6 +474,24 @@ namespace adas::ds
         if (verbose)
           au::print::to_stdout(first, last, "\n");
       }
+  }
+
+  /*
+   * Search methods
+   */
+
+  template<class T>
+  DLList<T>::iterator DLList<T>::secuential_search(DLList<T>::iterator first,
+                                                   DLList<T>::iterator last, T value)
+  {
+    while(first != last)
+      {
+        if(first->has_key(value))
+          return first;
+
+        first++;
+      }
+    return last;
   }
 }
 

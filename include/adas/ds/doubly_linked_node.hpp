@@ -40,7 +40,7 @@ namespace adas::ds
     void set_next(DLNode<T>* next_node);
     void set_prev(DLNode<T>* prev_node);
     void set_key(T node_key){key = node_key;}
-    static bool has_key(DLNode<T>* node, T key);
+    bool has_key(T key);
     DLNode<T>* get_node(){return this;}
     DLNode<T>* get_next(){return next;}
     DLNode<T>* get_prev(){return prev;}
@@ -90,13 +90,11 @@ namespace adas::ds
   }
 
   template<class T>
-  bool DLNode<T>::has_key(DLNode<T>* node, T node_key)
+  bool DLNode<T>::has_key(T node_key)
   /*
    * Check if node has a key node_key
    */
   {
-    T key = node->get_key();
-
     return key == node_key;
   }
 

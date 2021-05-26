@@ -35,7 +35,7 @@ namespace adas::ds
     SLNode<T>* get_next(){return next;}
     SLNode<T>* get_node(){return this;}
     T get_key(){return key;}
-    static bool has_key(SLNode<T>* node, T node_key);
+    bool has_key(T node_key);
     bool operator<(SLNode<T> node);
     bool operator==(SLNode<T> node);
 
@@ -51,13 +51,11 @@ namespace adas::ds
    */
 
   template<class T>
-  bool SLNode<T>::has_key(SLNode<T>* node, T node_key)
+  bool SLNode<T>::has_key(T node_key)
   /*
    * Check if node has a key node_key
    */
   {
-    T key = node->get_key();
-
     return key == node_key;
   }
 

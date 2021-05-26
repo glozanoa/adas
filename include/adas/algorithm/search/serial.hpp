@@ -22,7 +22,7 @@ namespace ads = adas::ds;
 #include "../utilities/helper.hpp"
 #include "../utilities/timer.hpp"
 #include "../utilities/print.hpp" // ONLY FOR TESTING PURPOSES
-using namespace adas::utilities;
+namespace au =  adas::utilities;
 
 namespace adas::algorithm
 {
@@ -125,17 +125,11 @@ namespace adas::algorithm
         return last;
       }
 
-      template<class ForwardIterator, class Comparison, class T>
-      ForwardIterator secuential(ForwardIterator first, ForwardIterator last,
-                                 Comparison comp, const T value)
+      template<class Container, class T>
+      typename Container::iterator secuential(typename Container::iterator first,
+                                              typename Container::iterator last, const T value)
       {
-        while(first != last)
-          {
-            if(comp(*first, value))
-              return first;
-            first++;
-          }
-        return last;
+        return Container::secuential_search(first, last, value);
       }
 
       template<class ForwardIterator, class Comparison, class T>
@@ -146,7 +140,7 @@ namespace adas::algorithm
 
         // compare the first element
         if(first != last && comp(*first, value))
-          return last; // there is not prev element
+          return last; // firsr element hasn't a previous element
 
         while(first != last)
           {

@@ -28,6 +28,17 @@ namespace adas::utilities
     }
 
     template<typename T>
+    void to_stdout(T container, string split)
+    {
+      typename T::iterator itr;
+      for(itr=container.begin(); itr!=container.end(); itr++)
+        {
+          cout << *itr << split;
+        }
+      cout << endl;
+    }
+
+    template<typename T>
     void to_stdout(string prefix, T container)
     {
       cout << prefix + " ";

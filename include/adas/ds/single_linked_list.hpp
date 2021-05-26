@@ -132,6 +132,7 @@ namespace adas::ds
     static void selection(SLList<T>::iterator first, SLList<T>::iterator last, bool verbose = false);
 
     // search methods
+    static SLList<T>::iterator secuential_search(SLList<T>::iterator first, SLList<T>::iterator last, T value);
 
   };
 
@@ -400,6 +401,21 @@ namespace adas::ds
           if(*min  < *itr)
             SLList<T>::interchange_keys(itr, min);
         }
+  }
+
+  // search methods
+  template<class T>
+  SLList<T>::iterator SLList<T>::secuential_search(SLList<T>::iterator first,
+                                                   SLList<T>::iterator last, T value)
+  {
+    while(first != last)
+      {
+        if(first->has_key(value))
+          return first;
+
+        first++;
+      }
+    return last;
   }
 }
 

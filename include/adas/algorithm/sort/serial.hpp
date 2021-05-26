@@ -116,7 +116,7 @@ namespace adas::algorithm
        * Supported containers: DLList<T>
        */
       {
-        Container::bubble(first, last, verbose);
+        Container::bibubble(first, last, verbose);
       }
 
 

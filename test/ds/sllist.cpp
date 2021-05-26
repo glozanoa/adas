@@ -1,7 +1,7 @@
 /*
  * Test for SLList<T> template class
  *
- * Status: DEBUGED - date: May 16 2021
+ * Status: DEBUGED - date: May 26 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */

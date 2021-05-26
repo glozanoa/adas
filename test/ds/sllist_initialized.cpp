@@ -19,7 +19,7 @@ using namespace adas::ds;
 
 int main()
 {
-  SLList<int> list = {1, 5, 3, 7, 2, 0};
+  SLList<int> list = {1, 5, 3, 7, 2, 9};
 
   cout << "list size: " << list.get_size() << endl;
   au::print::to_stdout("Initialized list:\n", list, "\n");

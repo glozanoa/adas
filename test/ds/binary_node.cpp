@@ -1,7 +1,7 @@
 /*
  * Test of BinaryNode<T> template class
  *
- * Status: DEBUGED - date: May 14 2021
+ * Status: DEBUGED - date: May 26 2021
  *
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
@@ -13,6 +13,7 @@ using namespace std;
 
 #include "adas/ds/node.hpp"
 #include "adas/ds/binary_node.hpp"
+using namespace adas::ds;
 
 int main()
 {
@@ -99,4 +100,5 @@ int main()
   cout << "(pointer comparison) a0 == a1: " << are_equal_nodes << endl;
 
   return 0;
+
 }

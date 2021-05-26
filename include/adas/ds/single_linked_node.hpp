@@ -24,9 +24,7 @@ namespace adas::ds
   public:
     SLNode(): next{nullptr} {}
     SLNode(T node_key): key{node_key}, next{nullptr} {}
-    SLNode(T node_key, SLNode<T>* next_node)
-      : key{node_key}, next{next_node} {}
-
+    SLNode(T node_key, SLNode<T>* next_node): key{node_key}, next{next_node} {}
 
     // method to manipulate SLNode<T> objects
     void update_key(T node_key){key = node_key;}

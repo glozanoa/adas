@@ -35,6 +35,7 @@ namespace adas::ds
   protected:
     DLNode<T>* head;
     DLNode<T>* tail;
+    DLNode<T>* next2tail;
     unsigned int size;
 
   public:
@@ -122,7 +123,7 @@ namespace adas::ds
     };
 
 
-    DLList(): size{0}, head{nullptr}, tail{nullptr} {}
+    DLList(): size{0}, head{nullptr}, tail{nullptr}, next2tail{nullptr} {}
     DLList(unsigned int list_size, T default_key);
     DLList(unsigned int list_size) :DLList(list_size, 0) {}
     DLList(std::initializer_list<T> keys);
@@ -185,6 +186,8 @@ namespace adas::ds
         list_size--;
       }
     tail = node;
+    next2tail = new DLNode<T>();
+    tail->set_next(next2tail);
   }
 
   template<class T>
@@ -212,9 +215,6 @@ namespace adas::ds
 
   template<class T>
   DLList<T>::iterator DLList<T>::end(){
-    DLNode<T>* next2tail = new DLNode<T>();
-    tail->set_next(next2tail);
-    //next2tail->set_prev(tail);
     return DLList<T>::iterator(next2tail);
   }
 
@@ -303,6 +303,7 @@ namespace adas::ds
       {
         head = node;
         tail = node;
+        next2tail = new DLNode<T>();
       }
     else
       {
@@ -310,6 +311,7 @@ namespace adas::ds
         tail = node;
       }
 
+    tail->set_next(next2tail);
     size++;
   }
 
@@ -369,6 +371,7 @@ namespace adas::ds
     prev2tail->only_set_next(nullptr);
     delete [] tail;
     tail = prev2tail;
+    tail->set_next(next2tail);
     size--;
   }
 

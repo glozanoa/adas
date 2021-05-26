@@ -35,6 +35,7 @@ namespace adas::ds
   protected:
     SLNode<T>* head;
     SLNode<T>* tail;
+    SLNode<T>* next2tail;
     unsigned int size;
   public:
 
@@ -99,7 +100,7 @@ namespace adas::ds
     };
 
 
-    SLList(): size{0}, head{nullptr}, tail{nullptr} {}
+    SLList(): size{0}, head{nullptr}, tail{nullptr}, next2tail{nullptr} {}
     SLList(unsigned int list_size, T default_key);
     SLList(unsigned int list_size);
     SLList(std::initializer_list<T> keys);
@@ -155,6 +156,8 @@ namespace adas::ds
         list_size--;
       }
     tail = node;
+    next2tail = new SLNode<T>();
+    tail->set_next(next2tail);
   }
 
   template<class T>
@@ -183,10 +186,8 @@ namespace adas::ds
   }
 
   template<class T>
-  SLList<T>::iterator SLList<T>::end(){
-    SLNode<T>* next2tail = new SLNode<T>();
-    tail->set_next(next2tail);
-    //next2tail->set_prev(tail);
+  SLList<T>::iterator SLList<T>::end()
+  {
     return SLList<T>::iterator(next2tail);
   }
 
@@ -298,6 +299,7 @@ namespace adas::ds
       {
         head = node;
         tail = node;
+        next2tail = new SLNode<T>();
       }
     else
       {
@@ -305,6 +307,7 @@ namespace adas::ds
         tail = node;
       }
 
+    tail->set_next(next2tail);
     size++;
   }
 
@@ -362,6 +365,7 @@ namespace adas::ds
     prev2tail->set_next(nullptr);
     delete [] tail;
     tail = prev2tail;
+    tail->set_next(next2tail);
     size--;
   }
 
@@ -381,6 +385,21 @@ namespace adas::ds
         if(verbose)
           au::print::to_stdout(first, last, "\n");
       }
+  }
+
+  template<class T>
+  void SLList<T>::selection(SLList<T>::iterator first, SLList<T>::iterator last, bool verbose)
+  {
+      SLList<T>::iterator itr, min;
+      for(itr=first; itr != last; itr++)
+        {
+          if(verbose)
+            au::print::to_stdout(first, last);
+
+          min = min_element(itr+1, last);
+          if(*min  < *itr)
+            SLList<T>::interchange_keys(itr, min);
+        }
   }
 }
 

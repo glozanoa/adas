@@ -1,7 +1,7 @@
  /*
- * Testing bibubble sorting algorithm in DLList<T> data structure
+ * Testing selection sorting algorithm in SLList<T> data structure
  *
- * Status: DEBUGGED - date May 26 2021
+ * Status: DEBUGGED - date: May 26 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */
@@ -19,18 +19,17 @@ namespace au = adas::utilities;
 #include "adas/algorithm/sort/serial.hpp"
 namespace asos = adas::algorithm::sort::serial;
 
-#include "adas/ds/doubly_linked_list.hpp"
+#include "adas/ds/single_linked_list.hpp"
 namespace ads = adas::ds;
 
 int main(int argc ,char* argv[])
 {
 
   // PARSING CMD ARGUMENTS (ONLY FOR TESTING PURPOSES)
-  po::options_description test("Options for serial bubble algorithm for DLList<T> structure");
+  po::options_description test("Options for serial selection algorithm for SLList<T> structure");
   test.add_options()
     ("help,h", "Show help.")
     ("input,i", po::value<string>(), "Input file with unsorted numbers.")
-    //("output,o", po::value<string>(), "File to write sorted numbers.")
     ("verbose,v", po::bool_switch()->default_value(false), "Increase algorithm's verbosity.");
 
   po::variables_map args;
@@ -53,19 +52,20 @@ int main(int argc ,char* argv[])
   // END - PARSING CMD ARGUMENTS
 
   // READING PARSED CMD OPTIONS
-  ads::DLList<int> list = au::read::from_file<DLList<int>, int>(args["input"].as<string>());
+  ads::SLList<int> list = au::read::from_file<SLList<int>, int>(args["input"].as<string>());
   bool verbose = args["verbose"].as<bool>();
   // END - READING PARSED CMD OPTIONS
 
-  Timer time;
+  au::Timer time;
 
   time.start();
   // bubble with custom interchange function
-  asos::bibubble<ads::DLList<int>>(list.begin(), list.end(), verbose);
+  asos::selection<ads::SLList<int>>(list.begin(), list.end(), verbose);
   time.stop();
-  time.report("Elapsed time (bibubble sorting algorithm in DLList<T> ds)");
+  time.report("Elapsed time (selection sorting algorithm in SLList<T> ds)");
 
   au::print::to_stdout("Sorted:\n", list, "\n");
+  //au::write::to_file(list.begin(), list.end(), "sorted_dllist_bubble.txt");
 
   return 0;
 }

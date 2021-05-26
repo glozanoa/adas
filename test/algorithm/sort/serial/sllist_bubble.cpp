@@ -1,7 +1,7 @@
  /*
  * Testing bubble sorting algorithm in SLList<T> data structure
  *
- * Status: DEBUGGED - date May 21 2021
+ * Status: DEBUGGED - date May 26 2021
  *
  * Maintainer: glozanoa <glozanoa@uni.pe>
  */

@@ -15,6 +15,7 @@
 #include <initializer_list>
 
 #include "../exceptions/general.hpp"
+
 #include "../utilities/print.hpp"
 namespace au = adas::utilities;
 
@@ -329,7 +330,7 @@ namespace adas::ds
   template<class T>
   void DLList<T>::push_back(DLNode<T>* node)
   {
-    node->only_set_next(nullptr);
+    //node->only_set_next(nullptr);
     if(tail == nullptr && head == nullptr) // this is a empty list
       {
         head = node;
@@ -354,7 +355,8 @@ namespace adas::ds
       {
         head = node;
         tail = node;
-        node->only_set_next(nullptr);
+        next2tail = new DLNode<T>();
+        tail->set_next(next2tail);
       }
     else
       {

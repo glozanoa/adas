@@ -22,57 +22,79 @@ namespace adas::ds
   {
   public:
     BST(T root_key): BinaryTree<T>(root_key) {}
-    BST(vector<T> keys)
-      :BinaryTree<T>(keys[0])
-    {
-      for(unsigned int k = 1; k<keys.size(); k++)
-        this->insert(keys[k]);
-    }
+    BST(vector<T> keys);
 
-    void insert(T key)
-    {
-      BinaryNode<T>* leaf = new BinaryNode<T>(key);
-      BinaryNode<T>* parent = BST<T>::search_parent(this->root, leaf);
 
-      T parent_key = parent->get_key();
-      if(parent_key < key)
-        parent->add_child(leaf, NT::RIGHT_NODE);
-      else
-        parent->add_child(leaf, NT::LEFT_NODE);
-    }
+    /*  Methods to manipulate BST<T> ds */
+    void insert(T key);
+    static BinaryNode<T>* search_parent(BinaryNode<T>* node, BinaryNode<T>* leaf);
+    BinaryNode<T>* search(T key);
+    BinaryNode<T>* search(BinaryNode<T>* node, T key);
+  };
 
-    static BinaryNode<T>* search_parent(BinaryNode<T>* node, BinaryNode<T>* leaf)
-    /*
-     * Search a parent node for leaf node, to insert leaf into BST
-     */
-    {
-      T node_key = node->get_key();
-      T leaf_key = leaf->get_key();
+  /*
+   * Implementation BST<T> class
+   */
 
-      if(leaf_key == node_key)
-        {
-          cout << "key=" << leaf_key << " is already in BST" << endl;
+  template<class T>
+  BST<T>::BST(vector<T> keys)
+    :BinaryTree<T>(keys[0])
+  {
+    for(unsigned int k = 1; k<keys.size(); k++)
+      this->insert(keys[k]);
+  }
+
+
+  template<class T>
+  void BST<T>::insert(T key)
+  {
+    BinaryNode<T>* leaf = new BinaryNode<T>(key);
+    BinaryNode<T>* parent = BST<T>::search_parent(this->root, leaf);
+
+    T parent_key = parent->get_key();
+    if(parent_key < key)
+      parent->add_child(leaf, NT::RIGHT_NODE);
+    else
+      parent->add_child(leaf, NT::LEFT_NODE);
+  }
+
+
+  template<class T>
+  BinaryNode<T>* BST<T>::search_parent(BinaryNode<T>* node, BinaryNode<T>* leaf)
+  /*
+   * Search a parent node for leaf node, to insert leaf into BST
+   */
+  {
+    T node_key = node->get_key();
+    T leaf_key = leaf->get_key();
+
+    if(leaf_key == node_key)
+      {
+        cout << "key=" << leaf_key << " is already in BST" << endl;
+        return node;
+      }
+    else if(leaf_key < node_key)
+      {
+        BinaryNode<T>* lchild  = node->get_child(NT::LEFT_NODE);
+        if(lchild == nullptr)
           return node;
-        }
-      else if(leaf_key < node_key)
-        {
-          BinaryNode<T>* lchild  = node->get_child(NT::LEFT_NODE);
-          if(lchild == nullptr)
-            return node;
-          else
-            return search_parent(lchild, leaf);
-        }
-      else
-        {
-          BinaryNode<T>* rchild  = node->get_child(NT::RIGHT_NODE);
-          if(rchild == nullptr)
-            return node;
-          else
-            return search_parent(rchild, leaf);
-        }
-    }
+        else
+          return search_parent(lchild, leaf);
+      }
+    else
+      {
+        BinaryNode<T>* rchild  = node->get_child(NT::RIGHT_NODE);
+        if(rchild == nullptr)
+          return node;
+        else
+          return search_parent(rchild, leaf);
+      }
+  }
 
-    BinaryNode<T>* search(T key)
+
+
+  template<class T>
+  BinaryNode<T>* BST<T>::search(T key)
     /*
      * Search 'key' in Binary Tree and return a pointer to the node who has that key
      */
@@ -80,35 +102,36 @@ namespace adas::ds
       return this->search(this->root, key);
     }
 
-    BinaryNode<T>* search(BinaryNode<T>* node, T key)
-    /*
-     * Search 'key' in Binary Tree and return a pointer to the node who has that key
-     * and return nullptr if no one has 'key' as its key
-     * But start searching from node (and search recursively in its children)
-     */
-    {
-      T node_key = node->get_key();
 
-      if(node_key == key)
-        return node;
-      else if(node_key < key)
-        {
-          BinaryNode<T>* rchild = node->get_child(NT::RIGHT_NODE);
-          if(rchild == nullptr)
-            return nullptr;
-          else
-            return search(rchild, key);
-        }
-      else
-        {
-          BinaryNode<T>* lchild = node->get_child(NT::LEFT_NODE);
-          if(lchild == nullptr)
-            return nullptr;
-          else
-            return search(lchild, key);
-        }
-    }
-  };
+  template<class T>
+  BinaryNode<T>* BST<T>::search(BinaryNode<T>* node, T key)
+  /*
+   * Search 'key' in Binary Tree and return a pointer to the node who has that key
+   * and return nullptr if no one has 'key' as its key
+   * But start searching from node (and search recursively in its children)
+   */
+  {
+    T node_key = node->get_key();
+
+    if(node_key == key)
+      return node;
+    else if(node_key < key)
+      {
+        BinaryNode<T>* rchild = node->get_child(NT::RIGHT_NODE);
+        if(rchild == nullptr)
+          return nullptr;
+        else
+          return search(rchild, key);
+      }
+    else
+      {
+        BinaryNode<T>* lchild = node->get_child(NT::LEFT_NODE);
+        if(lchild == nullptr)
+          return nullptr;
+        else
+          return search(lchild, key);
+      }
+  }
 }
 
 

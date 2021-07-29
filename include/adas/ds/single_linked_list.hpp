@@ -12,7 +12,7 @@
 #include <iostream>
 #include <iterator>
 #include <cstddef>
-#include <vector>
+#include <vector> //init a single linked list with a vector
 
 #include "../exceptions/general.hpp"
 #include "../utilities/print.hpp"

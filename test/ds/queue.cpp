@@ -1,22 +1,52 @@
+/*
+ * Testing Queue<T> class
+ *
+ * Status: TESTED - date Jul 29 2021
+ */
+
 #include <iostream>
-#include <vector>
 using namespace std;
 
 #include "adas/ds/queue.hpp"
+using namespace adas::ds;
 
 int main()
 {
-  vector<int> keys = {15, 13, 9, 5, 12,  8,  7, 4, 0, 6, 2, 1};
-  Queue<int> q = Queue<int>(keys, QT::MAX_PRIORITY);
+	Queue<int> q = Queue<int>();
 
-  cout << "Maximum queue: " << q.maximum() << endl;
-  q.extract_max();
+	cout << "Maximum size: " << q.get_maximum_size() << endl;
 
-  cout << "(after extract max) Maximum queue: " << q.maximum() << endl;
+	cout << "Inserting some values = [10, -1, 100] to the queue" << endl;
+	q.put(10);
+	q.put(-1);
+	q.put(100);
 
-  q.insert(20);
+	cout << "Printing the queue" << endl;
+	cout << q << endl;
 
-  cout << "(after insert) Maximum queue: " << q.maximum() << endl;
+	cout << "Dequeue an element of the queue" << endl;
+	SLNode<int>* node = q.get();
+	cout << *node << endl;
+
+	cout << "\nPrinting the queue (after a dequeue)" << endl;
+	cout << q << endl;
+
+	cout << "Dequeue 2 element of the queue" << endl;
+	node = q.get();
+	cout << *node << endl;
+	node = q.get();
+	cout << *node << endl;
+
+
+	cout << "\nPrinting the queue" << endl;
+	cout << q << endl;
+
+
+	cout << "Finally, Dequeue other element of the queue" << endl;
+	node = q.get(); // when the queue is empty, then return nullptr and print "Empty queue"
+	if (node != nullptr)
+		cout << *node << endl;
+
 
   return 0;
 }

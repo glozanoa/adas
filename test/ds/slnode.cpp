@@ -26,15 +26,17 @@ int main()
 
   cout << "a's key:" << a->get_key() << endl;
   cout << "a DLNode (init):" << endl;
-  cout << a << endl;
+  cout << "Node: " << a << ", " << *a << endl;
 
   a->set_next(b);
   cout << "a DLNode (after linking with b):" << endl;
-  cout << a << endl;
+  cout << "Node a: " << a << ", " << *a << endl;
 
   b->set_next(c);
   cout << "b DLNode (after linking with c):" << endl;
-  cout << b << endl;
+  cout << "Node b: " << b << ", " << *b << endl;
+
+  cout << "Node c: " << c << ", " << *c << endl;
 
   return 0;
 }

@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include <iterator>
-#include <vector>
+#include <vector> //init a double linked list with a vector
 #include <initializer_list>
 
 #include "../exceptions/general.hpp"
@@ -299,7 +299,7 @@ namespace adas::ds
       node->set_prev(prev_node);
     else // position == head -> prev_node == nullptr
       {
-        node->only_set_prev(nullptr);
+        node->_only_set_prev(nullptr);
         head = node;
       }
 
@@ -317,7 +317,7 @@ namespace adas::ds
 
     if(next2node == nullptr) // node == tail
       {
-        prev2node->only_set_next(nullptr);
+        prev2node->_only_set_next(nullptr);
         tail = prev2node;
       }
     else
@@ -330,7 +330,7 @@ namespace adas::ds
   template<class T>
   void DLList<T>::push_back(DLNode<T>* node)
   {
-    //node->only_set_next(nullptr);
+    //node->_only_set_next(nullptr);
     if(tail == nullptr && head == nullptr) // this is a empty list
       {
         head = node;
@@ -350,7 +350,7 @@ namespace adas::ds
   template<class T>
   void DLList<T>::push_front(DLNode<T>* node)
   {
-    node->only_set_prev(nullptr);
+    node->_only_set_prev(nullptr);
     if(tail == nullptr && head == nullptr) // this is a empty list
       {
         head = node;
@@ -388,7 +388,7 @@ namespace adas::ds
    */
   {
     DLNode<T>* next2head = head->get_next();
-    next2head->only_set_prev(nullptr);
+    next2head->_only_set_prev(nullptr);
     delete [] head;
     head = next2head;
     size--;
@@ -401,7 +401,7 @@ namespace adas::ds
    */
   {
     DLNode<T>* prev2tail = tail->get_prev();
-    prev2tail->only_set_next(nullptr);
+    prev2tail->_only_set_next(nullptr);
     delete [] tail;
     tail = prev2tail;
     tail->set_next(next2tail);

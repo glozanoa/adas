@@ -13,11 +13,11 @@
 
 namespace adas::ds
 {
-  typedef enum NT
+  typedef enum NT //node type
     {
       LEFT_NODE,
       RIGHT_NODE,
-      NONE
+      NONE //this type is used when the node is the root
     }NT;
 
   template<typename T>

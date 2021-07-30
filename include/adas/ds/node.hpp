@@ -1,5 +1,5 @@
 /*
- * Node Template class
+ * Node Template class (Tree node)
  *
  * Debuged class - May 3 2021
  *
@@ -137,18 +137,18 @@ namespace adas::ds
       return false;
     }
 
-    friend ostream& operator<<(ostream& out, Node<T>* node)
+    friend ostream& operator<<(ostream& out, Node<T> node)
     {
-      unsigned int depth = node->get_depth();
-      T key = node->get_key();
+      unsigned int depth = node.get_depth();
+      T key = node.get_key();
       string tab = au::repeat("\t", depth);
 
       out << tab << key << endl;
       //tab += "\t";
-      for(Node<T>* child: node->get_children())
+      for(Node<T>* child: node.get_children())
         {
           if(child != nullptr)
-            out << child;
+            out << *child;
         }
       return out;
     }

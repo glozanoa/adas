@@ -12,7 +12,7 @@
 namespace adas::ds
 {
 
-  typedef enum DLNT
+  typedef enum DLNT //double linked nodte type
     {
       NEXT_NODE,
       PREV_NODE,
@@ -28,6 +28,7 @@ namespace adas::ds
     T key;
     DLNode<T>* next;
     DLNode<T>* prev;
+
   public:
     DLNode() :prev{nullptr}, next{nullptr} {}
     DLNode(T node_key): key{node_key}, prev{nullptr}, next{nullptr} {}
@@ -35,8 +36,8 @@ namespace adas::ds
     DLNode(T node_key, DLNode<T>* prev_node, DLNode<T>* next_node);
 
     //methods to manipulate DLNode<T> class
-    void only_set_next(DLNode<T>* next_node){next = next_node;}
-    void only_set_prev(DLNode<T>* prev_node){prev = prev_node;}
+    void _only_set_next(DLNode<T>* next_node){next = next_node;}
+    void _only_set_prev(DLNode<T>* prev_node){prev = prev_node;}
     void set_next(DLNode<T>* next_node);
     void set_prev(DLNode<T>* prev_node);
     void set_key(T node_key){key = node_key;}
@@ -49,9 +50,6 @@ namespace adas::ds
     bool operator==(DLNode<T> node);
 
     // T2LMGLA
-    template<class L>
-    friend ostream& operator<<(ostream& out, DLNode<L>* node);
-
     template<class L>
     friend ostream& operator<<(ostream& out, DLNode<L> node);
   };
@@ -79,14 +77,14 @@ namespace adas::ds
   void DLNode<T>::set_next(DLNode<T>* next_node)
   {
     next = next_node;
-    next_node->only_set_prev(this);
+    next_node->_only_set_prev(this);
   }
 
   template<class T>
   void DLNode<T>::set_prev(DLNode<T>* prev_node)
   {
     prev = prev_node;
-    prev_node->only_set_next(this);
+    prev_node->_only_set_next(this);
   }
 
   template<class T>
@@ -118,44 +116,6 @@ namespace adas::ds
     return false;
   }
 
-  template<class T>
-  ostream& operator<<(ostream& out, DLNode<T>* node)
-    {
-      T node_key = node->get_key();
-      DLNode<T>* prev_node = node->get_prev();
-      DLNode<T>* next_node = node->get_next();
-
-      if(next_node != nullptr && prev_node != nullptr)
-        {
-          T prev_node_key = prev_node->get_key();
-          T next_node_key = next_node->get_key();
-
-          out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
-              << ", next: " << next_node_key << ")";
-        }
-      else if(next_node != nullptr)
-        {
-          T next_node_key = next_node->get_key();
-
-          out << "DLNode(key: " << node_key
-              << ", prev: NONE"
-              << ", next: " << next_node_key << ")";
-        }
-      else if (prev_node != nullptr)
-        {
-          T prev_node_key = prev_node->get_key();
-
-          out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
-              << ", next: NONE)";
-        }
-      else
-        out << "DLNode(key: " << node_key << ", prev: NONE , next: NONE)";
-
-
-      return out;
-    }
 
   template<class T>
   ostream& operator<<(ostream& out, DLNode<T> node)
@@ -166,27 +126,20 @@ namespace adas::ds
 
       if(next_node != nullptr && prev_node != nullptr)
         {
-          T prev_node_key = prev_node->get_key();
-          T next_node_key = next_node->get_key();
-
           out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
-              << ", next: " << next_node_key << ")";
+              << ", prev: " << prev_node
+              << ", next: " << next_node << ")";
         }
       else if(next_node != nullptr)
         {
-          T next_node_key = next_node->get_key();
-
           out << "DLNode(key: " << node_key
               << ", prev: NONE"
-              << ", next: " << next_node_key << ")";
+              << ", next: " << next_node << ")";
         }
       else if (prev_node != nullptr)
         {
-          T prev_node_key = prev_node->get_key();
-
           out << "DLNode(key: " << node_key
-              << ", prev: " << prev_node_key
+              << ", prev: " << prev_node
               << ", next: NONE)";
         }
       else

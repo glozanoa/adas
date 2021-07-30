@@ -128,18 +128,10 @@ namespace adas::ds
     //   children.remove(child);
     // }
 
-
-    friend ostream& operator<<(ostream& out, BinaryTree<T>* tree)
-    {
-      BinaryNode<T>* root = tree->get_root();
-      out << root;
-      return out;
-    }
-
     friend ostream& operator<<(ostream& out, BinaryTree<T> tree)
     {
       BinaryNode<T>* root = tree.get_root();
-      out << root;
+      out << *root;
       return out;
     }
   };

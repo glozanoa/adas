@@ -1,7 +1,7 @@
 /*
- * DGraph<T> class (directed graph)
+ * directed graph classes
  *
- * Maintainer: glozanoa <glozanoa@uni.pe>
+ * Status: TESTED - date Jul 29 2021
  */
 
 

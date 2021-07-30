@@ -50,7 +50,7 @@ add_subdirectory(phonebook)
 
 # # data structures
 message(DEBUG "Data structures examples")
-file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/sllist.cpp ds/slnode.cpp ds/dlnode.cpp ds/dllist.cpp ds/dllist_initialized.cpp ds/sllist_initialized.cpp ds/dlclist.cpp ds/slclist.cpp ds/queue.cpp ds/bst.cpp ds/directed_graph.cpp)
+file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/sllist.cpp ds/slnode.cpp ds/dlnode.cpp ds/dllist.cpp ds/dllist_initialized.cpp ds/sllist_initialized.cpp ds/dlclist.cpp ds/slclist.cpp ds/queue.cpp ds/bst.cpp ds/directed_graph.cpp ds/undirected_graph.cpp)
 foreach(DS_EXAMPLE ${DS})
   get_filename_component(DS_NAME ${DS_EXAMPLE} NAME_WE)
   message(DEBUG "Adding executable ${DS_NAME}")

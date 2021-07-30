@@ -8,6 +8,7 @@
 #ifndef _DGRAPH_H
 #define _DGRAPH_H
 
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <initializer_list>
@@ -22,11 +23,11 @@ namespace adas::ds
 	template <class T>
 	class DVertex : public Vertex<T> // vertex for directed graph
 	{
-	private:
+	protected:
 		unsigned int indegree;
 		unsigned int outdegree;
 	public:
-		DVertex(T vertex_key):Vertex<T>(vertex_key) {}
+		DVertex(T vertex_key):Vertex<T>(vertex_key), indegree{0}, outdegree{0} {}
 
 		void set_indegree(unsigned int vertex_indegree){indegree = vertex_indegree;}
 		void set_outdegree(unsigned int vertex_outdegree){outdegree = vertex_outdegree;}
@@ -34,7 +35,7 @@ namespace adas::ds
 		unsigned int get_indegree(){return indegree;}
 		unsigned int get_outdegree(){return outdegree;}
 
-	    ostream& operator<<(ostream& out, Vertex v)
+	    friend std::ostream& operator<<(ostream& out, DVertex<T> v)
 	    {
 	        out << "Vertex(key=" << v.get_key() 
 	        	<< ", indegree=" << v.get_indegree() 
@@ -49,9 +50,9 @@ namespace adas::ds
 	        unsigned int vertex_indegree = v.get_indegree();
 	        unsigned int vertex_outdegree = v.get_outdegree();
 
-	        if (key == vertex_key && 
-	        	indegree == vertex_indegree &&
-	        	outdegree == vertex_outdegree)
+	        if (this->key == vertex_key && 
+	        	this->indegree == vertex_indegree &&
+	        	this->outdegree == vertex_outdegree)
 	            return true;
 
 	        return false;
@@ -62,10 +63,10 @@ namespace adas::ds
 
 
 	template<class T>
-	class DGraphMatrix //Directed graph with Adyacency Matrix as representation
+	class DGraphMatrix //Directed graph with Adjacency Matrix as representation
 	{
-	private:
-		vector<Dvertex<T>> vertices;
+	protected:
+		std::vector<DVertex<T>> vertices;
 		Matrix<double> mtx;
 	public:
 		DGraphMatrix();
@@ -73,23 +74,24 @@ namespace adas::ds
 
 		void add_edge(DVertex<T> init, DVertex<T> end, double weight);
 		void add_edge(T init_key, T end_key); //default weight=1
-		void add_edge(T init_key, T end_key, double, weight);
+		void add_edge(T init_key, T end_key, double weight);
 
 		Matrix<double> get_matrix(){return mtx;}
-		vector<DVertex<T>> get_vertices(){return vertices;}
+		std::vector<DVertex<T>> get_vertices(){return vertices;}
 	};
 
 	template<class T>
 	DGraphMatrix<T>::DGraphMatrix()
 	{
-		unsigned int size = vertices.size();
+		vertices = std::vector<DVertex<T>>();
+		unsigned int size = 0;
 		mtx = Matrix<double>(size, size, 0); // init the adyancency matrix with ceros
 	}
 
 	template<class T>
 	DGraphMatrix<T>::DGraphMatrix(std::initializer_list<T> key_vertices)
 	{
-		vertices = vector<DVertex<T>>();
+		vertices = std::vector<DVertex<T>>();
 		for(T key : key_vertices)
 		{
 			DVertex<T> vertex = DVertex<T>(key);
@@ -107,7 +109,7 @@ namespace adas::ds
 		try
 		{
 			//check if init vertex is a graph's vertex 
-			vector<DVertex<T>> it;
+			std::vector<DVertex<T>> it;
 
 			it = std::find(vertices.begin(), vertices.end(), init);
 
@@ -117,7 +119,7 @@ namespace adas::ds
 				throw Exception("No vertex in the graph");	
 			}
 
-			unsigned int init_idx = std::distance(vertices.begin(), it)
+			unsigned int init_idx = std::distance(vertices.begin(), it);
 
 			it = std::find(vertices.begin(), vertices.end(), end);
 
@@ -128,9 +130,16 @@ namespace adas::ds
 			}
 
 
-			unsigned int end_idx = std::distance(vertices.begin(), it)
+			unsigned int end_idx = std::distance(vertices.begin(), it);
 
-			mtx[init_idx][end_idx] = wight;
+			mtx.set_value(init_idx, end_idx, weight);
+
+			//update indegree and outdegree of vertices
+			unsigned int init_outdegree = init.get_outdegree();
+			init.set_outdegree(init_outdegree+1);
+
+			unsigned int end_indegree = end.get_indegree();
+			end.set_indegree(end_indegree+1);
 		
 		}
 		catch(exception& error)
@@ -148,7 +157,7 @@ namespace adas::ds
 			int end_idx = -1;
 
 			T key;
-			for(int k=0; k<vertices.size() && (init_idx != 1 && end_idx != -1); k++)
+			for(int k=0; !(init_idx != -1 && end_idx != -1) && k<vertices.size(); k++)
 			{
 				key = vertices[k].get_key();
 				if(key == init_key)
@@ -161,11 +170,18 @@ namespace adas::ds
 			if(init_idx == -1 || end_idx == -1)
 				throw Exception("No vertex in the graph");
 
-			mtx[init_idx][end_idx] = wight;
+			mtx.set_value(init_idx, end_idx, weight);
+
+			//update indegree and outdegree of vertices
+			unsigned int init_outdegree = vertices[init_idx].get_outdegree();
+			vertices[init_idx].set_outdegree(init_outdegree+1);
+
+			unsigned int end_indegree = vertices[end_idx].get_indegree();
+			vertices[end_idx].set_indegree(end_indegree+1);
 		
 		}
 		catch(exception& error)
-		{
+		{	
 			cerr << error.what() << endl;
 		}
 	}

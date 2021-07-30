@@ -8,6 +8,8 @@
 #ifndef _VERTEX_H
 #define _VERTEX_H
 
+#include <iostream>
+
 namespace adas::ds
 {
     template <class T>
@@ -24,7 +26,7 @@ namespace adas::ds
         unsigned int get_degree(){return degree;}
         void set_degree(unsigned int vertex_degree){degree = vertex_degree;}
 
-        ostream& operator<<(ostream& out, Vertex v)
+        friend std::ostream& operator<<(std::ostream& out, Vertex v)
         {
             out << "Vertex(key=" << v.get_key() << ", degree=" << v.get_degree() << ")"; 
             return out;

@@ -53,19 +53,19 @@ int main()
 
 
   cout << "root node:" << endl;
-  cout << r;
+  cout << *r;
 
   BinaryNode<int>* p = b0->get_parent();
 
   cout << "b0's parent node:" << endl;
-  cout << p;
+  cout << *p;
 
   // adding a child to node d0
   BinaryNode<int>* e0 = new BinaryNode<int>(6);
   d0->add_child(e0, NT::LEFT_NODE);
 
   cout << "(after add e0 to d0) root node:" << endl;
-  cout << r;
+  cout << *r;
 
   //check if b0 is an a0's children
   bool is_child = a0->has_child(b0);
@@ -87,7 +87,7 @@ int main()
   a1->add_child(c0, NT::RIGHT_NODE);
 
   cout << "(after add a1 to root's children)root node:" << endl;
-  cout << r;
+  cout << *r;
 
   are_equal_nodes = a0->is_equal(a1);
 

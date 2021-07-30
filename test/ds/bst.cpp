@@ -10,6 +10,7 @@
 using namespace std;
 
 #include "adas/ds/bst.hpp"
+using namespace adas::ds;
 
 int main()
 {
@@ -21,7 +22,7 @@ int main()
   cout << bst;
 
   int key = 79;
-  cout << "Searching node with key = " << key << endl;
+  cout << "Searching node with key = " << key << ": ";
   BinaryNode<int>* node =  bst.search(key);
 
   if(node == nullptr)

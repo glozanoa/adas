@@ -1,0 +1,61 @@
+\hypertarget{classadas_1_1ds_1_1Matrix}{}\doxysection{adas\+::ds\+::Matrix$<$ T $>$ Class Template Reference}
+\label{classadas_1_1ds_1_1Matrix}\index{adas::ds::Matrix$<$ T $>$@{adas::ds::Matrix$<$ T $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a1277b8e96135218ae8eb3eab600fe1f1}\label{classadas_1_1ds_1_1Matrix_a1277b8e96135218ae8eb3eab600fe1f1}} 
+{\bfseries Matrix} (unsigned int rows, unsigned int cols)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a2b43d99954647355529767dd666ca51c}\label{classadas_1_1ds_1_1Matrix_a2b43d99954647355529767dd666ca51c}} 
+{\bfseries Matrix} (unsigned int rows, unsigned int cols, T value)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_aaf2b34eec5d7db30f934c0974c665284}\label{classadas_1_1ds_1_1Matrix_aaf2b34eec5d7db30f934c0974c665284}} 
+{\bfseries Matrix} (unsigned int rows, unsigned int cols, vector$<$ T $>$ values)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_ad392098fe9602007f246d7c76a05c88e}\label{classadas_1_1ds_1_1Matrix_ad392098fe9602007f246d7c76a05c88e}} 
+void {\bfseries set\+\_\+value} (unsigned int row\+\_\+index, unsigned int col\+\_\+index, T value)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a6b51c84a1d08987f6c1ad412ac5b5142}\label{classadas_1_1ds_1_1Matrix_a6b51c84a1d08987f6c1ad412ac5b5142}} 
+unsigned int {\bfseries get\+\_\+nrows} ()
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a9c7c5cc1e4b24067c52ecbd949a4a132}\label{classadas_1_1ds_1_1Matrix_a9c7c5cc1e4b24067c52ecbd949a4a132}} 
+unsigned int {\bfseries get\+\_\+ncols} ()
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_aa8543b86f3960da3446a8a4ed5cd43cb}\label{classadas_1_1ds_1_1Matrix_aa8543b86f3960da3446a8a4ed5cd43cb}} 
+vector$<$ T $>$ {\bfseries get\+\_\+row} (unsigned int index)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_afde734867bce6176b277c48663f170a7}\label{classadas_1_1ds_1_1Matrix_afde734867bce6176b277c48663f170a7}} 
+vector$<$ T $>$ {\bfseries get\+\_\+col} (unsigned int index)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a2cfe0fe786e0cde2097048b1a6d0f739}\label{classadas_1_1ds_1_1Matrix_a2cfe0fe786e0cde2097048b1a6d0f739}} 
+T {\bfseries operator()} (unsigned int row, unsigned int col)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a1a923caab2225d235b132e84e22d0229}\label{classadas_1_1ds_1_1Matrix_a1a923caab2225d235b132e84e22d0229}} 
+\mbox{\hyperlink{classadas_1_1ds_1_1Matrix}{Matrix}}$<$ T $>$ {\bfseries operator+} (\mbox{\hyperlink{classadas_1_1ds_1_1Matrix}{Matrix}}$<$ T $>$ mtx)
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a5c183faa74be1022de80e837ce641b4a}\label{classadas_1_1ds_1_1Matrix_a5c183faa74be1022de80e837ce641b4a}} 
+\mbox{\hyperlink{classadas_1_1ds_1_1Matrix}{Matrix}}$<$ T $>$ {\bfseries operator-\/} (\mbox{\hyperlink{classadas_1_1ds_1_1Matrix}{Matrix}}$<$ T $>$ mtx)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_ae687d736d3bd89dd9ccc57e4b027d040}\label{classadas_1_1ds_1_1Matrix_ae687d736d3bd89dd9ccc57e4b027d040}} 
+vector$<$ vector$<$ T $>$ $>$ $\ast$ {\bfseries data}
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a6f3c989f8b6940255266957735037542}\label{classadas_1_1ds_1_1Matrix_a6f3c989f8b6940255266957735037542}} 
+unsigned int {\bfseries nrows}
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a3be6b1247efb4376115742c4767fec98}\label{classadas_1_1ds_1_1Matrix_a3be6b1247efb4376115742c4767fec98}} 
+unsigned int {\bfseries ncols}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classadas_1_1ds_1_1Matrix_a2d509ce18e4a9cd3ed68fdf66306b9a0}\label{classadas_1_1ds_1_1Matrix_a2d509ce18e4a9cd3ed68fdf66306b9a0}} 
+{\footnotesize template$<$typename L $>$ }\\ostream \& {\bfseries operator$<$$<$} (ostream \&out, \mbox{\hyperlink{classadas_1_1ds_1_1Matrix}{Matrix}}$<$ L $>$ mtx)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/adas/ds/matrix.\+hpp\end{DoxyCompactItemize}

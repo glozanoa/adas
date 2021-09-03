@@ -2,6 +2,8 @@
 **/#*#
 **/.*
 **/a.out
+**/__pycache__
+env/*
 test/**/a.out
 obj/*
 test/data/*

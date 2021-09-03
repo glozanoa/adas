@@ -14,14 +14,16 @@
 #include <initializer_list>
 
 #include "vertex.hpp"
-#include "matrix.hpp"
+#include "matrix.hpp"	//for DGraphList<T> class
+#include "double_linked_list.hpp"	//for DGraphList<T> class
+#include "single_linked_list.hpp" 	//for DGraphList<T> class
 #include "../exceptions/general.hpp"
 using namespace adas::ds;
 
 namespace adas::ds
 {
 	template <class T>
-	class DVertex : public Vertex<T> // vertex for directed graph
+	class DVertex : public Vertex<T> // vertex for directed graphs
 	{
 	protected:
 		unsigned int indegree;
@@ -62,8 +64,14 @@ namespace adas::ds
 	};
 
 
+
+	/*
+	 * DIRECTED GRAPH WITH ADJACENCY MATRIX AS REPRESENTATION
+	 */
+
+
 	template<class T>
-	class DGraphMatrix //Directed graph with Adjacency Matrix as representation
+	class DGraphMatrix
 	{
 	protected:
 		std::vector<DVertex<T>> vertices;
@@ -190,6 +198,28 @@ namespace adas::ds
 	void DGraphMatrix<T>::add_edge(T init_key, T end_key)
 	{
 		this->add_edge(init_key, end_key, 1);
+	}
+
+
+
+	/*
+	 * DIRECTED GRAPH WITH ADJACENCY LIST AS REPRESENTATION
+	 */
+
+
+
+	template<class T>
+	class DGraphList
+	{
+	protected:
+		DLList<SLList<DVertex<T>>> vertices;
+		/*
+		V1 (->Vk->Vj) -> V2 (->Vm) ....
+		*/
+
+	public:
+		DGraphList();
+		DGraphList(std::initializer_list<T> key_vertices);
 	}
 
 }

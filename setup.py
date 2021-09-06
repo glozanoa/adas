@@ -8,7 +8,7 @@
 
 from setuptools import setup, find_packages, Extension
 
-VERSION = '0.0.1'
+from adas import VERSION
 
 f = open('README.md', 'r')
 LONG_DESCRIPTION = f.read()

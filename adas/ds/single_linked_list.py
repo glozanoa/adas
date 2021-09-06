@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from typing import Any
+
 from .single_linked_node import SLNode
 
 class SLList:
@@ -11,7 +13,7 @@ class SLList:
         if size < 0:
             raise Exception(f"Invalid size: size={size}")
 
-        else if size == 0:
+        elif size == 0:
             self.head = None
             self.tail = None
             self.size = size

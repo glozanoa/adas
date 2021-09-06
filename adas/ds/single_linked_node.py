@@ -33,7 +33,7 @@ class SLNode:
         bool:
             True if node has the key and False otherwise
         """
-        return return self.key == key
+        return self.key == key
 
     def __str__(self):
         return f"SLNode(key={self.key}, next={self.next_node})"

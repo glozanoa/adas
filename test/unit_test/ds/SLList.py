@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         real_size = 0
 
         node = slist.head
-        while node not is None:
+        while not node is None:
             real_size += 1
             node = node.next_node
 

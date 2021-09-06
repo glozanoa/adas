@@ -14,7 +14,7 @@ class TNodeTest(unittest.TestCase):
 
         comparisons = [
             (key, node.key, 'key'),
-            (1, node.depth, 'depth'),
+            (0, node.depth, 'depth'),
             (0, node.height, 'heigth'),
             (None, node.parent, 'parent'),
             ([], node.children, 'children')

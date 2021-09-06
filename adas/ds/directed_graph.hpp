@@ -15,7 +15,7 @@
 
 #include "vertex.hpp"
 #include "matrix.hpp"	//for DGraphList<T> class
-#include "double_linked_list.hpp"	//for DGraphList<T> class
+#include "doubly_linked_list.hpp"	//for DGraphList<T> class
 #include "single_linked_list.hpp" 	//for DGraphList<T> class
 #include "../exceptions/general.hpp"
 using namespace adas::ds;

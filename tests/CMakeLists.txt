@@ -1,5 +1,6 @@
 find_package(OpenMP)
 find_package(Boost COMPONENTS program_options unit_test_framework)
+enable_testing()
 
 # multi-thread algorithms
 if(OpenMP_FOUND AND Boost_FOUND)
@@ -50,7 +51,7 @@ add_subdirectory(phonebook)
 
 # # data structures
 message(DEBUG "Data structures examples")
-file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/sllist.cpp ds/slnode.cpp ds/dlnode.cpp ds/dllist.cpp ds/dllist_initialized.cpp ds/sllist_initialized.cpp ds/dlclist.cpp ds/slclist.cpp ds/queue.cpp ds/bst.cpp ds/directed_graph.cpp ds/undirected_graph.cpp)
+file(GLOB DS ds/matrix.cpp ds/node.cpp ds/binary_node.cpp ds/sllist.cpp ds/slnode.cpp ds/dlnode.cpp ds/dllist.cpp ds/dllist_initialized.cpp ds/sllist_initialized.cpp ds/dlclist.cpp ds/slclist.cpp ds/queue.cpp ds/bst.cpp) # ds/directed_graph.cpp ds/undirected_graph.cpp)
 foreach(DS_EXAMPLE ${DS})
   get_filename_component(DS_NAME ${DS_EXAMPLE} NAME_WE)
   message(DEBUG "Adding executable ${DS_NAME}")
@@ -64,20 +65,24 @@ foreach(DS_EXAMPLE ${DS})
 endforeach()
 
 
-# ## unit tests
-# message(DEBUG "Compiling unit tests examples")
-# if(OpenMP_FOUND AND Boost_FOUND)
-#   include_directories(algorithm)
-#   file(GLOB TEST unit_test/algorithm/sort/*.cpp)
-#   foreach(UNIT_TEST ${TEST})
-#     message(DEBUG "Path unit test:  ${ALGORITHM_EXAMPLE}")
-#     get_filename_component(UNIT_TEST_NAME ${UNIT_TEST} NAME_WE)
-#     message(DEBUG "Adding executable ${UNIT_TEST_NAME}")
-#     #add_executable(${UNIT_TEST_NAME} ${UNIT_TEST})
+## unit tests
+message(DEBUG "Unit-tests")
+if(OpenMP_FOUND AND Boost_FOUND)
+  include_directories(algorithm)
+  file(GLOB TEST unit_test/algorithm/*.cpp)
+  foreach(UNIT_TEST ${TEST})
+    get_filename_component(UNIT_TEST_NAME ${UNIT_TEST} NAME_WE)
+    message(DEBUG "Adding test ${UNIT_TEST_NAME}")
+    add_executable(${UNIT_TEST_NAME} ${UNIT_TEST})
 
-#     message(DEBUG "Linking executable ${UNIT_TEST_NAME} with OpenMP, Boost::program_options and libadas")
-#     # target_link_libraries(${UNIT_TEST_NAME} PRIVATE OpenMP::OpenMP_CXX)
-#     # target_link_libraries(${UNIT_TEST_NAME} PRIVATE Boost::program_options)
-#     # target_link_libraries(${UNIT_TEST_NAME} PRIVATE libadas)
-#   endforeach()
-# endif()
+	#target_link_libraries(${UNIT_TEST_NAME} PRIVATE OpenMP::OpenMP_CXX)
+    target_link_libraries(${UNIT_TEST_NAME} PRIVATE Boost::unit_test_framework)
+    target_link_libraries(${UNIT_TEST_NAME} PRIVATE libadas)
+	target_compile_definitions(${UNIT_TEST_NAME}
+		PRIVATE
+			BOOST_TEST_DYN_LINK
+	)
+
+	add_test(${UNIT_TEST_NAME} ${UNIT_TEST_NAME})
+  endforeach()
+endif()

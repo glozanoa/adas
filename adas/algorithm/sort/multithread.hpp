@@ -24,6 +24,7 @@ using namespace adas::utilities;
 
 #include "../../ds/partition.hpp"
 #include "../../ds/heap.hpp"
+using namespace adas::ds;
 
 //#include "search.hpp"
 #include "serial.hpp"

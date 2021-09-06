@@ -1,3 +1,4 @@
+
 /*
  * Testing efficiency of multithread algorithms against serial algorithms
  *
@@ -21,7 +22,7 @@ namespace ass = adas::algorithm::sort::serial;
 #include "adas/algorithm/sort/multithread.hpp"
 namespace asp = adas::algorithm::sort::parallel;
 
-int main()
+int main(int argc, char** argv)
 {
     /*
    * Random integer numbers were generated using intgen.py python script

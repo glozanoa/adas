@@ -10,6 +10,7 @@
 using namespace std;
 
 #include "adas/ds/node.hpp"
+using namespace adas::ds;
 
 
 int main()

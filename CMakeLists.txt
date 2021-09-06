@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(adas)
-
+enable_testing()
 option(CMAKE_COMPILER_WALL "Warning all" ON)
 
 # set CMake variable
@@ -16,8 +16,8 @@ endif()
 add_library(libadas INTERFACE)
 target_include_directories(libadas
   INTERFACE
-  ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}
   )
 
 # adding adas' test
-add_subdirectory(test)
+add_subdirectory(tests)

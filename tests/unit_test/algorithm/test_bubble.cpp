@@ -7,8 +7,8 @@
 
 #include <vector>
 #include <algorithm>
-#include "adas/algorithm.hpp"
-namespace as = adas::algorithm::sort;
+#include "adas/algorithm/sort/serial.hpp"
+namespace as = adas::algorithm::sort::serial;
 
 #define BOOST_TEST_MODULE
 #include <boost/test/unit_test.hpp>
@@ -40,12 +40,12 @@ BOOST_AUTO_TEST_CASE( test_vector )
   bool verbose = true;
 
   //sorting numbers vector using adas library
-  as::serial::bubble(number.begin(), number.end(), verbose);
+  as::bubble(numbers.begin(), numbers.end(), verbose);
 
   //sorting numbers is copy using <algorith> library
   sort(copy_numbers.begin(), copy_numbers.end());
 
-  BOOST_CHECK(same_vector(numbers, copy_numbers))
+  BOOST_CHECK(same_vector(numbers, copy_numbers));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

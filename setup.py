@@ -28,7 +28,7 @@ def get_requirements():
 
 
 setup(
-    name='adas',
+    name='pyadas',
     version=VERSION,
     description='Generic algorithms and data structures',
     long_description=LONG_DESCRIPTION,

@@ -75,7 +75,7 @@ class DLNode:
             Node to compare
         """
 
-        if not isinstance(node, DLNode):
+        if node and not isinstance(node, DLNode):
             raise Exception(f"I can't compare DLNode with {type(node)}")
 
         if self is None or node is None:

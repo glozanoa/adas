@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
 
         self.assertEqual(size+1, len(slist), 'Comparing size after push back')
         self.assertEqual(slist.tail, node, 'Testing if added node is the tail')
-        self.asserIsNone(slist.tail.next_node, 'next node of tail is None')
+        self.assertIsNone(slist.tail.next_node, 'next node of tail is None')
 
     def test_push_back2empty_list(self):
         slist = SLList()
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         
         self.assertEqual(1, len(slist), 'Comparing size after push back')
         self.assertEqual(slist.tail, node, 'Testing if added node is the tail')
-        self.asserIsNone(slist.tail.next_node, 'next node of tail is None')
+        self.assertIsNone(slist.tail.next_node, 'next node of tail is None')
 
 
 

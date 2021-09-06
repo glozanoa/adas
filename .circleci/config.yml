@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Run Unittests
           command: |
-            python3 -m unittest discover -s test/unit_test/ -p "*.py" -v
+            python3 -m unittest discover -s tests/unit_test/ -p "*.py" -v
 
   adas-python-installation:
     docker:
@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Install cxx enviroment
           command: 
-            sudo apt-get -y update && sudo apt-get -y install cmake liboost-progra-options-dev liboost-test-dev
+            sudo apt-get -y update && sudo apt-get -y install cmake libboost-program-options-dev libboost-test-dev
       - run:
           name: Build test and run unit-tests
           command: |

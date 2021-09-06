@@ -18,8 +18,9 @@ class SLList:
             self.tail = None
             self.size = size
         else:
-            self.head = SLNode(default_key)
             self.size = size
+            self.head = SLNode(default_key)
+            size -= 1
 
             node = self.head
             while size > 0:

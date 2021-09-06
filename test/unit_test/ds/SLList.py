@@ -23,12 +23,12 @@ class Test(unittest.TestCase):
             self.assertEqual(expected_value, value, msg=f"Comparing {name} to default value")
     def test_size_constructor(self):
         size = 3
+        #import pdb; pdb.set_trace()
         slist = SLList(size)
 
         self.assertEqual(size, len(slist), 'Comparing size (len function)')
 
         real_size = 0
-
         node = slist.head
         while not node is None:
             real_size += 1

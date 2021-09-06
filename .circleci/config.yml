@@ -18,7 +18,23 @@ jobs:
       - run:
           name: Install adas python
           command: |
+            pip install --upgrade pip
             pip install . --verbose
+
+  adas-cxx-compilation:
+    docker:
+      - image: cimg/base:2021.07
+    steps:
+      - checkout
+      - run:
+        name: Install cxx enviroment
+        command: 
+          sudo apt-get -y update && sudo apt-get -y install cmake liboost-progra-options-dev liboost-test-dev
+      - run:
+        name: Build test and run unit-tests
+        command: |
+          mkdir -p build && cmake -B build
+          cd build && make && make test
 
             
 workflows:
@@ -29,3 +45,4 @@ workflows:
       - adas-python-installation:
           requires:
             - adas-python-unittest
+      - adas-cxx-compilation

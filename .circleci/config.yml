@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Run Unittests
           command: |
-            python3 -m unittest discover -s test/unit_test/ -p "*.py"
+            python3 -m unittest discover -s test/unit_test/ -p "*.py" -v
 
   adas-python-installation:
     docker:

@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         prev_node = DLNode(100)
         node.set_node(prev_node, DLNT.PREV_NODE)
 
-        self.assertEqual(node.prev_node, pre_node)
+        self.assertEqual(node.prev_node, prev_node)
 
     def test_has_key(self):
         key = 10

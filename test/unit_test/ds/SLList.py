@@ -5,6 +5,7 @@
 import unittest
 
 from adas.ds import SLList
+from adas.ds import SLNode
 
 
 class Test(unittest.TestCase):
@@ -35,3 +36,37 @@ class Test(unittest.TestCase):
             node = node.next_node
 
         self.assertEqual(size, real_size,  'Comparing real size (Counting nodes)')
+
+    def test_push_back2no_empty_list(self):
+        # node to push back
+        key = 1
+        node = SLNode(key)
+
+        # single linked list
+        size = 10
+        slist = SLList(size)
+
+        slist.push_back(node)
+
+        self.assertEqual(size+1, len(slist), 'Comparing size after push back')
+        self.assertEqual(slist.tail, node, 'Testing if added node is the tail')
+        self.asserIsNone(slist.tail.next_node, 'next node of tail is None')
+
+    def test_push_back2empty_list(self):
+        slist = SLList()
+
+        key = 1
+        extra_node = SLNode(key)
+        node = SLNode(key, extra_node)
+
+        slist.push_back(node)
+        
+        self.assertEqual(1, len(slist), 'Comparing size after push back')
+        self.assertEqual(slist.tail, node, 'Testing if added node is the tail')
+        self.asserIsNone(slist.tail.next_node, 'next node of tail is None')
+
+
+
+
+
+

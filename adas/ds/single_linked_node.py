@@ -65,4 +65,10 @@ class SLNode:
         bool:
             True their are equals (keys and next_node) and False otherwise
         """
-        return self.key == node.key and self.next_node == node.next_node
+        
+        if self is None or node is None:
+            if self is None and node is None:
+                return True
+            return False
+        else:
+            return self.key == node.key and self.next_node == node.next_node

@@ -40,10 +40,10 @@ class SLList:
         node: SLNode
             Node to push back
         """
+        node.next_node = None
         if self.size == 0:
             self.head = self.tail = node
         else:
-            node.next_node = None
             self.tail.next_node = node
             self.tail = node
 
@@ -59,6 +59,7 @@ class SLList:
             Node to push front
         """
         if self.size == 0:
+            node.next_node = None
             self.head = self.tail = node
         else:
             node.next_node = self.head

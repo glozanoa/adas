@@ -8,8 +8,15 @@ from adas.ds import SLNode
 
 
 class Test(unittest.TestCase):
+    def test_default_contructor(self):
+        key = 1
+        slnode = SLNode(key)
+
+        self.assertEqual(slnode.key, key)
+        self.assertIsNone(slnode.next_node, 'Default parameter for next_node is None')
+
     def test_has_key(self):
-        key = 10
+        key = 1
         node = SLNode(key)
 
         self.assertTrue(node.has_key(key))
@@ -19,13 +26,13 @@ class Test(unittest.TestCase):
         node = SLNode(key)
         other = SLNode(key)
 
-        self.assertTrue(node == other, 'Both nodes has the same key and next_node=None')
+        self.assertEqual(node, other, 'Both nodes has the same key and next_node=None')
     
         extra_key = 100
         extra_node = SLNode(extra_key)
         node.next_node = extra_node
 
-        self.assertFalse(node == other, 'Both nodes hash the same key but diferent next_node')
+        self.assertNotEqual(node, other, 'Both nodes hash the same key but diferent next_node')
 
     def test_lt_operator(self):
         k1 = 1

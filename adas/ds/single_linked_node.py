@@ -72,3 +72,6 @@ class SLNode:
             return False
         else:
             return self.key == node.key and self.next_node == node.next_node
+
+    def __ne__(self, node):
+        return not self == node

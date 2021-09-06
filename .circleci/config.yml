@@ -27,14 +27,14 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install cxx enviroment
-        command: 
-          sudo apt-get -y update && sudo apt-get -y install cmake liboost-progra-options-dev liboost-test-dev
+          name: Install cxx enviroment
+          command: 
+            sudo apt-get -y update && sudo apt-get -y install cmake liboost-progra-options-dev liboost-test-dev
       - run:
-        name: Build test and run unit-tests
-        command: |
-          mkdir -p build && cmake -B build
-          cd build && make && make test
+          name: Build test and run unit-tests
+          command: |
+            mkdir -p build && cmake -B build
+            cd build && make && make test
 
             
 workflows:

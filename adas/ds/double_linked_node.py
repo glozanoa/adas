@@ -16,8 +16,8 @@ class DLNode:
     """
     def __init__(self, key:Any, prev_node = None, next_node = None):
         self.key = key
-        self.prev = prev_node
-        self.next = next_node
+        self.prev_node = prev_node
+        self.next_node = next_node
 
     def set_node(self, node, ntype:DLNT):
         """

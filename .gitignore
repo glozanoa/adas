@@ -3,7 +3,7 @@
 **/.*
 **/a.out
 **/__pycache__
-adas.egg-info/*
+pyadas.egg-info/*
 dist/*
 env/*
 test/**/a.out

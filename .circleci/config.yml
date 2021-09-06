@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Build test and run unit-tests
           command: |
-            mkdir -p build && cmake -B build
+            mkdir -p build && cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILER_WALL=OFF --log-level=debug
             cd build && make && make test
 
             

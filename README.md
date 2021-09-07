@@ -8,7 +8,7 @@
 
 **Adas** is a collection of generic algorithms and data structures. Almost most algorithms and data structures were developed in C++, but also you can find python code here.
 
-## Dependences
+## Dependencies
 * Boost (`Test Library` and `Program Options` libraries) (only for tests)
 * C++ Compiler with `OpenMP` support
 * Python 3.6+ (only for python interface: [pyadas](https://pypi.org/project/pyadas/))

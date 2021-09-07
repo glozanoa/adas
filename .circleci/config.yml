@@ -31,7 +31,7 @@ jobs:
           command: |
             pip install .
             pip install pytest-cov
-            pytest --cov=adas --cov-report=xml tests/unit_test/*.py
+            pytest --cov=adas --cov-report=xml tests/unit_test/**/*.py
       - run:
           name: Upload Coverage
           command: |

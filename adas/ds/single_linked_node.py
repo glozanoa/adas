@@ -50,7 +50,6 @@ class SLNode:
         bool:
             True if self is less than node and False otherwise
         """
-
         return self.key < node.key
 
     def __eq__(self, node):
@@ -64,8 +63,7 @@ class SLNode:
         -------
         bool:
             True their are equals (keys and next_node) and False otherwise
-        """
-        
+        """ 
         if self is None or node is None:
             if self is None and node is None:
                 return True

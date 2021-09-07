@@ -6,7 +6,7 @@ class TNode:
     """
     Tree node
     """
-    def __init__(self, key:Any, parent = None, children = []):
+    def __init__(self, key:Any, parent = None, children: List = None):
         """
         Parameters
         ----------
@@ -28,7 +28,19 @@ class TNode:
         else:
             self.parent = parent
             self.key = key
-            self.children = children
+            self.children = [] if children is None else children
+
+    def add_child(self, node):
+        """
+        Add a child
+
+        Parameters
+        ----------
+        node: TNode
+            Child node
+        """
+        self.children.append(node)
+        node.parent = self
 
     def set_depth(self, depth:int):
         """
@@ -43,7 +55,7 @@ class TNode:
             raise Exception(f"Invalid depth: depth={depth}")
 
         self.depth = depth
-        for child in children:
+        for child in self.children:
             child.set_depth(depth+1)
 
     def __eq__(self, node):

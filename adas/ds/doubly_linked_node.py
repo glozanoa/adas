@@ -15,6 +15,9 @@ class DLNode:
     Double Linked Node
     """
     def __init__(self, key:Any, prev_node = None, next_node = None):
+        """
+        Contructor for DLNode class
+        """
         self.key = key
         self.prev_node = prev_node
         self.next_node = next_node
@@ -30,7 +33,6 @@ class DLNode:
         ntype: DLNT
             Type of node
         """
-
         if ntype is DLNT.NEXT_NODE:
             self.next_node = node
         else:
@@ -62,6 +64,9 @@ class DLNode:
         return self.key < node.key
 
     def __str__(self):
+        """
+        String representation for DLNode class
+        """
         return f"DLNode(key={self.key}, next={self.next_node}, prev={self.prev_node})"
 
 
@@ -74,7 +79,6 @@ class DLNode:
         node: DLNode
             Node to compare
         """
-
         if node and not isinstance(node, DLNode):
             raise Exception(f"I can't compare DLNode with {type(node)}")
 
@@ -88,5 +92,8 @@ class DLNode:
                     self.prev_node == node.prev_node
 
     def __ne__(self, node):
+        """
+        No equal operator for DLNode class
+        """
         return not self == node
 

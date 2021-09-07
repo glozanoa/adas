@@ -21,7 +21,24 @@ jobs:
             pip install --upgrade pip
             pip install . --verbose
 
-  adas-cxx-compilation:
+  adas-python-coverage:
+    docker:
+      - image: circleci/python:3.9.4
+    steps:
+      - checkout
+      - run:
+          name: Run test and collect coverage
+          command: |
+            pip install .
+            pip install pytest-cov
+            pytest --cov=adas --cov-report=xml tests/unit_test/*.py
+      - run:
+          name: Upload Coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+
+
+    adas-cxx-compilation:
     docker:
       - image: cimg/base:2021.07
     steps:
@@ -33,7 +50,7 @@ jobs:
       - run:
           name: Build test and run unit-tests
           command: |
-            mkdir -p build && cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_COMPILER_WALL=OFF --log-level=debug
+            mkdir -p build && cmake -B build -DCMAKE_BUILD_TYPE=Debug --log-level=debug
             cd build && make && make test
 
             
@@ -45,4 +62,7 @@ workflows:
       - adas-python-installation:
           requires:
             - adas-python-unittest
+      - adas-python-coverage:
+        requires:
+          - adas-python-installation
       - adas-cxx-compilation

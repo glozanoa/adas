@@ -18,7 +18,7 @@
 using namespace adas::ds;
 
 
-namespace adas::ds 
+namespace adas::ds
 {
 
 	template<class T>

@@ -6,7 +6,7 @@
 # Maintainer: glozanoa <glozanoa@uni.pe>
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from adas import VERSION
 

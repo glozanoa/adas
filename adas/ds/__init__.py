@@ -10,7 +10,7 @@ from .single_linked_list import SLList
 from .doubly_linked_node import DLNode, DLNT
 
 ## Matrix
-from .matrix import Matrix, Diagonal, Identity
+from .matrix import Matrix, Diagonal, Identity, NMatrix
 
 ## Graphs
 from .vertex import Vertex

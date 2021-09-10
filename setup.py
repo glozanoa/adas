@@ -55,7 +55,7 @@ setup(
     ext_modules=cythonize(cxx_extensions),
     package_data={
         'adas': ['algorithms/sort/serial.hpp', 'utilities/*.hpp']
-    }
+    },
     packages=find_packages(),
     install_requires = get_requirements(),
     include_package_data=True

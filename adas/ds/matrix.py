@@ -3,6 +3,8 @@
 Generic Matrix, Diagonal Matrix and Identity Matrix classes
 """
 from typing import Any, List
+import numpy as np
+import scipy as sp
 
 class Matrix:
     """
@@ -49,6 +51,9 @@ class Matrix:
         self.data[i][j] = value
 
     def __len__(self):
+        return self.nrows*self.ncols
+
+    def shape(self):
         return (self.nrows, self.ncols)
 
     def __call__(self, i, j):
@@ -92,7 +97,7 @@ class Matrix:
             raise Exception(f"Undefined + operation betwee Matrix and {type(mtx)}")
 
         if self.nrows != mtx.nrows or self.ncols != mtx.ncols:
-            raise Exception(f"Unmatching dimensions: {self.size()} and {mtx.size()}")
+            raise Exception(f"Unmatching dimensions: {self.shape()} and {mtx.shape()}")
 
         sum_mtx = Matrix(self.nrows, self.ncols)
 
@@ -109,6 +114,109 @@ class Matrix:
                 out += str(self.data[i][j]) + ' '
             out += "\n"
         return out
+
+    @staticmethod
+    def is_square(mtx):
+        """
+        Check if a matrix is square
+
+        Parameteres
+        -----------
+        mtx: Matrix
+            Matrix to check
+
+        Returns
+        -------
+        bool:
+            True if the matrix is square and False otherwise
+        """
+
+        return mtx.nrows == mtx.ncols
+
+class NMatrix(Matrix):
+    """
+    Numerical Matrix
+    """
+    def __init__(self, nrows:int, ncols:int, init_data = None):
+        #import pdb; pdb.set_trace()
+        if nrows*ncols < 0:
+            raise Exception(f"Invalid negative dimensions: nrows={nrows}, ncols={ncols}")
+
+        self.nrows = nrows
+        self.ncols = ncols
+
+        if init_data:
+            self.data = np.array(init_data).reshape(nrows, ncols)
+
+        else:
+            self.data = np.zeros((nrows, ncols))
+
+    def __str__(self):
+        return f"{self.data}"
+
+    def dot(self, mtx):
+        """
+        Matrix multiplication operation
+
+        Parameters
+        ----------
+        mtx: NMatrix or numpy.array
+            Right matrix to perform dot operation
+        """
+        dot_data = None
+        if isinstance(mtx, NMatrix):
+            if self.ncols != mtx.nrows:
+                raise Exception(f"Invalid dimensions: {self.shape()}, {mtx.shape()}")
+
+            dot_data = self.data.dot(mtx.data)
+            self.ncols = mtx.ncols
+
+        elif isinstance(mtx, np.array):
+            if self.ncols != mtx.shape[0]:
+                raise Exception(f"Invalid dimensions: {self.shape()}, {mtx.shape}")
+
+            dot_data = self.data.dot(mtx)
+            self.ncols = mtx.shape[1]
+
+        else:
+            raise Exception(f"Unsupported multiplication: NMatrix by {type(mtx)}")
+
+
+        self.data = dot_data
+
+
+    def __mult__(self, mtx):
+        """
+        Matrix multiplication operation
+
+        Parameters
+        ----------
+        mtx: NMatrix or numpy.array
+            Right matrix to perform dot operation
+        Returns
+        -------
+        NMatrix:
+            Result of matrix operation
+        """
+        dot_data = None
+        if isinstance(mtx, NMatrix):
+            if self.ncols != mtx.nrows:
+                raise Exception(f"Invalid dimensions: {self.shape()}, {mtx.shape()}")
+
+            dot_data = self.data.dot(mtx.data)
+
+        elif isinstance(mtx, np.array):
+            if self.ncols != mtx.shape[0]:
+                raise Exception(f"Invalid dimensions: {self.shape()}, {mtx.shape}")
+
+            dot_data = self.data.dot(mtx)
+
+        else:
+            raise Exception(f"Unsupported multiplication: NMatrix by {type(mtx)}")
+
+        return NMatrix(self.ncols, mtx.nrows, dot_data)
+
+        
 
 class Diagonal(Matrix):
     """

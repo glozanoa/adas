@@ -12,7 +12,7 @@
 ## Dependencies
 * Boost (`Test Library` and `Program Options` libraries) (only for tests)
 * C++ Compiler with `OpenMP` support
-* Python 3.6+ (only for python interface: [pyadas](https://pypi.org/project/pyadas/))
+* Python 3.6+ and [Cython](https://pypi.org/project/Cython/) (only for python interface: [pyadas](https://pypi.org/project/pyadas/))
 
 Check [Dependencies Installation](https://github.com/glozanoa/adas/wiki/Dependencies) guide in our [wiki](https://github.com/glozanoa/adas/wiki)
 

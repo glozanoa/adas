@@ -1,25 +1,20 @@
 version: 2.1
 jobs:
-  adas-python-unittest:
+  adas-python-tests:
     docker:
       - image: circleci/python:3.9.4
     steps:
       - checkout
+      - run:
+          name: Install pyadas
+          command:
+            pip install --upgrade pip
+            pip install . --verbose
+
       - run:
           name: Run Unittests
           command: |
             python3 -m unittest discover -s tests/unit_test/ -p "*.py" -v
-
-  adas-python-installation:
-    docker:
-      - image: circleci/python:3.9.4
-    steps:
-      - checkout
-      - run:
-          name: Install adas python
-          command: |
-            pip install --upgrade pip
-            pip install . --verbose
 
   adas-python-coverage:
     docker:
@@ -58,11 +53,8 @@ workflows:
   version: 2
   adas-build:
     jobs:
-      - adas-python-unittest
-      - adas-python-installation:
-          requires:
-            - adas-python-unittest
+      - adas-python-tests
       - adas-python-coverage:
           requires:
-            - adas-python-installation
+            - adas-python-tests
       - adas-cxx-compilation

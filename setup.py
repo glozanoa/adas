@@ -6,14 +6,14 @@
 # Maintainer: glozanoa <glozanoa@uni.pe>
 
 
-from setuptools import setup, find_packages, Extension
-from Cython.Build import cythonize
+from setuptools import setup, find_packages
+#from Cython.Build import cythonize
 
 from adas import VERSION
 
-cxx_extensions = [
-    Extension(name='adas.algortihm.sort', sources=['adas/algorithm/sort.pyx', 'adas/algorithm/sort/single.cpp'], language='c++')
-]
+#cxx_extensions = [
+#    Extension(name='adas.algortihm.sort', sources=['adas/algorithm/sort.pyx', 'adas/algorithm/sort/single.cpp'], language='c++')
+#]
 
 
 
@@ -52,10 +52,10 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9"
     ],
-    ext_modules=cythonize(cxx_extensions),
-    package_data={
-        'adas': ['algorithms/sort/serial.hpp', 'utilities/*.hpp']
-    },
+    #ext_modules=cythonize(cxx_extensions),
+    #package_data={
+    #    'adas': ['algorithms/sort/serial.hpp', 'utilities/*.hpp']
+    #},
     packages=find_packages(),
     install_requires = get_requirements(),
     include_package_data=True

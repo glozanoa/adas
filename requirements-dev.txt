@@ -4,4 +4,10 @@ pytest
 pytest-cov
 pylint
 mypy
+
+#distribution
+twine
+
+#enviroments - tests
+pipenv
 tox

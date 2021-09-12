@@ -1,13 +1,11 @@
 version: 2.1
-parameters:
-  python-version:
-    type: enum
-    enum: ['3.6', '3.7', '3.8', '3.9']
-
 jobs:
   adas-python-tests:
+    parameters:
+      python-version:
+        type: string
     docker:
-      - image: circleci/python:<<pipeline.parameters.python-version>>
+      - image: circleci/python:<<parameters.python-version>>
     steps:
       - checkout
       - run:
@@ -62,6 +60,10 @@ workflows:
   adas-build:
     jobs:
       - adas-python-tests
+        matrix:
+          parameters:
+            python-version: ['3.9', '3.8', '3.7', '3.6']
+
       - adas-python-coverage:
           requires:
             - adas-python-tests

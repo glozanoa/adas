@@ -54,7 +54,6 @@ jobs:
             mkdir -p build && cmake -B build -DCMAKE_BUILD_TYPE=Debug --log-level=debug
             cd build && make && make test
 
-            
 workflows:
   version: 2
   adas-build:
@@ -71,6 +70,6 @@ workflows:
           requires:
             - adas-python-tests
       - adas-cxx-compilation:
-        filters:
-          branches:
-            ignore: doc
+          filters:
+            branches:
+              ignore: doc

@@ -1,8 +1,9 @@
 version: 2.1
 parameters:
   python-version:
+    default: '3.9'
     type: enum
-    default: ['3.6', '3.7', '3.8', '3.9']
+    enum: ['3.6', '3.7', '3.8', '3.9']
 
 jobs:
   adas-python-tests:

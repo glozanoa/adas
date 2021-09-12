@@ -8,6 +8,9 @@ mypy
 #distribution
 twine
 
+# documentation
+Sphinx
+
 #enviroments - tests
 pipenv
 tox

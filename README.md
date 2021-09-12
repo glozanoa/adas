@@ -7,6 +7,7 @@
 ![license](https://img.shields.io/github/license/glozanoa/adas)
 ![pypi version](https://img.shields.io/pypi/v/pyadas)
 ![python versions](https://img.shields.io/pypi/pyversions/pyadas)
+[![Documentation Status](https://readthedocs.org/projects/adas/badge/?version=latest)](https://adas.readthedocs.io/en/latest/?badge=latest)
 <a href="https://discord.gg/VCsqCtwv"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="Chat"></a>
 
 

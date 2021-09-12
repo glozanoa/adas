@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+"""
+Single Linked Node
+"""
 
 from typing import Any
+
 
 class SLNode:
     """
     Single Linked Node
     """
-
-    def __init__(self, key:Any, next_node = None):
+    def __init__(self, key: Any, next_node=None):
         """
         Parameters
         ----------
@@ -19,7 +22,7 @@ class SLNode:
         self.key = key
         self.next_node = next_node
 
-    def has_key(self, key:Any):
+    def has_key(self, key: Any):
         """
         Compare if a node has a key
 
@@ -63,13 +66,12 @@ class SLNode:
         -------
         bool:
             True their are equals (keys and next_node) and False otherwise
-        """ 
+        """
         if self is None or node is None:
             if self is None and node is None:
                 return True
             return False
-        else:
-            return self.key == node.key and self.next_node == node.next_node
+        return self.key == node.key and self.next_node == node.next_node
 
     def __ne__(self, node):
         return not self == node

@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-#
-# Vertex class
+"""
+Vertex class
+"""
+
 
 from typing import Any
+
 
 class Vertex:
     """
     Vertex class for undirected Graphs
     """
-    def __init__(self, key:Any, degree:int = 0):
+    def __init__(self, key: Any, degree: int = 0):
         """
         Constructor for Vertex class
 
@@ -25,11 +28,18 @@ class Vertex:
         self.key = key
         self.degree = degree
 
-    def set_degree(self, degree:int):
+    def set_degree(self, degree: int):
+        """
+        Set vertex degree
+
+        Parameters
+        ----------
+        degree: int
+            Degree of vertex
+        """
         if degree < 0:
             raise Exception(f"Invalid vertex degree: degree={degree}")
         self.degree = degree
-
 
     def __eq__(self, vertex):
         """

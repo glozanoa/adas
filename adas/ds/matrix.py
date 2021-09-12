@@ -4,13 +4,15 @@ Generic Matrix, Diagonal Matrix and Identity Matrix classes
 """
 from typing import Any, List
 import numpy as np
-import scipy as sp
+
+# import scipy as sp
+
 
 class Matrix:
     """
     Class to represent a generic matrix
     """
-    def __init__(self, nrows:int, ncols:int, default_data = 0):
+    def __init__(self, nrows: int, ncols: int, default_data=0):
         """
         Parameters
         ---------
@@ -23,14 +25,13 @@ class Matrix:
         """
 
         if nrows*ncols < 0:
-            raise Exception(f"Invalid matrix dimensions: nrows={nrows}, ncols={ncols}")
+            raise Exception(f"Invalid matrix dimensions:({nrows}, {ncols})")
 
         self.nrows = nrows
         self.ncols = ncols
-        self.data  = [[default_data]*ncols]*nrows
+        self.data = [[default_data]*ncols]*nrows
 
-
-    def set_value(self, i:int, j:int, value:Any):
+    def set_value(self, i: int, j: int, value: Any):
         """
         Set the item (i, j) with a supplied value
 
@@ -73,8 +74,8 @@ class Matrix:
             Element i, j of the matrix
         """
         if i*j < 0 or\
-            i >= self.nrows or \
-            j >= self.ncols:
+           i >= self.nrows or \
+           j >= self.ncols:
             raise Exception(f"Index out of range: i={i}, j={j}")
 
         return self.data[i][j]
@@ -94,7 +95,7 @@ class Matrix:
             Adition matrix
         """
         if not isinstance(mtx):
-            raise Exception(f"Undefined + operation betwee Matrix and {type(mtx)}")
+            raise Exception(f"Undefined operation: Matrix + {type(mtx)}")
 
         if self.nrows != mtx.nrows or self.ncols != mtx.ncols:
             raise Exception(f"Unmatching dimensions: {self.shape()} and {mtx.shape()}")
@@ -133,14 +134,15 @@ class Matrix:
 
         return mtx.nrows == mtx.ncols
 
+
 class NMatrix(Matrix):
     """
     Numerical Matrix
     """
-    def __init__(self, nrows:int, ncols:int, init_data = None):
-        #import pdb; pdb.set_trace()
+    def __init__(self, nrows: int, ncols: int, init_data=None):
+        # import pdb; pdb.set_trace()
         if nrows*ncols < 0:
-            raise Exception(f"Invalid negative dimensions: nrows={nrows}, ncols={ncols}")
+            raise Exception(f"Invalid negative dimensions: ({nrows}, {ncols})")
 
         self.nrows = nrows
         self.ncols = ncols

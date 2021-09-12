@@ -27,7 +27,7 @@ def get_requirements():
     with open('requirements.txt', 'r') as adas_requirements:
         for line in adas_requirements:
             line = line.rstrip()
-            if line != '' or line.startwith("#"):
+            if line == '' or line.startwith("#"):
                 continue
 
             requirements.append(line)

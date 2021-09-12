@@ -5,7 +5,7 @@
 # date: Sep 1 2021
 # Maintainer: glozanoa <glozanoa@uni.pe>
 
-
+import os
 from setuptools import setup, find_packages
 #from Cython.Build import cythonize
 
@@ -54,7 +54,7 @@ setup(
     ],
     #ext_modules=cythonize(cxx_extensions),
     #package_data={
-    #    'adas': ['algorithms/sort/serial.hpp', 'utilities/*.hpp']
+    #    'adas': ['requirements.txt', 'README.md']#['algorithms/sort/serial.hpp', 'utilities/*.hpp']
     #},
     packages=find_packages(),
     install_requires = get_requirements(),

@@ -1,0 +1,7 @@
+-r requirements.txt
+#code quality
+pytest
+pytets-cov
+pylint
+mypy
+tox

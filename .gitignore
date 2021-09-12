@@ -2,6 +2,15 @@
 **/#*#
 **/.*
 **/a.out
+**/__pycache__
+pyadas.egg-info/*
+pytestdebug.log
+.tox/*
+pyproject.toml
+Pipfile
+Pipfile.lock
+dist/*
+env/*
 test/**/a.out
 obj/*
 test/data/*

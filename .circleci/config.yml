@@ -1,0 +1,70 @@
+version: 2.1
+jobs:
+  adas-python-tests:
+    parameters:
+      python-version:
+        type: string
+    docker:
+      - image: circleci/python:<<parameters.python-version>>
+    steps:
+      - checkout
+      - run:
+          name: pyadas installation
+          command: |
+            python --version
+            pip install --upgrade pip
+            pip install . --verbose
+
+      - run:
+          name: unittests
+          command: |
+            pip install pytest
+            pytest tests/unit_test/**/*.py -v
+
+  adas-python-coverage:
+    docker:
+      - image: circleci/python:3.9.4
+    steps:
+      - checkout
+      - run:
+          name: test and collect coverage
+          command: |
+            pip install .
+            pip install pytest-cov
+            pytest --cov=adas --cov-report=xml tests/unit_test/**/*.py
+
+      - run:
+          name: upload coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+
+
+  adas-cxx-compilation:
+    docker:
+      - image: cimg/base:2021.07
+    steps:
+      - checkout
+      - run:
+          name: Install cxx enviroment
+          command: 
+            sudo apt-get -y update && sudo apt-get -y install cmake libboost-program-options-dev libboost-test-dev
+      - run:
+          name: Build test and run unit-tests
+          command: |
+            mkdir -p build && cmake -B build -DCMAKE_BUILD_TYPE=Debug --log-level=debug
+            cd build && make && make test
+
+            
+workflows:
+  version: 2
+  adas-build:
+    jobs:
+      - adas-python-tests:
+          matrix:
+            parameters:
+              python-version: ['3.9', '3.8', '3.7', '3.6']
+
+      - adas-python-coverage:
+          requires:
+            - adas-python-tests
+      - adas-cxx-compilation

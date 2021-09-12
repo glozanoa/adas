@@ -59,6 +59,9 @@ workflows:
   version: 2
   adas-build:
     jobs:
+      branches:
+        ignore:
+          - docs
       - adas-python-tests:
           matrix:
             parameters:

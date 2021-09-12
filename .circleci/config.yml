@@ -8,7 +8,7 @@ parameters:
 jobs:
   adas-python-tests:
     docker:
-      - image: circleci/python:<<pipeline.paremeters.python-version>>
+      - image: circleci/python:<<pipeline.parameters.python-version>>
     steps:
       - checkout
       - run:

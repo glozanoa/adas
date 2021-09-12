@@ -13,12 +13,12 @@ jobs:
           command: |
             python --version
             pip install --upgrade pip
-            pip install -r requirements-dev.txt
             pip install . --verbose
 
       - run:
           name: unittests
           command: |
+            pip install pytest
             pytest tests/unit_test/**/*.py -v
 
   adas-python-coverage:
@@ -29,8 +29,8 @@ jobs:
       - run:
           name: test and collect coverage
           command: |
-            pip install -r requirements-dev.txt
             pip install .
+            pip install pytest-cov
             pytest --cov=adas --cov-report=xml tests/unit_test/**/*.py
 
       - run:

@@ -19,7 +19,7 @@ jobs:
       - run:
           name: unittests
           command: |
-            pytest tests/unit_test/ -p "*.py" -v
+            pytest tests/unit_test/**/*.py -v
 
   adas-python-coverage:
     docker:

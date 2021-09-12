@@ -1,7 +1,7 @@
 -r requirements.txt
 #code quality
 pytest
-pytets-cov
+pytest-cov
 pylint
 mypy
 tox

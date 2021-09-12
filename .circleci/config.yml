@@ -59,10 +59,10 @@ workflows:
   version: 2
   adas-build:
     jobs:
-      - adas-python-tests
-        matrix:
-          parameters:
-            python-version: ['3.9', '3.8', '3.7', '3.6']
+      - adas-python-tests:
+          matrix:
+            parameters:
+              python-version: ['3.9', '3.8', '3.7', '3.6']
 
       - adas-python-coverage:
           requires:

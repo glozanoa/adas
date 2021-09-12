@@ -48,9 +48,12 @@ setup(
     license='GPL3',
     classifiers = [
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Topic :: Software Development :: Libraries",
         "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9"
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.6",
     ],
     #ext_modules=cythonize(cxx_extensions),
     #package_data={

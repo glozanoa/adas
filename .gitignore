@@ -6,6 +6,7 @@
 pyadas.egg-info/*
 pytestdebug.log
 .tox/*
+pyproject.toml
 Pipfile
 Pipfile.lock
 dist/*

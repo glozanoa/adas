@@ -63,8 +63,14 @@ workflows:
           matrix:
             parameters:
               python-version: ['3.9', '3.8', '3.7', '3.6']
+          filters:
+            branches:
+              ignore: doc
 
       - adas-python-coverage:
           requires:
             - adas-python-tests
-      - adas-cxx-compilation
+      - adas-cxx-compilation:
+        filters:
+          branches:
+            ignore: doc

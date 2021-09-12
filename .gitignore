@@ -3,6 +3,8 @@
 **/.*
 **/a.out
 **/__pycache__
+docs/*
+sphinx-docs/*
 pyadas.egg-info/*
 pytestdebug.log
 .tox/*

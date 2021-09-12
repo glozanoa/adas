@@ -1,7 +1,6 @@
 version: 2.1
 parameters:
   python-version:
-    default: '3.9'
     type: enum
     enum: ['3.6', '3.7', '3.8', '3.9']
 
@@ -13,7 +12,7 @@ jobs:
       - checkout
       - run:
           name: pyadas installation
-          command:
+          command: |
             python --version
             pip install --upgrade pip
             pip install -r requirements-dev.txt

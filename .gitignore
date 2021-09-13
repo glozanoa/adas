@@ -15,10 +15,11 @@ dist/*
 env/*
 test/**/a.out
 obj/*
-test/data/*
-test/base/parallel/*
-test/sort/tmp.txt
+tests/data/*
+tests/learn/*
+tests/base/parallel/*
+tests/sort/tmp.txt
 include/bst_node.hpp
 build/*
-test/algorithm/sort/serial/tmp/*
-test/algorithm/search/serial/tmp/*
+tests/algorithm/sort/serial/tmp/*
+tests/algorithm/search/serial/tmp/*

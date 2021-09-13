@@ -1,9 +1,0 @@
-#!/usr/bin/env python3
-#
-# Unit Test for TNode class (tree node)
-
-import unittest
-
-
-
-class TNodeTest(unittest.TestCase):

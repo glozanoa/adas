@@ -13,6 +13,7 @@ jobs:
           command: |
             python --version
             pip install --upgrade pip
+            pip install -r requirements.txt
             pip install . --verbose
 
       - run:
@@ -30,6 +31,7 @@ jobs:
           name: test and collect coverage
           command: |
             pip install .
+            pip install -r requirements.txt
             pip install pytest-cov
             pytest --cov=adas --cov-report=xml tests/unit_test/**/*.py
 

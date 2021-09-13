@@ -1,16 +1,10 @@
 -r requirements.txt
-#code quality
-pytest
 pytest-cov
 pylint
 mypy
-
-#distribution
 twine
-
-# documentation
 Sphinx
-
-#enviroments - tests
 pipenv
 tox
+tox-docker
+pytest

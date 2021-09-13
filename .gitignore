@@ -4,6 +4,7 @@
 **/a.out
 **/__pycache__
 docs/*
+logs/*
 sphinx-docs/*
 pyadas.egg-info/*
 pytestdebug.log

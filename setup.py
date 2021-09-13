@@ -60,6 +60,6 @@ setup(
     #    'adas': ['requirements.txt', 'README.md']#['algorithms/sort/serial.hpp', 'utilities/*.hpp']
     #},
     packages=find_packages(),
-    install_requires = get_requirements(),
+    #install_requires = get_requirements(),
     include_package_data=True
 )

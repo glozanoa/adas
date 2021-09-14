@@ -22,17 +22,18 @@ namespace adas::ds
 
   public:
     Stack():size{0} {}
+	Stack(vector<T> keys, unsigned size)
+		:size{size}
+	{
+		this->keys = vector<T>(size);
+		copy(keys.begin(), keys.begin() + size, this->keys.begin());
+	}
+
     Stack(T keys[], unsigned size)
       :size{size}
     {
       this->keys = vector<T>(size);
       copy(keys, keys+size, this->keys.begin());
-    }
-
-    Stack(vector<T> keys)
-      :keys{keys}
-    {
-      size = keys.size();
     }
 
     void push(T key)

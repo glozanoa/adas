@@ -3,6 +3,7 @@
 **/.*
 **/a.out
 **/__pycache__
+adas/**/*.cpp
 docs/*
 logs/*
 sphinx-docs/*

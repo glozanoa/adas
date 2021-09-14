@@ -5,22 +5,25 @@
 # date: Sep 1 2021
 # Maintainer: glozanoa <glozanoa@uni.pe>
 
-import os
-from setuptools import setup, find_packages
-#from Cython.Build import cythonize
+
+from setuptools import find_packages
+from distutils.core import setup, Extension
+from Cython.Build import cythonize
 
 from adas import VERSION
 
-#cxx_extensions = [
-#    Extension(name='adas.algortihm.sort', sources=['adas/algorithm/sort.pyx', 'adas/algorithm/sort/single.cpp'], language='c++')
-#]
+cxx_extensions = [
+   Extension(name='adas.algorithm.sort.pysort',
+             sources=['adas/algorithm/sort/pysort.pyx'],
+             include_dirs = ['adas'],
+             language='c++')
+]
 
 
 
-
-f = open('README.md', 'r')
-LONG_DESCRIPTION = f.read()
-f.close()
+LONG_DESCRIPTION = ''
+with open('README.md', 'r') as f:
+    LONG_DESCRIPTION = f.read()
 
 def get_requirements():
     requirements = []
@@ -55,10 +58,12 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.6",
     ],
-    #ext_modules=cythonize(cxx_extensions),
-    #package_data={
-    #    'adas': ['requirements.txt', 'README.md']#['algorithms/sort/serial.hpp', 'utilities/*.hpp']
-    #},
+    ext_modules=cythonize(cxx_extensions, language_level=3),
+    package_data={
+        'adas': ['algorithm/sort/serial.hpp',
+                 'utilities/*.hpp',
+                 'algorithm/sort/pysort.pyx']
+    },
     packages=find_packages(),
     #install_requires = get_requirements(),
     include_package_data=True

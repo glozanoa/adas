@@ -12,7 +12,7 @@ class Matrix:
     """
     Class to represent a generic matrix
     """
-    def __init__(self, nrows: int, ncols: int, default_data=0):
+    def __init__(self, nrows: int, ncols: int, default_data: Any = 0):
         """
         Parameters
         ---------
@@ -29,31 +29,83 @@ class Matrix:
 
         self.nrows = nrows
         self.ncols = ncols
-        self.data = [[default_data]*ncols]*nrows
+        self.data = [[default_data for j in range(ncols)] for i in range(nrows)]
 
-    def set_value(self, i: int, j: int, value: Any):
-        """
-        Set the item (i, j) with a supplied value
+    @staticmethod
+    def resize(nrows: int, ncols: int, data: List[Any]):
+        if nrows*ncols < 0 or len(data) != nrows*ncols:
+            if nrows*ncols < 0:
+                raise ValueError("Negative dimension")
+            else:
+                raise Exception(f"Expecting {nrows*ncols} elements, but {len(data)} were supplied")
+        
+        #import pdb; pdb.set_trace()
+        mtx = Matrix(nrows, ncols)
+        # set matrix values
+        i = j = 0
+        for x in data:
+            mtx.data[i][j] = x
+            j += 1
+            if j == ncols:
+                j = 0
+                i += 1
 
-        Parameters
-        ----------
-        i: int
-            Row index
-        j: int
-            Column index
-        value: Any
-            Value to set
-        """
-        if i*j < 0 or\
-           i >= self.nrows or\
-           j >= self.ncols:
-            raise Exception(f"Index out of range: i={i}, j={j}")
+        return mtx
 
-        self.data[i][j] = value
+    def __getitem__(self, indices):
+        if len(indices) != 2:
+            raise Exception("Expecting a 2 dimentional index")
+
+        rows, cols = indices
+
+        if isinstance(rows, int) and isinstance(cols, int):
+            return self.data[rows][cols]
+        
+        elif isinstance(rows, int) and isinstance(cols, slice):
+            cols_indices = list(range(cols.stop)[cols])
+            return Matrix.resize(1, len(cols_indices), [self.data[rows][j] for j in cols_indices])
+        
+        elif isinstance(rows, slice) and isinstance(cols, int):
+            rows_indices = list(range(rows.stop)[rows])
+            return Matrix.resize(1, len(rows_indices), [self.data[i][cols] for i in rows_indices])
+
+        elif isinstance(rows, slice) and isinstance(cols, slice): 
+            rows_indices = list(range(rows.stop)[rows])
+            cols_indices = list(range(cols.stop)[cols])
+            return Matrix.resize(len(rows_indices), len(cols_indices), [self.data[i][j] for i in rows_indices for j in cols_indices])
+
+        else:
+            raise Exception("Invalid types (expecting types: int or slice)")
+
+    def __setitem__(self, indices, value):
+        if len(indices) != 2:
+            raise Exception("Expecting a 2 dimentional index")
+
+        rows, cols = indices
+
+        if isinstance(rows, int) and isinstance(cols, int):
+            self.data[rows][cols] = value
+        
+        elif isinstance(rows, int) and isinstance(cols, slice):
+            for j in range(cols.stop)[cols]:
+                self.data[rows][j] = value
+        
+        elif isinstance(rows, slice) and isinstance(cols, int):
+            for i in range(rows.stop)[rows]:
+                self.data[i][cols] = value
+
+        elif isinstance(rows, slice) and isinstance(cols, slice): 
+            for i in range(rows.stop)[rows]:
+                for j in range(cols.stop)[cols]:
+                    self.data[i][j] = value
+        else:
+            raise Exception("Invalid types (expecting types: int or slice)")
+
 
     def __len__(self):
         return self.nrows*self.ncols
 
+    @property
     def shape(self):
         return (self.nrows, self.ncols)
 

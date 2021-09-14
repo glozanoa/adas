@@ -24,7 +24,7 @@ if __name__ == "__main__":
                 circleci_jobs.append(job)
 
     else:
-        circleci_jobs = circleci['jobs'].keys()
+        circleci_jobs = [job for job in circleci['jobs'].keys() if job not in args.exclude]
 
     for job in circleci_jobs:
         print(f"[+] Running job: {job}")

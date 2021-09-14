@@ -14,7 +14,7 @@ jobs:
             python --version
             pip install --upgrade pip
             pip install -r requirements.txt
-            pip install . --verbose
+            python3 setup.py install --verbose --user
 
       - run:
           name: unittests
@@ -30,8 +30,8 @@ jobs:
       - run:
           name: test and collect coverage
           command: |
-            pip install .
             pip install -r requirements.txt
+            python3 setup.py install --user
             pip install pytest-cov
             pytest --cov=adas --cov-report=xml tests/unit_test/**/*.py
 

@@ -8,7 +8,6 @@
 [![pypi version](https://img.shields.io/pypi/v/pyadas)](https://pypi.org/project/pyadas/)
 [![python versions](https://img.shields.io/pypi/pyversions/pyadas)](https://pypi.org/project/pyadas/)
 [![Documentation Status](https://readthedocs.org/projects/adas/badge/?version=latest)](https://adas.readthedocs.io/en/latest/?badge=latest)
-<a href="https://discord.gg/VCsqCtwv"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="Chat"></a>
 
 
 **Adas** is a collection of generic algorithms and data structures. Almost most algorithms and data structures were developed in C++, but also you can find python code here.
